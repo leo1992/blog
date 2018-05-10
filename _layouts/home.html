@@ -1,54 +1,31 @@
-<!DOCTYPE html>
-
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="{{ site.lang }}">
-<!--<![endif]-->
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    {% include common/meta.html %}
-    <link href='{{ site.baseurl }}/assets/stylesheets/home.css' rel="stylesheet" type="text/css">
-    {% include common/libraries.html %}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1404.34">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li2 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #0000ee; -webkit-text-stroke: #0000ee}
+    span.s1 {font-kerning: none}
+    span.s2 {-webkit-text-stroke: 0px #000000}
+    span.s3 {text-decoration: underline ; font-kerning: none}
+    span.s4 {font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    ul.ul1 {list-style-type: disc}
+  </style>
 </head>
-
 <body>
-    <ul id="menu">
-        <li data-menuanchor="bio"><a href="#bio">Biography</a></li>
-        <li data-menuanchor="social"><a href="#social">Social Links</a></li>
-    </ul>
-
-    <div id="section0" class="section" data-name="bio">
-
-        {% include common/notices.html %}
-
-        <div class="headings animated fadeInLeft">
-            {% if site.home.section1 %}{{ site.home.section1 }}{% endif %}
-            {% if site.home.section2 %}{{ site.home.section2 }}{% endif %}
-            {% if site.home.section3 %}{{ site.home.section3 }}{% endif %}
-        </div>
-        <a class="btn-continue animated bounce" title="{{ site.data.i18n[site.lang].more }}" href="#social"></a>
-    </div>
-
-    <div id="section1" class="section" data-name="social">
-        <h1 class="animated hidden">
-            <a class="btn-enter btn-light" title="{{ site.data.i18n[site.lang].enter_blog }}" href="{{ site.paths.blog | relative_url }}">{{ site.data.i18n[site.lang].enter_blog }}</a>
-        </h1>
-        <div class="social-links animated hidden">
-            <a class="btn-light ico-rss" href="{{ site.baseurl }}/feed.xml" rel="me" target="_blank" title="feed"></a>
-            {% if site.author.email %}
-                <a class="btn-light ico-gmail" href="mailto:{{ site.author.email }}" rel="me" target="_blank" title="email"></a>
-            {% endif %}
-            {% for link in site.author.social_links %}
-                {% if link.url %}
-                    <a class="btn-light ico-{{ link.name }}" href="{{ link.url }}" rel="me" target="_blank" title="{{ link.name }}"></a>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-
-    {% include home/scripts.html %}
+<p class="p1"><span class="s1">{% include common/meta.html %} {% include common/libraries.html %}</span></p>
+<ul class="ul1">
+  <li class="li2"><span class="s2"></span><span class="s3">Biography</span></li>
+  <li class="li2"><span class="s2"></span><span class="s3">Social Links</span></li>
+</ul>
+<p class="p1"><span class="s1">{% include common/notices.html %}</span></p>
+<p class="p1"><span class="s1">{% if site.home.section1 %}{{ site.home.section1 }}{% endif %} {% if site.home.section2 %}{{ site.home.section2 }}{% endif %}<span class="Apple-converted-space"> </span></span></p>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; line-height: 28.0px; font: 24.0px Times; color: #0000ee; -webkit-text-stroke: #0000ee"><span class="s3"><a href="file:///Users/zhangying/Documents/GitHub/tori.github.io/_layouts/%7B%7B%20site.paths.blog%20%7C%20relative_url%20%7D%7D"><b>{{ site.data.i18n[site.lang].enter_blog }}</b></a></span><span class="s4"><b><span class="Apple-converted-space"> </span></b></span></h1>
+<p class="p1"><span class="s1">{% if site.author.email %} {% endif %} {% for link in site.author.social_links %} {% if link.url %} {% endif %} {% endfor %}<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">{% include home/scripts.html %}<span class="Apple-converted-space"> </span></span></p>
 </body>
-
 </html>
