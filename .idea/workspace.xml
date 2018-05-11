@@ -2,16 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83124151-e7f3-4b90-a440-a74821387809" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/home-page.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/how-to-start.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/js-1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/mac.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/post-example.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/promo-img.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/software.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/we-in-rest.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/workflow.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/home-page.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/how-to-start.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/js-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/mac.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/post-example.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/promo-img.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/software.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/we-in-rest.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/_site/assets/img/workflow.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-多线程/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-多线程/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-提升技能的小技巧/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-提升技能的小技巧/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-电量消耗/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-电量消耗/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-网络/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-网络/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/robots.txt" afterPath="$PROJECT_DIR$/_site/robots.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/sitemap.xml" afterPath="$PROJECT_DIR$/_site/sitemap.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/tags/index.html" afterPath="$PROJECT_DIR$/_site/tags/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/设计模式-笔记-未完/index.html" afterPath="$PROJECT_DIR$/_site/设计模式-笔记-未完/index.html" />
     </list>
     <ignored path="tori.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,30 +41,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="font-awesome.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/fonts/font-awesome/css/font-awesome.css">
+      <file leaf-file-name="_config.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2546">
-              <caret line="635" column="1" selection-start-line="635" selection-start-column="1" selection-end-line="635" selection-end-column="1" />
+            <state relative-caret-position="90">
+              <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_layouts/main.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="headicon.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/img/headicon.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -78,8 +70,8 @@
         <option value="$PROJECT_DIR$/_posts/2018-04-28-《Android高性能编程》提升技能的小技巧.md" />
         <option value="$PROJECT_DIR$/_posts/2018-04-27《Android高性能编程》-网络.md" />
         <option value="$PROJECT_DIR$/_posts/2018-04-22《Android高性能编程》-多线程.md" />
-        <option value="$PROJECT_DIR$/_config.yml" />
         <option value="$PROJECT_DIR$/_site/设计模式-笔记-未完/index.html" />
+        <option value="$PROJECT_DIR$/_config.yml" />
       </list>
     </option>
   </component>
@@ -169,6 +161,10 @@
               <option name="myItemId" value="font-awesome" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fonts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -193,6 +189,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tori.github.io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tori.github.io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_site" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -617,14 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_site/设计模式-笔记-未完/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -764,11 +766,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/img/headicon.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/img/how-to-start.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -787,6 +784,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/fonts/font-awesome/css/font-awesome.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-64">
+          <caret line="635" column="1" selection-start-line="635" selection-start-column="1" selection-end-line="635" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_layouts/main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -795,10 +800,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/fonts/font-awesome/css/font-awesome.css">
+    <entry file="file://$PROJECT_DIR$/assets/img/headicon.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2546">
-          <caret line="635" column="1" selection-start-line="635" selection-start-column="1" selection-end-line="635" selection-end-column="1" />
+        <state relative-caret-position="90">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
           <folding />
         </state>
       </provider>
