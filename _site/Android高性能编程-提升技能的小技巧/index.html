@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>《Android高性能编程》-提升技能的小技巧 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="《Android高性能编程》-提升技能的小技巧" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" property="og:url">
+  
+  
+    <meta content="2018-04-28T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/flexible-jekyll/assets/img/blog_head_3.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Android" property="article:tag">
+    
+    <meta content="性能" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="《Android高性能编程》-提升技能的小技巧">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/flexible-jekyll/assets/img/blog_head_3.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/flexible-jekyll/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/flexible-jekyll/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/flexible-jekyll/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/flexible-jekyll/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/flexible-jekyll/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/flexible-jekyll/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/flexible-jekyll/"><img src="/flexible-jekyll/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>Exploring.</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/flexible-jekyll/assets/img/blog_head_3.jpeg alt="《Android高性能编程》-提升技能的小技巧">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">《Android高性能编程》-提升技能的小技巧</h1>
+        <div class="page-date"><span>2018, Apr 28&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p>#位图</p>
+<h2 id="加载">加载</h2>
+<p>BitMap.createScaledBitmap()方法在创建一个新的小图像之前，都会读取整个原图，造成了非必要的内存分配。一旦我们明确了图像要被缩放的分辨率，可以利用BitmapFactory.Options类，通过设置参数，高效地缩放图像。
+BitmapRegionDecode类可以得到部分图像
+流程：（file可以换为bytearray, resource, stream等）</p>
+<ol>
+  <li>加载（不处理位图）injustdecodebounds = true</li>
+  <li>读取图片分辨率 decodefile</li>
+  <li>计算比率 outHeight/desiredheight等</li>
+  <li>设置属性 insampleSize（为2的倍数，因为工作原理是从相邻的四个像素矩阵中取出一个像素）</li>
+  <li>加载 decodefile(url, options)
+缩小到精确的尺寸： inScaled， inDensity, inTargetDensity
+需要以牺牲速度为代价，最好的方案是结合两种。第一种方案计算比率之后，用第二种方案的设置方法
+    <h2 id="处理">处理</h2>
+    <p>必须在工作线程中
+使用weakReference持有ImageView，否则会带来activity泄漏
+回收时要判断view是否被weakreference是否被引用</p>
+    <h2 id="缓存">缓存</h2>
+    <p>算法LRU，优先级：被使用的再栈顶，其余按照请求次数
+LRUCache对象是线程安全的
+将应用程序的部分可用控件提供给缓存使用（Runtime.getRuntime().maxMamery()），此类缓存处于堆内存中，退出activity再进入后图片不存在。
+DiskLRUCache，不是线程安全的，在使用时需要加锁，在工作线程中执行，（Disk-level cache可以持久化，速度慢，如果堆级别缓存中不存在，会再检查磁盘级别； Heap-level cache）当想要将图像加入缓存时，需要同时添加两种缓存。</p>
+    <h2 id="显示">显示</h2>
+    <p>四种像素格式：
+ARGB_8888：每个像素使用32bit，每个通道8bit
+ARGB_4444：每个通道仅使用4像素，节省一半的内存空间，但显示效果糟糕
+RGB_555：只保留颜色通道，移除了alpha值，红色蓝色5bit，绿色6bit，每个像素使用16bit，处理非透明度图片
+ALPHA_8:仅储存透明信息，没有颜色通道
+bitmapFactory.option.inpreferredConfig定义像素格式。会消耗更多的计算时间和CPU消耗</p>
+    <h2 id="管理内存">管理内存</h2>
+    <p>对象池模式，重用已分配内存，来处理新图像的显示
+BitmapFactory.Options.inBitmap, 使用该属性，需要提供一个已存在的位图对象，让解码器重用该对象的内存空间，这样，就对象没有被销毁，新对象也没有被创建，就不需要垃圾回收了
+限制：18以前必须尺寸相同，19开始可以大于等于；不同像素格式的图像，不应被用于此种操作</p>
+  </li>
+  <li>判断内存大小
+内存 = 被压缩后的宽（options.outwidth/options.insamplesize） ✖️高 ✖️ 每像素的内存</li>
+  <li>对象池中检索。Set &lt; SoftReference &lt; Bitmap &gt; &gt;</li>
+  <li>创建方法，在图像解码钱，添加option以重用对象（options.inMutable）
+#图像优化
+#序列化
+#代码改进
+#AndroidN中的java8
+#APK优化</li>
+</ol>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=《Android高性能编程》-提升技能的小技巧&url=http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/flexible-jekyll/tags#Android" class="tag">&#35; Android</a>
+          
+            <a href="/flexible-jekyll/tags#性能" class="tag">&#35; 性能</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//mr-brown.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
