@@ -5,7 +5,7 @@ layout: main
   <div class="page-content">
     {% if page.img %}
     <div class="page-cover-image">
-      <img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}">
+      <img class="page-image" src={{ "/assets/img/" | prepend: site.url | append : page.img}} alt="{{page.title}}">
     </div> <!-- End Page Cover Image -->
     {% else %}
     {% endif %}
@@ -23,7 +23,7 @@ layout: main
         </div>
         <div class="page-tag">
           {% for tag in page.tags %}
-            <a href="{{site.baseurl}}/tags#{{tag}}" class="tag">&#35; {{ tag }}</a>
+            <a href="{{site.url}}/tags#{{tag}}" class="tag">&#35; {{ tag }}</a>
           {% endfor %}
         </div>
       </div>

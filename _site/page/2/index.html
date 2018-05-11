@@ -22,7 +22,7 @@
   
   
   
-    <meta content="http://localhost:4000/assets/img/headicon.jpg" property="og:image">
+    <meta content="http://localhost:4000http://localhost:4000/assets/img/headicon.jpg" property="og:image">
   
   
   
@@ -41,17 +41,17 @@
 ">
   
   
-    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/headicon.jpg">
+    <meta name="twitter:image:src" content="http://localhost:4000http://localhost:4000/assets/img/headicon.jpg">
   
 
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="http://localhost:4000/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="http://localhost:4000/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/assets/img/favicon/apple-touch-icon-114x114.png">
 	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#263959">
 	<!-- Windows Phone -->
@@ -62,9 +62,9 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://localhost:4000/assets/fonts/font-awesome/css/font-awesome.min.css">
 	<!-- Styles -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
 </head>
 
 <body>
@@ -74,7 +74,7 @@
   <header>
     <div class="about">
       <div class="cover-author-image">
-        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+        <a href="http://localhost:4000/"><img src="http://localhost:4000/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
       <p>Exploring.</p>
@@ -98,10 +98,10 @@
   
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_7.jpeg)" href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/"></a>
+    <a class="post-thumbnail" style="background-image: url(http://localhost:4000/assets/img/blog_head_7.jpeg)" href="http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/">《Android高性能编程》-内存笔记</a></h2>
+    <h2 class="post-title"><a href="http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/">《Android高性能编程》-内存笔记</a></h2>
     <p>#预览 内存如何工作 ##垃圾回收 ##内存共享 android并未使用虚拟内存技术。这就导致，除了释放不再使用的对象外，没有其他方法能够为程序提供更多控件。 android中的共享内存是为了再大量不同的进城之间更好的处理资源。 paging和memory-mapping技术：paging是指再二级存储中奖内存分成大小相同的块（page）。memory-mapping是指在内存中通过映射将二级存储中的相关文件关联起来，当做主存来使用。系统通过分页内存映射文件来保存Dalvik代码文件、应用程序资源或原生代码文件，当系统需要为其他进程分配内存时，这些文件可以再多个进程之间共享。 ##运行时 Dalvik，Android runtime（ART，api21开始） 运行时垃圾回收：当内存的使用达到上限时，垃圾回收启动它的任务，暂停其他每个方法、任务、线程和进程的执行。当垃圾回收结束后，这些对象才会恢复执行。 垃圾回收执行的时间越多，留给系统用于准备那些要被渲染到屏幕上帧的时间就越少。 ART减少了垃圾回收的步骤，为位图对象添加了一个特殊的内存块，使用了更新更快的算法。 ##AndroidN即时编译器 ART运行时使用的提前编译（android-of-time...</p>
     <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
@@ -114,7 +114,7 @@
     <ul>
       
         
-        <p><a class="newer-posts" href="/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
+        <p><a class="newer-posts" href="http://localhost:4000/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
         
       
 
