@@ -108,6 +108,18 @@
   </div>
 </article>
 
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_6.jpeg)" href="/apk%E7%98%A6%E8%BA%AB%E6%95%B4%E7%90%86/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/apk%E7%98%A6%E8%BA%AB%E6%95%B4%E7%90%86/">apk瘦身整理</a></h2>
+    <p>首先要能分析apk的组成，用androidStudio的build—&gt; analyze apk能够分析出apk的大小组成，基本上比较多的是方法和资源文件，但是我们项目中的so库就占了40%，将近60M，资源文件不是很多，只有12M，并不是大头。 （图片待放 ，来源：https://juejin.im/post/592cfe9c0ce463006b3fb1f5） 尝试过shrinkResource（能帮住压缩合并资源，并不能移除资源文件）减少了不到2M，而且不确定是不是和开启minifyEnabled有关。 会有一些问题，比如网上提到表情图片用符号匹配的会找不到图片。 对项目中的影响不确定，需要运行并且查看删减的资源确认（Gradle Console 输出日志remove unused resource，resource.txt 在 /build/outputs/mapping/release/ 中）。...</p>
+    <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
 
 <div class="container">
   <nav class="pagination" role="pagination">
