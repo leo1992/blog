@@ -110,12 +110,48 @@
 
 <article class="post">
   
+    <a class="post-thumbnail" style="background-image: url(/flexible-jekyll/assets/img/blog_head_2.jpeg)" href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/">《Android高性能编程》-电量消耗</a></h2>
+    <p>#分析 检测电池电量和充电状态 BatteryManager会规律的发送Intent，可以捕获该content获知电池状态 Intent.ACTION_BATTERY_CHANGED 如果设备正在充电，我们可以最大限度地发挥所有操作。BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL 识别充电状态的变化 接收上面的广播 注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED 获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS) 确定及相应电池电量的变化...</p>
+    <span class="post-date">2018, May 09&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
     <a class="post-thumbnail" style="background-image: url(/flexible-jekyll/assets/img/blog_head_3.jpeg)" href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/"></a>
   
   <div class="post-content">
     <h2 class="post-title"><a href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">《Android高性能编程》-提升技能的小技巧</a></h2>
     <p>#位图 加载 BitMap.createScaledBitmap()方法在创建一个新的小图像之前，都会读取整个原图，造成了非必要的内存分配。一旦我们明确了图像要被缩放的分辨率，可以利用BitmapFactory.Options类，通过设置参数，高效地缩放图像。 BitmapRegionDecode类可以得到部分图像 流程：（file可以换为bytearray, resource, stream等） 加载（不处理位图）injustdecodebounds = true 读取图片分辨率 decodefile 计算比率 outHeight/desiredheight等 设置属性...</p>
     <span class="post-date">2018, Apr 28&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/flexible-jekyll/assets/img/blog_head_4.jpeg)" href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/">《Android高性能编程》-网络</a></h2>
+    <p>#预览 HttpClient, URLConnection 协议：Http,https, ftp, File, Jar 方法：GET, POST(connection.setDoOutput),其余通过 HttpURLConnection.setRequestMethod() 头部: URLConnection.setRequestProperty/ getHeaderFields 超时: 链接超时；读取超时...</p>
+    <span class="post-date">2018, Apr 27&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/flexible-jekyll/assets/img/blog_head_5.jpeg)" href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/flexible-jekyll/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">《Android高性能编程》-多线程</a></h2>
+    <p>预览 线程基础 Thread.run()方法并不会创建一个新线程，start()才能开启新线程 Thread.join()方法可以在它的子线程完成时恢复执行状态，在不知道要执行多久时可以调用。（一般情况不会恢复么，或者有没有回调什么的） 线程安全：一个多线程应用程序再共享对象上没有什么并发操作。 每个对象都有一个监视器，线程可以锁定或者解锁它，监视器确保同一时间只会被锁住一次。 Android多线程环境 进程的生命周期：Foreground, visible（非前台但可见）, service, background, empty（不包含任何组件的进程，它被用作缓存的目的，以加快应用程序未来的恢复） 进程名以 ：开始代表为该应用的私有进程，以小写字母开始为可共享进程。 Android应用程序线程...</p>
+    <span class="post-date">2018, Apr 22&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
 </article>
