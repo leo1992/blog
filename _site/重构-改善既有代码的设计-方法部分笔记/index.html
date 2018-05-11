@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>《重构-改善既有代码的设计》-方法部分笔记 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="《重构-改善既有代码的设计》-方法部分笔记" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" property="og:url">
+  
+  
+    <meta content="2018-04-19T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/assets/img/blog_head_8.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="重构" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="《重构-改善既有代码的设计》-方法部分笔记">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_8.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>Exploring.</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/assets/img/blog_head_8.jpeg alt="《重构-改善既有代码的设计》-方法部分笔记">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">《重构-改善既有代码的设计》-方法部分笔记</h1>
+        <div class="page-date"><span>2018, Apr 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p>提炼函数：需要注释才能理解的代码，以更好的方式昭示代码意图</p>
+
+<p>内联函数：内部代码和函数名称同样清晰易读</p>
+
+<p>内联临时变量：某个临时变量被赋予某个函数的返回值，（改为final确定时候只被用过一次）</p>
+
+<p>以查询取代临时变量：使得同一个类中其他部分也可以获取临时变量中计算的信息</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>引入注释性变量：表达式复杂难以解读。将复杂表达式的结果放进一个临时变量（多个条件&amp;&amp;</td>
+      <td> </td>
+      <td>这样）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>分解临时变量：某个临时变量被赋值超过一次，意味着承担了多个责任。</p>
+
+<p>移除对参数的赋值：代码对参数复制，以一个临时变量取代该参数的位置</p>
+
+<p>以函数对象取代函数：有一个大型函数，其中对局部变量的使用使你无法提炼函数。将这个函数放进一个单独对象，局部变量就成了对象中的字段，就可以分解为小函数，这些小函数可以共用这些字段。</p>
+
+<p>替换算法：有更好的算法</p>
+
+<hr />
+
+<p>搬移函数：某个函数与另一类进行更多交流</p>
+
+<p>搬移字段: 某个字段被另一类更多用到</p>
+
+<hr />
+
+<p>提炼类：某个类做个多个类应该做的事。（是改善并发程序的一种常用技术，因为它使你可以为提炼后的两个类分别加锁）</p>
+
+<p>将类内联化：某个类没有做太多的事。</p>
+
+<hr />
+
+<p>—【隐藏程度】</p>
+
+<p>隐藏委托关系：客户通过一个委托类来调用另一个对象</p>
+
+<p>移除中间人: 客户要使用受托类的新特性时</p>
+
+<hr />
+
+<p>—【为服务类提供一些额外的函数】</p>
+
+<p>引入外加函数：加一个函数，并且以第一参数的形式传入一个服务类实例</p>
+
+<p>引入本地扩展：子类化（首选，但必须在对象创建时期实施，如果其他对象引用了旧对象，就同时有两个对象保存了原数据）；包装，要注意隐藏包装类的存在，equals函数的复写</p>
+
+<hr />
+
+<hr />
+
+<p>自封装字段：直接访问一个字段耦合关系变得笨拙。为这个字段建立取值/设置函数，并且在类内以这些函数来访问字段。好处是：子类可以通过覆写一个函数而改变获取数据的途径，还支持更灵活的数据管理方式，例如延迟初始化。</p>
+
+<p>以对象取代数据值：一个数据项，需要与其他数据和行为一起使用才有意义。（注意，值对象应该是不可修改内容的）</p>
+
+<p>—对象是否不可变，易管理</p>
+
+<p>将值对象改为引用对象：想为值对象加入一些可修改的数据，并确保任何一个对象的修改都能影响到所有引用此一对象的地方。（用create返回特定值对象，控制者）</p>
+
+<p>将引用对象改为值对象：有一个引用对象，很小且不可变，总是必须向起控制者请求适当的引用对象，造成内存区域错综复杂的关联。注意，这里要建立equals和hashcode函数，必须同时进行否则依赖hash的任何集合对象都可能会产生异常行为，一个简单的办法：服务equals()使用的所有字段的hash码，然后对他们进行按位异或操作。</p>
+
+<hr />
+
+<p>以对象取代数组：数组中每个元素代码不同的对象。以对象替换数据，对数组中的每个字段以一个字段来表示。</p>
+
+<p>复制被监听数据：领域数据置于GUI控件中。问题：不同界面表现相同业务逻辑；维护不容易。方法：复制到领域对象中，建立Observer模式，以同步对象和GUI对象内的重复数据。</p>
+
+<p>—【是否都需要使用对方特性】</p>
+
+<p>将单向关联改为双向关联</p>
+
+<p>将双向关联改为单向关联</p>
+
+<hr />
+
+<p>以字面常量取代魔法数（常量不会造成任何性能开销）</p>
+
+<p>封装字段: public字段，浪费任何一个对象都是不好的。</p>
+
+<p>封装集合：取值函数不应该返回集合自身，这会让用户得以修改集合内容和集合拥有者一无所知。unmodifiableXXX，或返回副本。Assert和判断的区别，assert只在debug中有效。</p>
+
+<p>以数据类型取代记录：传统编程环境中的记录结构。</p>
+
+<p>—【类中有一个数值类型码，是否影响类行为】</p>
+
+<p>以类取代类型码：不会。为了增强可读性。比如int 0 -&gt; BloodGroup.O</p>
+
+<p>以子类取代类型码：会。</p>
+
+<p>以State/strategy取代类型吗：会。类型码的值在对象生命期中发生变化，或宿主类已经有了子类，或其他原因使得宿主类不能被集成。</p>
+
+<hr />
+
+<p>以字段取代子类：各个子类的唯一差别只在“返回常量数据”</p>
+
+<hr />
+
+<hr />
+
+<p>分解条件表达式：把复杂if条件和then还有else三个段落提炼为独立函数</p>
+
+<p>合并条件表达式：一系列条件测试，都得到相同结果</p>
+
+<hr />
+
+<p>合并重复的条件片段：每个分支上有相同代码</p>
+
+<p>移除控制标记：以break或return取代控制标记</p>
+
+<p>以卫语句取代嵌套条件表达式：条件逻辑难以看清正常的执行路径，如果两条分支都是正常行为，就应该使用形如If …else，如果某个条件极其罕见，就应该单独，并且为真时退出。卫语句就告诉阅读者，这种情况很罕见，发生了，就必须做一些整理工作，然后退出。</p>
+
+<p>以多态取代条件表达式：条件表达式根据对象类型的不同而选择不同的行为。讲每个分支放入一个子类的覆写函数中，然后将原始声明为抽象函数。多态的好处就是，如果你需要根据对象的不同类型而采取不同的行为，多态使你不必编写明显的条件表达式。如果你需要在对象创建好之后修改类型码，或要重构的类已经有了子类，就只能使用state/strategy。如果若干switch语句针对的是同一个类型吗，只需要针对这个类型吗建立一个继承结构就行了。</p>
+
+<p>引入null对象：需要再三检查某对象是否为null。将Null替换为Null对象，替换可能返回null的地方返回空对象，可以加上断言保证不再出现null，覆写如果是null的一些操作，还可以添加isnull函数。Special Case模式。</p>
+
+<p>引入断言：非受控异常。断言失败会受到运行期异常。如果发现代码假设某个条件始终为真，就加入一个断言说明这种情况，但不要用来检查。如果断言所指示的约束条件不能满足代码仍然能正常运行，就应该把断言拿掉。</p>
+
+<hr />
+
+<p>函数改名</p>
+
+<p>—【函数需要/不需要信息】</p>
+
+<p>添加参数，建议用别的方法</p>
+
+<p>移除参数</p>
+
+<hr />
+
+<p>将查询函数和修改函数分离：某个函数即返回对象，又修改对象状态。任何有返回值的函数，都不应该有看得到的副作用。</p>
+
+<hr />
+
+<p>令函数携带参数：若干函数做了类似的工作，但函数本地中却包含了不同的值，这时建立单一参数，以参数表达那些不同的值。</p>
+
+<p>以明确函数取代参数：上一个情况下，函数内部又去判断这个参数值以采取不同的行为时。哪怕只是给一个内部的布尔变量赋值，相比较之下，switch.beOn也比Switch.setState(true)要清楚</p>
+
+<hr />
+
+<p>保持对象完整：若从对象中取出若干值，又作为某一次函数调用时的参数，万一需要新的数据，就必须查找并修改函数的所有调用。</p>
+
+<p>以函数取代参数：对象调用某个函数，并将所得结果作为参数传递给另一个函数。而接受该参数的函数本身也能够调用前一个函数。如果函数能够通过其他途径获得参数值，那么它就不应该通过参数取得该值。</p>
+
+<p>加入参数对象：某些参数总是很自然的同时出现</p>
+
+<p>移除设置函数：类中的某个字段应该在对象创建时被设值，就不再改变。如果某个子类通过设值函数给超类的某个Private字段设了值，就不应该修改构造函数，这种情况应该提供Protect函数来给这些字段设值。</p>
+
+<p>隐藏函数：类中有从未被其他类用到的函数。一般发生在越多行为引入这个类时，很多取设值函数不再需要公开。</p>
+
+<p>以工厂函数取代构造函数：通常在派生子类的过程中以工厂函数取代类型码。create(type)。Class.forName(）来创建可以防止添加新的子类必须更新switch的情况，但是需要谨慎，因为它暴露了子类名称。还可以以明确函数创建子类。还可以考虑ProductTrader模式。</p>
+
+<p>封装向下转型：某个函数反回一个值，需要由调用者执行向下转型，但是你知道返回的对象类型比函数签名所昭告的更特化。return (Reading) ….</p>
+
+<p>—【是否是罕见的行为】</p>
+
+<p>以异常取代错误码：函数中发现错误的地方，并不一定知道如何处理错误，它需要让调用者知道这个错误码。用异常能够更清楚的将“普通程序”和“错误处理分开”。return -1这种 换成 异常。我们需要决定使用受控异常还是非受控异常。</p>
+
+<p>以测试取代异常</p>
+
+<hr />
+
+<hr />
+
+<hr />
+
+<p>字段上移：子类拥有相同字段
+字段下移：某些字段只与部分子类相关</p>
+
+<hr />
+
+<hr />
+
+<p>函数上移：函数在各个子类有相同的结果</p>
+
+<p>构造函数本体上移：各个子类的构造函数本地几乎完全一样。无法在子类中继承超类构造函数。</p>
+
+<p>函数下移：某些函数只与部分子类相关</p>
+
+<hr />
+
+<p>提炼子类：类中的某些特性只被一部分实例用到。此外，子类只能用以表现一组变化。如果希望一个类以几种不同的方式变化，就必须使用委托。</p>
+
+<p>提炼超类：两个类有相似特性。另一种选择是提炼类，也就是继承和委托的选择，如果有共享行为，也可以共享接口。Composite模式可以考虑下。</p>
+
+<p>提炼接口：若干客户使用类接口中的同一子集，或者两个类的接口有部分相同。这个类需要与所有协助处理某些特定请求的类合作。这样可以更看清责任划分。如果某个类再不同环境下扮演不同的角色，接口就是个好主意。</p>
+
+<p>折叠继承体系：超类和子类之间并无太大区别。</p>
+
+<p>塑造模板函数：某些子类，其中相应的某些函数以相同顺序执行类似操作，但在细节上不同。将这些操作分别放进独立函数中，并保持他们都有相同的签名，然后原函数就相同了，可以上移到超类。可以将执行操作的序列移至超类，用多态保持差异性。</p>
+
+<hr />
+
+<p>以委托取代继承：某个子类只使用超类接口中的一部分，或者根本不需要继承而来的数据。</p>
+
+<p>以继承取代委托：如果两个类之间使用委托并经常为整个接口边写许多极简单的委托函数。1. 如果并没有使用受托类的所有函数 2. 受托对象被不只一个其他对象共享，而且受托对象是可变的。这两种情况都不应该变。</p>
+
+<hr />
+
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=《重构-改善既有代码的设计》-方法部分笔记&url=http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/tags#重构" class="tag">&#35; 重构</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//mr-brown.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

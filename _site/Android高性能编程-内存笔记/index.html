@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>《Android高性能编程》-内存笔记 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="《Android高性能编程》-内存笔记" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/" property="og:url">
+  
+  
+    <meta content="2018-04-19T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/assets/img/blog_head_7.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Android" property="article:tag">
+    
+    <meta content="性能" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="《Android高性能编程》-内存笔记">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_7.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>Exploring.</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/assets/img/blog_head_7.jpeg alt="《Android高性能编程》-内存笔记">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">《Android高性能编程》-内存笔记</h1>
+        <div class="page-date"><span>2018, Apr 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p>#预览
+内存如何工作</p>
+
+<p>##垃圾回收
+##内存共享
+android并未使用虚拟内存技术。这就导致，除了释放不再使用的对象外，没有其他方法能够为程序提供更多控件。
+android中的共享内存是为了再大量不同的进城之间更好的处理资源。</p>
+
+<p>paging和memory-mapping技术：paging是指再二级存储中奖内存分成大小相同的块（page）。memory-mapping是指在内存中通过映射将二级存储中的相关文件关联起来，当做主存来使用。系统通过分页内存映射文件来保存Dalvik代码文件、应用程序资源或原生代码文件，当系统需要为其他进程分配内存时，这些文件可以再多个进程之间共享。</p>
+
+<p>##运行时
+Dalvik，Android runtime（ART，api21开始）</p>
+
+<p>运行时垃圾回收：当内存的使用达到上限时，垃圾回收启动它的任务，暂停其他每个方法、任务、线程和进程的执行。当垃圾回收结束后，这些对象才会恢复执行。
+垃圾回收执行的时间越多，留给系统用于准备那些要被渲染到屏幕上帧的时间就越少。</p>
+
+<p>ART减少了垃圾回收的步骤，为位图对象添加了一个特殊的内存块，使用了更新更快的算法。</p>
+
+<p>##AndroidN即时编译器
+ART运行时使用的<strong>提前编译</strong>（android-of-time compilation, AOT）, 在应用程序首次安装时执行编译。优势：电量耗费下降，执行速度更快，改善了内存管理和垃圾回收；代价：安装时间长。</p>
+
+<p><strong>AndroidN的即时编译器</strong>（justi-in-time compiler, JIT），应用程序执行期间只在需要时编译，使用了代码分析技术，作为AOT的补充。</p>
+
+<p><strong>配置文件指导编译</strong>：能够根据应用程序及以设备的实际使用情况，管理每个应用的AOT/JIT编译。</p>
+
+<p>##内存泄漏
+一个不再使用的对象被另一个还存活着的对象引用。</p>
+
+<p>##内存抖动
+在短时间内，大量的新对象被实例化，运行时无法承担内存分配，垃圾回收时间大量调用。</p>
+
+<p>##引用
+nromal &gt; soft &gt; week &gt; phantom</p>
+
+<p>##内存相关的项目
+Butter：垂直同步与缓冲区，改善设备中的响应能力， 16</p>
+
+<p>Svelte：减少了内存占用，内存管理方面改进，支持低内存设备 17</p>
+
+<p>Volta：设备电池的生命周期，21</p>
+
+<p>AndroidN中的变化：网络变化的广播只有通过动态注册并且处于前台才会接收；拍照存储后不再触发new_picture的action，视频同。</p>
+
+<p>开发应用程序时，应避免使用隐式广播，以减少他们对后台操作带来的影响，因为这会导致非必要的内存浪费和电量消耗。</p>
+
+<p>#最佳实践
+##数据类型
+使用<strong>自动装箱</strong>会带来许多额外消耗，应尽量避免。</p>
+
+<p><strong>Sparse数组集</strong>：SparseXXXArray对应 HashMap&lt;Integer, XXX&gt;，引申SparseArray和HashMap的原理，SparseArray所使用的内存区域是连续的，经过压实（Compaction）和调整（Resize）。优势：内存高效，能够通过索引进行迭代不涉及对象；劣势：不如HashMap快，因为HashMap在避免冲突上有很好的实现方式。节省内存空间需要以牺牲CPU计算量作为代价。（1. 量1000以内且无大量增删，2. 量不大但是存在大量迭代）</p>
+
+<p><strong>ArrayMap</strong>：折中的最佳解决方案。</p>
+
+<p>##语法
+<strong>集合</strong>： for(item: T : set)最高效，应尽量避免使用iterator
+<strong>枚举</strong>：4个枚举值会被转换成4个对象，分别有name, ordinal, array 和一个包装类。应避免使用枚举，采用 @intDef .但混淆器可以帮助我们减少枚举对应用程序性能带来的影响。</p>
+
+<p>##常量
+代码中的常量应该用static和final进行修饰，会被存储在DEX文件中，不需要过多的内存分配，仅适用于基本类型和字符串常量。原理：<clinit></clinit></p>
+
+<p>##对象管理
+少量有用的对象，比大量很少使用的对象更加内存安全，尽量少创建临时对象，避免实例化非必要的对象。</p>
+
+<p>String string = new String (“dgafaf”); 2个对象</p>
+
+<p>StringBuffer（线程安全的，慢）和StringBuilder；已知大小应实例化时指定。</p>
+
+<p>本地变量提取出来，只需要被分配一次。
+如果所处理对象的数量固定不变，原始的数组比集合更加内存高效。释放I/O流。在使用try-catch语句时，总是应该用finally关键字对内存进行释放。</p>
+
+<p>##内存设计模式
+目标：在需要大量使用对象时，减少内存分配，需要注意不要引入内存泄漏</p>
+
+<p><strong>对象池模式</strong>：【目的】面对需要大量分配高成本对象时，通过对象重用尽量减少内存分配以及垃圾回收对系统产生的影响（避免内存抖动），【方法】避免一个将来可能会被重用的对象进行垃圾回收。
+包括：（1）可重用对象（ReusableObject）（2）客户（3）对象池(ObjectPool)：单例对象，有上限，可以再创建时预先分配一定数量的可重用对象。
+注意：在用完后应尽快归还，不然会因为不能再创建而造成用户一直等待；在传递给另一个客户前需要恢复成一致状态。
+实现：ObjectPool中保存两个SparseArray，freePool中放置可重用对象，lentPool正在被使用的对象池，在初始化时在freePool中创建一定的对象，在获取时遍历freepool找到不为空的对象就返回，注意要加锁保证使用中不被改变，<在找到后>将其从freePool中移除，放入lentPool中，如果<未找到>就根据是否已满（已被使用的和freeSize和）来决定能否创建一个新的。释放时相反，从放入freePool从lentPool中移除。这个遍历有什么意义？找不到不就是空的了么，size为0啊</未找到></在找到后></p>
+
+<p>例子：AsyncTask，RecyclerView</p>
+
+<p><strong>享元模式</strong>：【目的】通过节省所有对象共享的状态，以减少载入内存的量。【方法】对每个对象只创建一个实例，实现内部状态的重用。【适用】大量粒度小，变化小，对象之间相似的情况。
+两种状态类型：内部状态（唯一标识对象），外部状态（可共享字段）
+三个角色：享元对象（FlyWeightObjects），享元工厂（FlyWeightFactory），客户
+实现：FlyWeightFactory中保存一个SparseArray，存储不同类型的对象，Client调用时返回特定类型的对象，根据需要调用方法。</p>
+
+<p>##android组件泄漏
+<strong>静态字段</strong>
+【现象】静态持有Acitivity
+【现象】静态View，View需要关联Activity，静态就会造成内存泄漏</p>
+
+<p><strong>非静态内部类</strong>
+【现象】非静态内部类
+内部类需要再它的整个生命周期内都能访问外部类，所以Activity被销毁但是内部类仍在工作时就会发生泄漏，例如AsyncTask。（而且可能因为activity中view被销毁而导致崩溃。）
+【方法】弱引用，如果使用的asyncTask可以在ondestroy中销毁</p>
+
+<p><strong>单例</strong></p>
+
+<p>【现象】单例中持有activity
+【方法】弱引用，在ondestroy中取消这种关联</p>
+
+<p><strong>匿名内部类</strong>
+匿名内部类同样需要依赖外部类，方法同上</p>
+
+<p><strong>Handlers</strong></p>
+
+<p>postdelay，handlers持有一个runnable匿名内部类，持有外部类的引用，而handler中的looperthread利用消息队列来执行runnable，未执行activity就被销毁时，就会造成内存泄漏。是不是延迟消息，队列太大都有可能造成内存泄漏。</p>
+
+<p>【方法】将runnable导出为static类，并且其中不能引用activity内的view组件，不然一样会出现问题，如果有这种情况需要用弱引用，并且在使用view的时候判断是否未空。在ondestroy中移除所有的消息，对性能也有帮助。</p>
+
+<p><strong>Service</strong>
+让一个不再使用的Service保持活跃就会阻碍系统清理空间，所以一定要记得关闭停止（内部用stopself，外部用stopService），尽量使用intentservice，它会再后台工作执行后自动结束。</p>
+
+<p>##进程
+通过不同的进程分离内存的载入，这种情况需要脱饭管理内存，否则会增加消耗。</p>
+<ol>
+  <li>减少进程间的耦合，少用公共对象
+2.ui只在一个进程中进行</li>
+  <li>进程被依赖是无法删除的，所以小心使用那些能访问多个进程的组件，比如ContentProvider和Service</li>
+</ol>
+
+<p>##内存API
+&lt;application <strong>android:largeHeap</strong>=”true”/&gt;会向系统发送请求，并不能保证进程得到的堆空间多。但堆内存越高，内存回收的限制点也越高，回收需要花费的时间也越多。永远不要通过这种方法避免OOM
+<strong>ActivityManager</strong>可以用来获取当前内存的消耗/可用情况，getMemoryCloass, getMemoryInfo等。</p>
+
+<p><strong>System.gc()</strong>, 可以任意地方使用但不保证会触发。</p>
+
+<p>##主要组件和内存管理
+BroadcastReceiver是四大组件中唯一不需要特定内存管理的组件，其生命周期只和onReceiver()方法有关
+其他的㢟都实现了ComponentCallback接口，这个接口中OnLowMemory方法在系统处于低内存状态时，开始杀死进程前，会调用该方法。但是开始杀死进程时调用已经不合适，所以出现了ComponentCallback2接口，其中onTrimMemory()为我们提供了内存消耗的各种临界值。LRU策略来进行回收。visible，invisible对应的lru位置。</p>
+
+<p>TRIM_MEMORY_RUNNING_MODERATE  可见 -内存较少 - LRU顶部
+TRIM_MEMORY_RUNNING_LOW            可见 -内存低 - LRU顶部
+TRIM_MEMORY_RUNNING_CRITICAL      可见 -内存紧张 - LRU顶部
+TRIM_MEMORY_UI_HIDDEN                   不可见 —— - LRU顶部
+TRIM_MEMORY_BACKGROUNG             不可见 -内存低 - LRU顶部
+TRIM_MEMORY_MODERATE                  不可见 -内存低 - LRU中部
+TRIM_MEMORY_COMPLETE                  不可见 -内存低 - LRU底部</p>
+
+<p>当系统要开始杀死进程时，它会分析程序内对内存的消耗情况，以决定杀死哪个，所以占内存越少越不容易被杀死且能快速恢复。</p>
+
+<p>#调试工具
+##Logcat
+Dalvik：D/dalvikvm:<GcReason> <AmountFreed>,<HeapStats>,<ExternalMemoryStats>,<PauseTime>
+ART: I/art:<GcReason> <GcName> <ObjectsFreed> (<SizeFreed>) AllocSpace Objects, <LargeObjectsFreed>(<LargeObjectsSizeFreed>) <HeapStats> LOS objects  <PauseTime>
+art只打印那些主动请求的GC事件以及GC暂停时间超过5毫秒，或执行时间超过100毫秒的事件</PauseTime></HeapStats></LargeObjectsSizeFreed></LargeObjectsFreed></SizeFreed></ObjectsFreed></GcName></GcReason></PauseTime></ExternalMemoryStats></HeapStats></AmountFreed></GcReason></p>
+
+<p>用的时候查去吧！</p>
+
+<p>##ActivityManager
+setWatchHeapLimit 设置监控的最大内存，当堆的大小达到指定值时，会自动生成一个堆转储，能够分析是否有内存泄漏
+clearWatchHeapLimit</p>
+
+<p>ACTION_REPORT_HEAP_LIMIT 并发送这个action
+23</p>
+
+<p>##StrictMode
+开启后会检测特定策略发出通知。
+可监控的事件：activity泄漏，存在未被关闭可被关闭的对象，context销毁时时候有serviceconnection或broadcastReceiver泄漏，其他异常行为等
+通知的方式：杀掉进程，发送到dropboxmanager 记录到logcat中
+在测试或调试版本中开启，因为会消耗一定性能。</p>
+
+<p>##Dumpsys</p>
+
+<p>adb shell dumpsys <service>
+meminfo 查看内存信息 PSS( Proportional Set Size ) 应用程序占用的内存总大小
+procstats 查看进程的内存信息  VSS( Virtual Set Size )  设置 - 开发者模式 - 进程 19</service></p>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=《Android高性能编程》-内存笔记&url=http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/tags#Android" class="tag">&#35; Android</a>
+          
+            <a href="/tags#性能" class="tag">&#35; 性能</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//mr-brown.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

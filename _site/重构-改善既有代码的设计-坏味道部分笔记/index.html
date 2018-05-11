@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>《重构-改善既有代码的设计》-坏味道部分笔记 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="《重构-改善既有代码的设计》-坏味道部分笔记" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" property="og:url">
+  
+  
+    <meta content="2018-04-19T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/assets/img/blog_head_9.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="重构" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="《重构-改善既有代码的设计》-坏味道部分笔记">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_9.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>Exploring.</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/assets/img/blog_head_9.jpeg alt="《重构-改善既有代码的设计》-坏味道部分笔记">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">《重构-改善既有代码的设计》-坏味道部分笔记</h1>
+        <div class="page-date"><span>2018, Apr 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <ol>
+  <li>重复代码</li>
+</ol>
+
+<p>【提炼函数，上移函数，提炼模板方法，提炼类】</p>
+
+<ol>
+  <li>过长函数</li>
+</ol>
+
+<p>【提炼函数，用查询替代临时变量，引入参数对象，分解条件表达式】</p>
+
+<ol>
+  <li>过大的类</li>
+</ol>
+
+<p>【提炼类，提炼子类，提炼接口，用对象取代数据值】</p>
+
+<ol>
+  <li>过长参数列表</li>
+</ol>
+
+<p>【用方法替换参数，引入参数对象，保持对象完整】</p>
+
+<ol>
+  <li>发散式变化：类经常因为不同的原因在不同的方向上发生变化。（一个类受多种变化的影响）</li>
+</ol>
+
+<p>【提炼类】</p>
+
+<ol>
+  <li>霰弹式修改：类的某种改动都必须在不同的类中做许多小修改。（一种变化引发多个类的修改）</li>
+</ol>
+
+<p>【移动方法，移动数据，将类内联化】</p>
+
+<ol>
+  <li>依恋情结：函数对某个类的兴趣高过对自己所处类的兴趣</li>
+</ol>
+
+<p>【移动方法，移动数据，提炼方法】</p>
+
+<ol>
+  <li>数据泥团：总是绑在一起的数据</li>
+</ol>
+
+<p>【提炼类，引入参数对象，保持对象完整】</p>
+
+<ol>
+  <li>基本类型偏执：都尽量用基本类型。（总被放在一起的字段，参数列中，数据中挑数据等等）</li>
+</ol>
+
+<p>【用对象取代数据值，提炼类，引入对象参数，用对象取代数组，用类取代类型码，用子类取代类型码， 用Stat/Strategy取代类型码】</p>
+
+<ol>
+  <li>switch惊悚现身：少用switch。（经常发现同样的switch语句在不同的地方，每次添加新的case都要在不同地方修改）</li>
+</ol>
+
+<p>【用多态取代条件，用子类取代类型码， 用Stat/Strategy取代类型码，用明确方法取代参数，引入空对象】</p>
+
+<ol>
+  <li>平行继承体系：如果为一个类添加一个子类，都必须为另一个也添加</li>
+</ol>
+
+<p>【移动方法，移动数据】</p>
+
+<ol>
+  <li>冗赘类</li>
+</ol>
+
+<p>【将类内联化，折叠继承体系】</p>
+
+<ol>
+  <li>夸夸其谈的未来性</li>
+</ol>
+
+<p>【折叠继承体系，将类内联化，移除参数，重命名方法】</p>
+
+<ol>
+  <li>令人迷惑的暂时字段：某种实例变量只为某种特定情况设定</li>
+</ol>
+
+<p>【提炼类，引入空对象】</p>
+
+<ol>
+  <li>过度耦合的消息链：一个请求另一个，然后另一个再继续请求下一个</li>
+</ol>
+
+<p>【隐藏委托】</p>
+
+<ol>
+  <li>中间人：某个类中有一般的函数都委托给了其他类</li>
+</ol>
+
+<p>【移除中间人，将类内联化，用继承取代委托】</p>
+
+<ol>
+  <li>狎昵关系：两个类过于亲密，花费太多时间探究彼此的Private成分</li>
+</ol>
+
+<p>【移动方法，移动数据，将双向引用改为单向引用，用委托取代继承，隐藏委托】</p>
+
+<ol>
+  <li>异曲同工的类：两个函数做同样的事，但是有不一样的签名</li>
+</ol>
+
+<p>【重命名方法，移动类】</p>
+
+<ol>
+  <li>不完美的类库</li>
+</ol>
+
+<p>【引入外部方法，引入本地方法】</p>
+
+<ol>
+  <li>纯粹的数据类：拥有一些字段，一起getter,setter,除此之外一无所长</li>
+</ol>
+
+<p>【移动方法，封装数据，封装集合】</p>
+
+<ol>
+  <li>被拒绝的馈赠：子类复用了超类的行为，却又不愿意支持超类的接口。</li>
+</ol>
+
+<p>【用委托取代继承】</p>
+
+<ol>
+  <li>过多的注释：长长的注释往往意味着代码很糟糕。</li>
+</ol>
+
+<p>【提炼方法，引入断言】</p>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=《重构-改善既有代码的设计》-坏味道部分笔记&url=http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/tags#重构" class="tag">&#35; 重构</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+    <div id="disqus_thread" class="article-comments"></div>
+    <script>
+      (function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//mr-brown.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
