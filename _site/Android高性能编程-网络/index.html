@@ -25,7 +25,7 @@
     <meta content="http://localhost:4000/about/" property="article:author">
   
   
-    <meta content="http://localhost:4000/assets/img/blog_head_4.jpeg" property="og:image">
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_4.jpeg" property="og:image">
   
   
     
@@ -52,17 +52,17 @@
 ">
   
   
-    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_4.jpeg">
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_4.jpeg">
   
 
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
 	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#263959">
 	<!-- Windows Phone -->
@@ -73,9 +73,9 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
 	<!-- Styles -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
 </head>
 
 <body>
@@ -85,7 +85,7 @@
   <header>
     <div class="about">
       <div class="cover-author-image">
-        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
       <p>Exploring.</p>
@@ -110,7 +110,7 @@
   <div class="page-content">
     
     <div class="page-cover-image">
-      <img class="page-image" src=/assets/img/blog_head_4.jpeg alt="《Android高性能编程》-网络">
+      <img class="page-image" src=/blog/assets/img/blog_head_4.jpeg alt="《Android高性能编程》-网络">
     </div> <!-- End Page Cover Image -->
     
     <div class="wrap-content">
@@ -118,88 +118,92 @@
         <h1 class="page-title">《Android高性能编程》-网络</h1>
         <div class="page-date"><span>2018, Apr 27&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <p>#预览
-HttpClient, URLConnection
-<strong>协议</strong>：Http,https, ftp, File, Jar 
-<strong>方法</strong>：GET, POST(connection.setDoOutput),其余通过 HttpURLConnection.setRequestMethod()
-<strong>头部</strong>: URLConnection.setRequestProperty/ getHeaderFields
-<strong>超时</strong>: 链接超时；读取超时
-<strong>内容</strong>：使用URLConnection.getContent()方法，以InputStream形式得到内容。内容长度，MIME类型，编码类型
-<strong>压缩</strong>：content-encoding指定压缩类型（gzip），需要通过特定InputStream读取
-<strong>响应码</strong>
-2xx: 已收到请求，并将响应发出去
-3xx: 重定向
-4xx: 请求存在一些错误
-5xx：服务端存在在一个内部错误，或某些地方过载
-<strong>连接类型</strong>： MOBILE, WIFI, WIMAX, ETHERNET, BLUETOOTH
-#最佳实践</p>
+      <h1 id="预览">预览</h1>
+<p>HttpClient, URLConnection
+<strong>协议</strong>：Http,https, ftp, File, Jar <br />
+<strong>方法</strong>：GET, POST(connection.setDoOutput),其余通过 HttpURLConnection.setRequestMethod()<br />
+<strong>头部</strong>: URLConnection.setRequestProperty/ getHeaderFields<br />
+<strong>超时</strong>: 链接超时；读取超时<br />
+<strong>内容</strong>：使用URLConnection.getContent()方法，以InputStream形式得到内容。内容长度，MIME类型，编码类型<br />
+<strong>压缩</strong>：content-encoding指定压缩类型（gzip），需要通过特定InputStream读取<br />
+<strong>响应码</strong><br />
+2xx: 已收到请求，并将响应发出去<br />
+3xx: 重定向<br />
+4xx: 请求存在一些错误<br />
+5xx：服务端存在在一个内部错误，或某些地方过载<br />
+<strong>连接类型</strong>： MOBILE, WIFI, WIMAX, ETHERNET, BLUETOOTH</p>
+<h1 id="最佳实践">最佳实践</h1>
 <ol>
   <li>根据连接速度动态改变要传输的内容</li>
   <li>预获取数据</li>
   <li>响应缓存，确认再服务端有没有被修改</li>
   <li>推送和轮训</li>
-  <li>当后端出现临时错误时，可以对请求进行显示，采用退避指数算法。
-    <h2 id="延迟测定">延迟测定</h2>
-    <p>无法对请求时间金预测，但是可以对请求时间做追踪并计算出平均值，从而根据延迟情况制定和采用不同策略。还可以根据延迟动态改变请求，以适应网络较慢情况。
+  <li>当后端出现临时错误时，可以对请求进行显示，采用退避指数算法。</li>
+</ol>
+
+<h2 id="延迟测定">延迟测定</h2>
+<p>无法对请求时间金预测，但是可以对请求时间做追踪并计算出平均值，从而根据延迟情况制定和采用不同策略。还可以根据延迟动态改变请求，以适应网络较慢情况。<br />
 比WIFI更高的LTE</p>
-    <h2 id="批量连接">批量连接</h2>
-    <p>每次为了连接网络而开启无线电，大约会消耗20s的电量，尽可能减少网络连接的次数非常重要。可以参考一个策略：将客户端和服务端之间要进行交换的数据，收集起来，当数量足够多时，才进行连接。
-两种：1. 为大量数据执行一个单独请求；2. 批量执行多个请求，以避免非必要的无线电操作所带来的电量消耗
+<h2 id="批量连接">批量连接</h2>
+<p>每次为了连接网络而开启无线电，大约会消耗20s的电量，尽可能减少网络连接的次数非常重要。可以参考一个策略：将客户端和服务端之间要进行交换的数据，收集起来，当数量足够多时，才进行连接。<br />
+两种：1. 为大量数据执行一个单独请求；2. 批量执行多个请求，以避免非必要的无线电操作所带来的电量消耗<br />
 ####预获取
 在连接可用时，尽可能发起各个请求，预先载入好，最好结合延迟测定技术一起使用，采用不同的预获取策略</p>
-    <h4 id="队列连接">队列连接</h4>
-    <p>请求不会被立即执行，会组织成一个队列，批量连接。</p>
-    <h2 id="对响应进行缓存">对响应进行缓存</h2>
-    <p>####缓存控制
-HttpResponseCache:将响应以缓存的形式保存到文件系统中。它需要设定一个上线，当达到该上限时，便删除不必要的项目，释放磁盘空间。
-此外，可以将该请求持久化到文件系统中，这样，在应用程序下次启动时，仍然可用。
-决定每个请求是否需要被缓存：addRequestProperty(“Cache-Control”, POLICY)。策略有在指定时间内再次访问，不会从服务端请求，而是取之前的缓存；能接受过期对象，但时间不应超过指定值等。
+<h4 id="队列连接">队列连接</h4>
+<p>请求不会被立即执行，会组织成一个队列，批量连接。</p>
+<h2 id="对响应进行缓存">对响应进行缓存</h2>
+<p>####缓存控制
+HttpResponseCache:将响应以缓存的形式保存到文件系统中。它需要设定一个上线，当达到该上限时，便删除不必要的项目，释放磁盘空间。<br />
+此外，可以将该请求持久化到文件系统中，这样，在应用程序下次启动时，仍然可用。<br />
+决定每个请求是否需要被缓存：addRequestProperty(“Cache-Control”, POLICY)。策略有在指定时间内再次访问，不会从服务端请求，而是取之前的缓存；能接受过期对象，但时间不应超过指定值等。<br />
 一旦开启会应用于每个请求，最好的方式是让服务端返回cache-control Header，能够控制请求的过期时间，如果不能访问服务端代码，则需根据服务端实际返回响应中的Header，指定一个处理缓存响应过L期时间的策略。</p>
-    <h4 id="lastmodified返回数据修改时间自己对比">LastModified(返回数据、修改时间自己对比)</h4>
-    <p>可以通过读取响应的Last-ModifiedHeader，得到该资源上次被修改的日期。通过ExpireHeader来获知上一次请求所返回的内容是否有效。可以将资源以及上次修改时间一次缓存，然后将该日期与服务端返回的日期作对比，从而运用缓存策略对缓存资源以及图形界面布局进行更新。</p>
-    <h4 id="if-modified-since请求中加时间服务端确认有无更新">If-Modified-Since（请求中加时间，服务端确认有无更新）</h4>
-    <p>请求中加入上次请求时间，服务端返回1. 有修改（200）+资源，2. 无修改（304）
+<h4 id="lastmodified返回数据修改时间自己对比">LastModified(返回数据、修改时间自己对比)</h4>
+<p>可以通过读取响应的Last-ModifiedHeader，得到该资源上次被修改的日期。通过ExpireHeader来获知上一次请求所返回的内容是否有效。可以将资源以及上次修改时间一次缓存，然后将该日期与服务端返回的日期作对比，从而运用缓存策略对缓存资源以及图形界面布局进行更新。</p>
+<h4 id="if-modified-since请求中加时间服务端确认有无更新">If-Modified-Since（请求中加时间，服务端确认有无更新）</h4>
+<p>请求中加入上次请求时间，服务端返回1. 有修改（200）+资源，2. 无修改（304）<br />
 这样如果无更新则不加内容，减少了负载。</p>
-    <h2 id="指数退避算法">指数退避算法</h2>
-    <p>当服务端出现错误时，该模式以递增的时间间隔，对后续请求进行处理。通过这种方式，是的服务器在遇到过量请求时，仍能正常处理请求，并恢复到一个正常的状态。当恢复正常时，可以将轮训时间间隔恢复正常。
+<h2 id="指数退避算法">指数退避算法</h2>
+<p>当服务端出现错误时，该模式以递增的时间间隔，对后续请求进行处理。通过这种方式，是的服务器在遇到过量请求时，仍能正常处理请求，并恢复到一个正常的状态。当恢复正常时，可以将轮训时间间隔恢复正常。<br />
 Google中有一个该模式的实现：HttpRequest对象传递一个HttpBackOffUnsuccessfulResponseHandler</p>
-    <h2 id="轮询vs推送">轮询VS推送</h2>
-    <p>轮询：轮询请求，实时更新
-推送：由服务端主动联系客户端，告诉发生了哪些变化。Google Cloud Messaging框架
+<h2 id="轮询vs推送">轮询VS推送</h2>
+<p>轮询：轮询请求，实时更新<br />
+推送：由服务端主动联系客户端，告诉发生了哪些变化。Google Cloud Messaging框架<br />
 <strong>改进轮询机制</strong>：</p>
-  </li>
+<ol>
   <li>由用户决定轮询时间间隔</li>
   <li>使用AlarmManager实现轮询，这样系统会自动批量处理啊多个连接，减少无线电的活动时间。（有人说，这个不稳定）</li>
-  <li>应用一个退避指数算法，限制从服务端刷新数据的频率，减少非必要的链接。
-    <h2 id="所提供的api">所提供的API</h2>
-    <p>当希望从客户端传输数据到服务器或者反过来，但是并不需要立即完成时。该框架预期，应用程序使用ContentProvider存储本地数据，并准备被同步到服务器。它可以将任务添加到一个队列，并在满足我们所设定的要求时执行他们。
-ContentResolver.requestSync(), ContentResolver.setSyncAutonatically(),addPeriodicSync…等
+  <li>应用一个退避指数算法，限制从服务端刷新数据的频率，减少非必要的链接。</li>
+</ol>
+
+<h2 id="所提供的api">所提供的API</h2>
+<p>当希望从客户端传输数据到服务器或者反过来，但是并不需要立即完成时。该框架预期，应用程序使用ContentProvider存储本地数据，并准备被同步到服务器。它可以将任务添加到一个队列，并在满足我们所设定的要求时执行他们。<br />
+ContentResolver.requestSync(),   ContentResolver.setSyncAutonatically(),addPeriodicSync…等<br />
 验证器，同步适配器</p>
-    <h2 id="android-n-带来的新变化">Android N 带来的新变化</h2>
-    <p>####流量节省程序
+<h2 id="android-n-带来的新变化">Android N 带来的新变化</h2>
+<p>####流量节省程序
 ####后台优化
-显式BroadcastReceiver，组件有效期与创建的context一样
-隐式BroadcastReceiver，从安装时就会注册，哪怕程序当前并不在运行中，系统也会启动应用程序，并发送对应的广播。
-AndroidN 中，该action只会被以显示方式注册的组件所接受。可以再收到通知后，从后台发起一个请求，以更新获取内容中的数据。
-GcmNetworkManager,注说已过期，目前用Firebase Cloud Messaging 来替代。?
-#调试工具
-主要检查3个方面：</p>
-  </li>
+显式BroadcastReceiver，组件有效期与创建的context一样<br />
+隐式BroadcastReceiver，从安装时就会注册，哪怕程序当前并不在运行中，系统也会启动应用程序，并发送对应的广播。<br />
+AndroidN 中，该action只会被以显示方式注册的组件所接受。可以再收到通知后，从后台发起一个请求，以更新获取内容中的数据。<br />
+GcmNetworkManager,注说已过期，目前用Firebase Cloud Messaging 来替代。?</p>
+<h1 id="调试工具">调试工具</h1>
+<p>主要检查3个方面：</p>
+<ol>
   <li>改变网络速度和延迟</li>
   <li>以第三方视角，对请求属性进行分析</li>
-  <li>确保再应用程序的生命周期，没有执行非必要的传输
-    <h2 id="androidn网络adb工具">AndroidN网络ADB工具</h2>
-    <h2 id="filddler">Filddler</h2>
-    <p>可以拦截请求并更改响应。</p>
-    <h2 id="wireshank">WireShank</h2>
-    <p>可以用蓝牙、usb或者wifi热点来连接设备</p>
-    <h2 id="application-resource-optimizer">Application Resource Optimizer</h2>
-    <p>用于帮助我们找出应用程序网络策略中有带改进的地方。</p>
-    <h2 id="网络衰减">网络衰减</h2>
-    <h2 id="模拟网络加速和延迟">模拟网络加速和延迟</h2>
-    <p>Fiddler还可以改变网络延迟， network link condition， network attenuator</p>
-  </li>
+  <li>确保再应用程序的生命周期，没有执行非必要的传输</li>
 </ol>
+
+<h2 id="androidn网络adb工具">AndroidN网络ADB工具</h2>
+<h2 id="filddler">Filddler</h2>
+<p>可以拦截请求并更改响应。</p>
+<h2 id="wireshank">WireShank</h2>
+<p>可以用蓝牙、usb或者wifi热点来连接设备</p>
+<h2 id="application-resource-optimizer">Application Resource Optimizer</h2>
+<p>用于帮助我们找出应用程序网络策略中有带改进的地方。</p>
+<h2 id="网络衰减">网络衰减</h2>
+<h2 id="模拟网络加速和延迟">模拟网络加速和延迟</h2>
+<p>Fiddler还可以改变网络延迟， network link condition， network attenuator</p>
 
       <div class="page-footer">
         <div class="page-share">
@@ -209,9 +213,9 @@ GcmNetworkManager,注说已过期，目前用Firebase Cloud Messaging 来替代�
         </div>
         <div class="page-tag">
           
-            <a href="/tags#Android" class="tag">&#35; Android</a>
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
           
-            <a href="/tags#性能" class="tag">&#35; 性能</a>
+            <a href="/blog/tags#性能" class="tag">&#35; 性能</a>
           
         </div>
       </div>

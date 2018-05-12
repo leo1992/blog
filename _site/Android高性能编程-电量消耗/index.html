@@ -25,7 +25,7 @@
     <meta content="http://localhost:4000/about/" property="article:author">
   
   
-    <meta content="http://localhost:4000/assets/img/blog_head_2.jpeg" property="og:image">
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_2.jpeg" property="og:image">
   
   
     
@@ -52,17 +52,17 @@
 ">
   
   
-    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_2.jpeg">
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_2.jpeg">
   
 
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
 	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#263959">
 	<!-- Windows Phone -->
@@ -73,9 +73,9 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
 	<!-- Styles -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
 </head>
 
 <body>
@@ -85,7 +85,7 @@
   <header>
     <div class="about">
       <div class="cover-author-image">
-        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
       <p>Exploring.</p>
@@ -110,7 +110,7 @@
   <div class="page-content">
     
     <div class="page-cover-image">
-      <img class="page-image" src=/assets/img/blog_head_2.jpeg alt="《Android高性能编程》-电量消耗">
+      <img class="page-image" src=/blog/assets/img/blog_head_2.jpeg alt="《Android高性能编程》-电量消耗">
     </div> <!-- End Page Cover Image -->
     
     <div class="wrap-content">
@@ -118,19 +118,19 @@
         <h1 class="page-title">《Android高性能编程》-电量消耗</h1>
         <div class="page-date"><span>2018, May 09&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <p>#分析
-<strong>检测电池电量和充电状态</strong>
+      <h1 id="分析">分析</h1>
+<p><strong>检测电池电量和充电状态</strong><br />
 BatteryManager会规律的发送Intent，可以捕获该content获知电池状态
-Intent.ACTION_BATTERY_CHANGED
-如果设备正在充电，我们可以最大限度地发挥所有操作。BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL
-<strong>识别充电状态的变化</strong>
-接收上面的广播
-注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED
-获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS)
-<strong>确定及相应电池电量的变化</strong>
-level: intent.getIntentExtra(BatteryManager.EXTRA_LEVEL)
-scale: intent.getIntentExtra(BatteryManager.EXTRA_SCALE)
-用电比例：level/scale
+Intent.ACTION_BATTERY_CHANGED<br />
+如果设备正在充电，我们可以最大限度地发挥所有操作。  BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL<br />
+<strong>识别充电状态的变化</strong><br />
+接收上面的广播<br />
+注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED<br />
+获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS)<br />
+<strong>确定及相应电池电量的变化</strong><br />
+level: intent.getIntentExtra(BatteryManager.EXTRA_LEVEL)<br />
+scale: intent.getIntentExtra(BatteryManager.EXTRA_SCALE)<br />
+用电比例：level/scale<br />
 注册广播 ACTION_POWER_LOW, ACTION_POWER_OKAY</p>
 <h1 id="doze和appstandby23">Doze和AppStandby(23)</h1>
 <p><strong>Doze模式：&gt;23默认开启。</strong>可以针对某个应用程序关闭</p>
@@ -139,17 +139,18 @@ scale: intent.getIntentExtra(BatteryManager.EXTRA_SCALE)
   <li>WekeLock会被忽略</li>
   <li>AlarmManager类定制的闹铃计划会被忽略</li>
   <li>应用程序不能扫描wifi</li>
-  <li>同步适配器以及任务调度会被禁止
-#避免无用的网络请求
-在执行任何请求之前，我们都应该让应用程序检查网络连接是否可用，减少电量的一种手段。要避免在非WIFI环境下，下载大数据块。
-wifi速度（wifiManager.getConnectionInfo info.getLinkSpeed）
-3G/4G 可以通过网络下载一些数据，然后建立起一个关系，计算近似值
-#按需对待BroadcastReceiver
-可以根据当前手机状态，动态激活/失效BroadcastReceiver。比如如果网路连接丢失，可能只希望等待网络连接成功。
-#网络
-原则：预获取数据，减少连接数量，批量处理和调度，使用GCM, 使用缓存机制，压缩信息
-批量处理和调度有3个可用API: GCM, JobScheduler, Sync Adapter,</li>
+  <li>同步适配器以及任务调度会被禁止</li>
 </ol>
+
+<h1 id="避免无用的网络请求">避免无用的网络请求</h1>
+<p>在执行任何请求之前，我们都应该让应用程序检查网络连接是否可用，减少电量的一种手段。要避免在非WIFI环境下，下载大数据块。<br />
+wifi速度（wifiManager.getConnectionInfo info.getLinkSpeed）<br />
+3G/4G 可以通过网络下载一些数据，然后建立起一个关系，计算近似值</p>
+<h1 id="按需对待broadcastreceiver">按需对待BroadcastReceiver</h1>
+<p>可以根据当前手机状态，动态激活/失效BroadcastReceiver。比如如果网路连接丢失，可能只希望等待网络连接成功。</p>
+<h1 id="网络">网络</h1>
+<p>原则：预获取数据，减少连接数量，批量处理和调度，使用GCM, 使用缓存机制，压缩信息
+批量处理和调度有3个可用API: GCM, JobScheduler, Sync Adapter,</p>
 
       <div class="page-footer">
         <div class="page-share">
@@ -159,9 +160,9 @@ wifi速度（wifiManager.getConnectionInfo info.getLinkSpeed）
         </div>
         <div class="page-tag">
           
-            <a href="/tags#Android" class="tag">&#35; Android</a>
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
           
-            <a href="/tags#性能" class="tag">&#35; 性能</a>
+            <a href="/blog/tags#性能" class="tag">&#35; 性能</a>
           
         </div>
       </div>

@@ -25,7 +25,7 @@
     <meta content="http://localhost:4000/about/" property="article:author">
   
   
-    <meta content="http://localhost:4000/assets/img/blog_head_10.jpeg" property="og:image">
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_10.jpeg" property="og:image">
   
   
     
@@ -52,17 +52,17 @@
 ">
   
   
-    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_10.jpeg">
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_10.jpeg">
   
 
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
 	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#263959">
 	<!-- Windows Phone -->
@@ -73,9 +73,9 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
 	<!-- Styles -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
 </head>
 
 <body>
@@ -85,7 +85,7 @@
   <header>
     <div class="about">
       <div class="cover-author-image">
-        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
       <p>Exploring.</p>
@@ -110,7 +110,7 @@
   <div class="page-content">
     
     <div class="page-cover-image">
-      <img class="page-image" src=/assets/img/blog_head_10.jpeg alt="《Android高性能编程》打造布局笔记">
+      <img class="page-image" src=/blog/assets/img/blog_head_10.jpeg alt="《Android高性能编程》打造布局笔记">
     </div> <!-- End Page Cover Image -->
     
     <div class="wrap-content">
@@ -118,7 +118,7 @@
         <h1 class="page-title">《Android高性能编程》打造布局笔记</h1>
         <div class="page-date"><span>2018, Apr 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <p>#预览</p>
+      <h1 id="预览">预览</h1>
 
 <p>目标是要保证16.667毫秒内顺利刷新，如果被绘制次数太多，占用过多CPU资源，帧会被丢弃。</p>
 
@@ -134,47 +134,42 @@
 
 <p><strong>多窗口模式</strong>：android N开始。自由动态模式，画中画模式。注意生命周期。可以通过Acitivity的以下属性进行相关配置(ResizeableAcitivity和supportsPictureInPicture)</p>
 
-<p>#最佳实践
-##布局层级管理
-过程：测量-&gt;摆放。</p>
+<h1 id="最佳实践">最佳实践</h1>
+<h2 id="布局层级管理">布局层级管理</h2>
+<p>过程：测量-&gt;摆放。</p>
 
 <p>当某个View的属性发生变化，View自身会调用invalidation方法，自底向上传播该请求，直到根布局。所以布局层级不近会影响开始的绘制，在整个界面的交互中，也会有影响。扁平化很重要。</p>
 
-<p>##布局复用</p>
-<include>
+<h2 id="布局复用">布局复用</h2>
+<p>&lt;include&gt;</p>
 
-<merge>系统会自动忽略这个表现，直接放入布局文件中。在调用inflate时，必须为其提供父容器
+<p>&lt;merge&gt;系统会自动忽略这个表现，直接放入布局文件中。在调用inflate时，必须为其提供父容器</p>
 
-<ViewStub>关联一个布局文件，但直到运行时，调用inflate或着setvisibility才会被绘制，之后会被实例化的布局替代，不再能被访问，应使用inflateid。可以通过它延迟部分view的加载，缩短首次加载时间，减少一定的内存分配。
+<p>&lt;ViewStub&gt;关联一个布局文件，但直到运行时，调用inflate或着setvisibility才会被绘制，之后会被实例化的布局替代，不再能被访问，应使用inflateid。可以通过它延迟部分view的加载，缩短首次加载时间，减少一定的内存分配。</p>
 
-##Adapterder的视图和回收
-种类: ArrayAdapter, CursorAdapter, SimpleAdapter 
+<h2 id="adapterder的视图和回收">Adapterder的视图和回收</h2>
+<p>种类: ArrayAdapter, CursorAdapter, SimpleAdapter</p>
 
-ViewHodler：用来解决频繁调用findviewbyid会消耗大量计算问题，它是一个静态类，用于存储布局中的view，可以再后续被重复使用。RecyclerView将viewholder的使用标准化了，它会自动通过内建的viewholder机制来实现控件的回收和复用。
+<p>ViewHodler：用来解决频繁调用findviewbyid会消耗大量计算问题，它是一个静态类，用于存储布局中的view，可以再后续被重复使用。RecyclerView将viewholder的使用标准化了，它会自动通过内建的viewholder机制来实现控件的回收和复用。</p>
 
-##自定义视图和布局
-方式：包装成一个可重用对象；覆盖view.onDraw方法
+<h2 id="自定义视图和布局">自定义视图和布局</h2>
+<p>方式：包装成一个可重用对象；覆盖view.onDraw方法</p>
 
-注意：1. 如果再View.onMeasure方法中调用view.setMeasuredDimension方法，会抛出异常；2. 每当view的边界发生变化，或者它占据的空间发生变化而需要被再次测量时，需要调用view.requestLayout方法。3. 避免再ondraw中分配内存是很重要的
+<p>注意：1. 如果再View.onMeasure方法中调用view.setMeasuredDimension方法，会抛出异常；2. 每当view的边界发生变化，或者它占据的空间发生变化而需要被再次测量时，需要调用view.requestLayout方法。3. 避免再ondraw中分配内存是很重要的</p>
 
-##屏幕缩放
-注意适配。dp
+<h2 id="屏幕缩放">屏幕缩放</h2>
+<p>注意适配。dp</p>
 
-##调试工具
-design窗口：component tree
+<h2 id="调试工具">调试工具</h2>
+<p>design窗口：component tree</p>
 
-hierachy view: tree view; view properties, tree overview, layoutview
+<p>hierachy view: tree view; view properties, tree overview, layoutview</p>
 
-设备上的调试工具
+<p>设备上的调试工具</p>
 
-systrace
+<p>systrace</p>
 
-
-
-
-
-在写布局文件时，有些情况下match_parent与wrap_content都可实现需求，这时可优先使用match_parent，熟悉View的measure就会知道，match_parent的实现逻辑比wrap_content要简单很多。
-</ViewStub></merge></include>
+<p>在写布局文件时，有些情况下match_parent与wrap_content都可实现需求，这时可优先使用match_parent，熟悉View的measure就会知道，match_parent的实现逻辑比wrap_content要简单很多。</p>
 
       <div class="page-footer">
         <div class="page-share">
@@ -184,9 +179,9 @@ systrace
         </div>
         <div class="page-tag">
           
-            <a href="/tags#Android" class="tag">&#35; Android</a>
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
           
-            <a href="/tags#性能" class="tag">&#35; 性能</a>
+            <a href="/blog/tags#性能" class="tag">&#35; 性能</a>
           
         </div>
       </div>

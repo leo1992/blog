@@ -25,7 +25,7 @@
     <meta content="http://localhost:4000/about/" property="article:author">
   
   
-    <meta content="http://localhost:4000/assets/img/blog_head_6.jpeg" property="og:image">
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_6.jpeg" property="og:image">
   
   
     
@@ -50,17 +50,17 @@
 ">
   
   
-    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/blog_head_6.jpeg">
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_6.jpeg">
   
 
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
 	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#263959">
 	<!-- Windows Phone -->
@@ -71,9 +71,9 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
 	<!-- Styles -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
 </head>
 
 <body>
@@ -83,7 +83,7 @@
   <header>
     <div class="about">
       <div class="cover-author-image">
-        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
       <p>Exploring.</p>
@@ -108,7 +108,7 @@
   <div class="page-content">
     
     <div class="page-cover-image">
-      <img class="page-image" src=/assets/img/blog_head_6.jpeg alt="apk瘦身整理">
+      <img class="page-image" src=/blog/assets/img/blog_head_6.jpeg alt="apk瘦身整理">
     </div> <!-- End Page Cover Image -->
     
     <div class="wrap-content">
@@ -117,41 +117,41 @@
         <div class="page-date"><span>2018, Apr 19&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
       <ol>
-  <li>首先要能分析apk的组成，用androidStudio的build—&gt; analyze apk能够分析出apk的大小组成，基本上比较多的是方法和资源文件，但是我们项目中的so库就占了40%，将近60M，资源文件不是很多，只有12M，并不是大头。
+  <li>首先要能分析apk的组成，用androidStudio的build—&gt; analyze apk能够分析出apk的大小组成，基本上比较多的是方法和资源文件，但是我们项目中的so库就占了40%，将近60M，资源文件不是很多，只有12M，并不是大头。<br />
 （图片待放 ，来源：https://juejin.im/post/592cfe9c0ce463006b3fb1f5）</li>
   <li>
-    <p>尝试过shrinkResource（能帮住压缩合并资源，并不能移除资源文件）减少了不到2M，而且不确定是不是和开启minifyEnabled有关。
-会有一些问题，比如网上提到表情图片用符号匹配的会找不到图片。
-对项目中的影响不确定，需要运行并且查看删减的资源确认（Gradle Console 输出日志remove unused resource，resource.txt 在 /build/outputs/mapping/release/ 中）。
-resource shrinking需要和code shrinking一起使用，要开启minfyEnabe，目前还不支持移除定义在values/目录下的资源文件(strings,dimensions,styles,colors)。
-如果我们希望保留或丢弃特定的资源，需要在项目中创建一个XML文件，并使用resources标签，并指定每个资源保存在工具中tools:keep和每个资源在工具中丢弃 tools:discard。
+    <p>尝试过shrinkResource（能帮住压缩合并资源，并不能移除资源文件）减少了不到2M，而且不确定是不是和开启minifyEnabled有关。<br />
+会有一些问题，比如网上提到表情图片用符号匹配的会找不到图片。<br />
+对项目中的影响不确定，需要运行并且查看删减的资源确认（Gradle Console 输出日志remove unused resource，resource.txt 在 /build/outputs/mapping/release/ 中）。<br />
+resource shrinking需要和code shrinking一起使用，要开启minfyEnabe，目前还不支持移除定义在values/目录下的资源文件(strings,dimensions,styles,colors)。<br />
+如果我们希望保留或丢弃特定的资源，需要在项目中创建一个XML文件，并使用resources标签，并指定每个资源保存在工具中tools:keep和每个资源在工具中丢弃 tools:discard。<br />
 它可以准确地确定资源使用，如果你使用getResources().getIdentifier动态获取指定资源的Id，在默认情况下，这样资源具有匹配名称的格式为潜在的使用，无法去除。</p>
   </li>
   <li>
-    <p>项目中的proguardrule，在学习高性能变成时，发现在性能上有很多优势，除了让代码不容易可读，也有助于缩小apk大小，具体的比如优化枚举，移除无用的类、字段方法等。甚至能够检测和移除app来自代码库的那些没有使用的类、字段、方法和属性。
-有两个文件：“proguard-android-optimize.txt” 和 “proguard-android.txt”，项目中采用的是proguard-android.txt，前者的策略更为激进，采用了optimizations过滤算法，包括其他在字节码一级（方法内和方法间）执行分析的优化，以进一步减小 APK 大小和帮助提高其运行速度。带优化的文件中警告了会带来风险，试了一下编译失败，暂时不深究。
+    <p>项目中的proguardrule，在学习高性能变成时，发现在性能上有很多优势，除了让代码不容易可读，也有助于缩小apk大小，具体的比如优化枚举，移除无用的类、字段方法等。甚至能够检测和移除app来自代码库的那些没有使用的类、字段、方法和属性。<br />
+有两个文件：“proguard-android-optimize.txt” 和 “proguard-android.txt”，项目中采用的是proguard-android.txt，前者的策略更为激进，采用了optimizations过滤算法，包括其他在字节码一级（方法内和方法间）执行分析的优化，以进一步减小 APK 大小和帮助提高其运行速度。带优化的文件中警告了会带来风险，试了一下编译失败，暂时不深究。<br />
 Code shrinking（minifyEnabled）是一个Android Plugin for Gradle，从您的打包的应用程序中删除未使用的资源，包括代码库中的未使用的资源。它工作在与代码缩小，这样，一旦未使用的代码已被删除，任何资源不再引用可以安全地删除。</p>
   </li>
   <li>
-    <p>毕竟工程大需要长期维护，所以废弃的资源与其依赖打包的优化，不如直接删除，所以还是采用传统的lint检测的方式，发现了大量废弃资源，然后用quickfix，运行很慢，等了一个小时，还在findusage，需要进一步查找原因，因为影响工作所以暂时不用。同1要注意getResources().getIdentifier获取资源的方式。
+    <p>毕竟工程大需要长期维护，所以废弃的资源与其依赖打包的优化，不如直接删除，所以还是采用传统的lint检测的方式，发现了大量废弃资源，然后用quickfix，运行很慢，等了一个小时，还在findusage，需要进一步查找原因，因为影响工作所以暂时不用。同1要注意getResources().getIdentifier获取资源的方式。<br />
 然后发现，其实可以直接用工具中的 Refactor-remove unused resource 实现。尴尬</p>
   </li>
   <li>
-    <p>有文章中建议webp 而不是 png 图片，webp 图片有更小的体积，图片质量还没有什么损失。前提是项目的 minimum version 为 18，我们项目中最低兼容版本是15所以暂时没有考虑。
-还提到SVG图片
-另外还提到一些UI效果可以使用代码渲染替代图片资源。（未实践）
-使用tinypng优化Android的资源图片
-assets资源压缩，使用7zip或者lzma压缩方式最高
-非alpha的图转换成jpg形式
-用代码代替图片
-Vector Drawables
+    <p>有文章中建议webp 而不是 png 图片，webp 图片有更小的体积，图片质量还没有什么损失。前提是项目的 minimum version 为 18，我们项目中最低兼容版本是15所以暂时没有考虑。<br />
+还提到SVG图片<br />
+另外还提到一些UI效果可以使用代码渲染替代图片资源。（未实践）<br />
+使用tinypng优化Android的资源图片<br />
+assets资源压缩，使用7zip或者lzma压缩方式最高<br />
+非alpha的图转换成jpg形式<br />
+用代码代替图片<br />
+Vector Drawables<br />
 在需要的时候使用9-patch资源</p>
   </li>
   <li>其他的比如，ndk.abiFilters过滤掉不需要的 ABI 类型的 .so 文件；
-动态插件化；
-resConfigs指定最终打包到 APK 中的资源；
-使用APK Splits构建APK，构建一些形式的多个APK，屏幕密度，ABI；
-使用多版本的APK，针对不同的设备配置特征(https://developer.android.com/google/play/publishing/multiple-apks.html#Concepts); 
+动态插件化；<br />
+resConfigs指定最终打包到 APK 中的资源；<br />
+使用APK Splits构建APK，构建一些形式的多个APK，屏幕密度，ABI；<br />
+使用多版本的APK，针对不同的设备配置特征(https://developer.android.com/google/play/publishing/multiple-apks.html#Concepts); <br />
 使用ReDex优化（https://code.facebook.com/posts/998080480282805/open-sourcing-redex-making-android-apps-smaller-and-faster/）</li>
 </ol>
 
@@ -164,7 +164,7 @@ resConfigs指定最终打包到 APK 中的资源；
 <p>ProGuard由shrink、optimize、obfuscate和preverify四个步骤组成，每个步骤都是可选的，需要哪些步骤都可以在脚本中配置。 参见ProGuard官方介绍。</p>
 
 <p>压缩(Shrink): 侦测并移除代码中无用的类、字段、方法、和特性(Attribute)。
-优化(Optimize): 分析和优化字节码。
+优化(Optimize): 分析和优化字节码。<br />
 混淆(Obfuscate): 使用a、b、c、d这样简短而无意义的名称，对类、字段和方法进行重命名。</p>
 
 <p>预检(Preveirfy): 在java平台上对处理后的代码进行预检。</p>
@@ -176,11 +176,11 @@ resConfigs指定最终打包到 APK 中的资源；
 <p>工具
 上一章节提到的是优化的思路，本章节整理在优化过程中使用到的工具。</p>
 
-<p>TinyPNG：https://tinypng.com/ ，支持对 PNG/JPEG 文件做压缩处理，效果不错。
-pngquant：https://pngquant.org/ ， 支持 PNG 压缩，有时候 TinyPNG 处理过的图片噪点会稍多，可以考虑用 pngquant 来处理。
-ImageOptim：https://imageoptim.com/mac ，支持压缩 PNG/JPEG/GIF ，而且效果显著，可以看看这里 https://www.diycode.cc/topics/496 ，遗憾的是它只支持 Mac ，Windows 党很难过。
-mozjpeg：https://imageoptim.com/mozjpeg ， 用于 PNG 转 JPEG、JPEG 压缩，效果很好。
-Adobe Audition CC：http://www.adobe.com/cn/products/audition.html ，Adobe 出品，支持对音频的采样率，分辨率和声道数目做更改，以此达到裁剪音频的目的（采样率，分辨率和声道数目是音频文件格式的关键参数，决定着音频文件的大小）。。</p>
+<p>TinyPNG：https://tinypng.com/ ，支持对 PNG/JPEG 文件做压缩处理，效果不错。<br />
+pngquant：https://pngquant.org/ ， 支持 PNG 压缩，有时候 TinyPNG 处理过的图片噪点会稍多，可以考虑用 pngquant 来处理。<br />
+ImageOptim：https://imageoptim.com/mac ，支持压缩 PNG/JPEG/GIF ，而且效果显著，可以看看这里 https://www.diycode.cc/topics/496 ，遗憾的是它只支持 Mac ，Windows 党很难过。<br />
+mozjpeg：https://imageoptim.com/mozjpeg ， 用于 PNG 转 JPEG、JPEG 压缩，效果很好。<br />
+Adobe Audition CC：http://www.adobe.com/cn/products/  audition.html ，Adobe 出品，支持对音频的采样率，分辨率和声道数目做更改，以此达到裁剪音频的目的（采样率，分辨率和声道数目是音频文件格式的关键参数，决定着音频文件的大小）。。</p>
 
       <div class="page-footer">
         <div class="page-share">
@@ -190,7 +190,7 @@ Adobe Audition CC：http://www.adobe.com/cn/products/audition.html ，Adobe 出�
         </div>
         <div class="page-tag">
           
-            <a href="/tags#重构" class="tag">&#35; 重构</a>
+            <a href="/blog/tags#重构" class="tag">&#35; 重构</a>
           
         </div>
       </div>

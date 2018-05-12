@@ -22,7 +22,7 @@
   
   
   
-    <meta content="http://localhost:4000/assets/img/headicon.jpg" property="og:image">
+    <meta content="http://localhost:4000/blog/assets/img/headicon.jpg" property="og:image">
   
   
   
@@ -41,17 +41,17 @@
 ">
   
   
-    <meta name="twitter:image:src" content="http://localhost:4000/assets/img/headicon.jpg">
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/headicon.jpg">
   
 
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
-	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
 	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#263959">
 	<!-- Windows Phone -->
@@ -62,9 +62,9 @@
 	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
 	<!-- Styles -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
 </head>
 
 <body>
@@ -74,7 +74,7 @@
   <header>
     <div class="about">
       <div class="cover-author-image">
-        <a href="/"><img src="/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
       <p>Exploring.</p>
@@ -98,11 +98,11 @@
   
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_1.jpeg)" href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_1.jpeg)" href="/blog/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/">《设计模式》笔记（未完）</a></h2>
-    <p>策略模式 观察者模式 装饰者模式 工厂模式 简单工厂 简单工厂模式是用一个工厂来创建对象。简单工厂抽象了产品对象（也可以不抽象）。工厂是一个直接引用的类，用来直接根据指定的参数来创建不同类型的对象。（一般用到的也就只是简单工厂了） 工厂模式 工厂模式是通过不同类型的工厂创建不同的对象。工厂模式抽象了产品对象和工厂，对外使用抽象的工厂，而不同产品的区分是由特定的工厂来决定的。特定的工厂可以按照简单工厂去实现。工厂生产出来的直接是面向对象的成品，只能创建一个具体产品类的实例。 抽象工厂模式 抽象工厂是为创建不同的产品族。抽象工厂抽象的产品族，(抽象中已经定义好了要生产哪些产品)，工厂生产出来的是面向对象产品的组成部分，所以工厂产品生成也是可以抽象的。 具体工厂类可以创建多个产品，这些产品有一定的依赖关系。增加某一个产品的不同类型容易，但是难以增加新的类型的产品。比如可以增加原料的不同类型，但是增加新的原料不容易。 单件模式 简单单例 private static...</p>
+    <h2 class="post-title"><a href="/blog/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/">《设计模式》笔记（未完）</a></h2>
+    <p>最近正在学习《HeadFirst设计模式》，以前也学过设计模式，并在代码重构中使用，但是经过工作这两年，感觉理解不一样了，真心觉得设计模式应该是软件开发的基础必备知识，不管对于理解源码，还是仅仅写出合理结构的代码，都是必不可少的。 # 策略模式 观察者模式 装饰者模式 工厂模式 简单工厂 简单工厂模式是用一个工厂来创建对象。简单工厂抽象了产品对象（也可以不抽象）。工厂是一个直接引用的类，用来直接根据指定的参数来创建不同类型的对象。（一般用到的也就只是简单工厂了） 工厂模式 工厂模式是通过不同类型的工厂创建不同的对象。工厂模式抽象了产品对象和工厂，对外使用抽象的工厂，而不同产品的区分是由特定的工厂来决定的。特定的工厂可以按照简单工厂去实现。工厂生产出来的直接是面向对象的成品，只能创建一个具体产品类的实例。 抽象工厂模式 抽象工厂是为创建不同的产品族。抽象工厂抽象的产品族，(抽象中已经定义好了要生产哪些产品)，工厂生产出来的是面向对象产品的组成部分，所以工厂产品生成也是可以抽象的。 具体工厂类可以创建多个产品，这些产品有一定的依赖关系。增加某一个产品的不同类型容易，但是难以增加新的类型的产品。比如可以增加原料的不同类型，但是增加新的原料不容易。 单件模式 简单单例...</p>
     <span class="post-date">2018, May 10&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">2 minute read</span>
   </div>
@@ -110,11 +110,11 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_2.jpeg)" href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_2.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/">《Android高性能编程》-电量消耗</a></h2>
-    <p>#分析 检测电池电量和充电状态 BatteryManager会规律的发送Intent，可以捕获该content获知电池状态 Intent.ACTION_BATTERY_CHANGED 如果设备正在充电，我们可以最大限度地发挥所有操作。BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL 识别充电状态的变化 接收上面的广播 注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED 获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS) 确定及相应电池电量的变化...</p>
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/">《Android高性能编程》-电量消耗</a></h2>
+    <p>分析 检测电池电量和充电状态 BatteryManager会规律的发送Intent，可以捕获该content获知电池状态 Intent.ACTION_BATTERY_CHANGED 如果设备正在充电，我们可以最大限度地发挥所有操作。 BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL 识别充电状态的变化 接收上面的广播 注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED 获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS)...</p>
     <span class="post-date">2018, May 09&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
@@ -122,11 +122,11 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_3.jpeg)" href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_3.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">《Android高性能编程》-提升技能的小技巧</a></h2>
-    <p>#位图 加载 BitMap.createScaledBitmap()方法在创建一个新的小图像之前，都会读取整个原图，造成了非必要的内存分配。一旦我们明确了图像要被缩放的分辨率，可以利用BitmapFactory.Options类，通过设置参数，高效地缩放图像。 BitmapRegionDecode类可以得到部分图像 流程：（file可以换为bytearray, resource, stream等） 加载（不处理位图）injustdecodebounds = true 读取图片分辨率 decodefile 计算比率 outHeight/desiredheight等 设置属性...</p>
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">《Android高性能编程》-提升技能的小技巧</a></h2>
+    <p>位图 加载 BitMap.createScaledBitmap()方法在创建一个新的小图像之前，都会读取整个原图，造成了非必要的内存分配。一旦我们明确了图像要被缩放的分辨率，可以利用BitmapFactory.Options类，通过设置参数，高效地缩放图像。 BitmapRegionDecode类可以得到部分图像 流程：（file可以换为bytearray, resource, stream等） 加载（不处理位图）injustdecodebounds = true 读取图片分辨率 decodefile 计算比率 outHeight/desiredheight等 设置属性...</p>
     <span class="post-date">2018, Apr 28&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
@@ -134,11 +134,11 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_4.jpeg)" href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_4.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/">《Android高性能编程》-网络</a></h2>
-    <p>#预览 HttpClient, URLConnection 协议：Http,https, ftp, File, Jar 方法：GET, POST(connection.setDoOutput),其余通过 HttpURLConnection.setRequestMethod() 头部: URLConnection.setRequestProperty/ getHeaderFields 超时: 链接超时；读取超时...</p>
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/">《Android高性能编程》-网络</a></h2>
+    <p>预览 HttpClient, URLConnection 协议：Http,https, ftp, File, Jar 方法：GET, POST(connection.setDoOutput),其余通过 HttpURLConnection.setRequestMethod() 头部: URLConnection.setRequestProperty/ getHeaderFields 超时: 链接超时；读取超时...</p>
     <span class="post-date">2018, Apr 27&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
@@ -146,10 +146,10 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_5.jpeg)" href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_5.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">《Android高性能编程》-多线程</a></h2>
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">《Android高性能编程》-多线程</a></h2>
     <p>预览 线程基础 Thread.run()方法并不会创建一个新线程，start()才能开启新线程 Thread.join()方法可以在它的子线程完成时恢复执行状态，在不知道要执行多久时可以调用。（一般情况不会恢复么，或者有没有回调什么的） 线程安全：一个多线程应用程序再共享对象上没有什么并发操作。 每个对象都有一个监视器，线程可以锁定或者解锁它，监视器确保同一时间只会被锁住一次。 Android多线程环境 进程的生命周期：Foreground, visible（非前台但可见）, service, background, empty（不包含任何组件的进程，它被用作缓存的目的，以加快应用程序未来的恢复） 进程名以 ：开始代表为该应用的私有进程，以小写字母开始为可共享进程。 Android应用程序线程...</p>
     <span class="post-date">2018, Apr 22&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
@@ -158,10 +158,10 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_8.jpeg)" href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_8.jpeg)" href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">《重构-改善既有代码的设计》-方法部分笔记</a></h2>
+    <h2 class="post-title"><a href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">《重构-改善既有代码的设计》-方法部分笔记</a></h2>
     <p>提炼函数：需要注释才能理解的代码，以更好的方式昭示代码意图 内联函数：内部代码和函数名称同样清晰易读 内联临时变量：某个临时变量被赋予某个函数的返回值，（改为final确定时候只被用过一次） 以查询取代临时变量：使得同一个类中其他部分也可以获取临时变量中计算的信息 引入注释性变量：表达式复杂难以解读。将复杂表达式的结果放进一个临时变量（多个条件&amp;&amp;   这样） 分解临时变量：某个临时变量被赋值超过一次，意味着承担了多个责任。 移除对参数的赋值：代码对参数复制，以一个临时变量取代该参数的位置 以函数对象取代函数：有一个大型函数，其中对局部变量的使用使你无法提炼函数。将这个函数放进一个单独对象，局部变量就成了对象中的字段，就可以分解为小函数，这些小函数可以共用这些字段。 替换算法：有更好的算法 搬移函数：某个函数与另一类进行更多交流 搬移字段: 某个字段被另一类更多用到 提炼类：某个类做个多个类应该做的事。（是改善并发程序的一种常用技术，因为它使你可以为提炼后的两个类分别加锁）...</p>
     <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
@@ -170,10 +170,10 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_9.jpeg)" href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_9.jpeg)" href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">《重构-改善既有代码的设计》-坏味道部分笔记</a></h2>
+    <h2 class="post-title"><a href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">《重构-改善既有代码的设计》-坏味道部分笔记</a></h2>
     <p>重复代码 【提炼函数，上移函数，提炼模板方法，提炼类】 过长函数 【提炼函数，用查询替代临时变量，引入参数对象，分解条件表达式】 过大的类 【提炼类，提炼子类，提炼接口，用对象取代数据值】 过长参数列表 【用方法替换参数，引入参数对象，保持对象完整】 发散式变化：类经常因为不同的原因在不同的方向上发生变化。（一个类受多种变化的影响） 【提炼类】 霰弹式修改：类的某种改动都必须在不同的类中做许多小修改。（一种变化引发多个类的修改） 【移动方法，移动数据，将类内联化】 依恋情结：函数对某个类的兴趣高过对自己所处类的兴趣 【移动方法，移动数据，提炼方法】 数据泥团：总是绑在一起的数据...</p>
     <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
@@ -182,11 +182,11 @@
 
 <article class="post">
   
-    <a class="post-thumbnail" style="background-image: url(/assets/img/blog_head_10.jpeg)" href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/"></a>
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_10.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/"></a>
   
   <div class="post-content">
-    <h2 class="post-title"><a href="/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/">《Android高性能编程》打造布局笔记</a></h2>
-    <p>#预览 目标是要保证16.667毫秒内顺利刷新，如果被绘制次数太多，占用过多CPU资源，帧会被丢弃。 视图最顶层的视图叫做DecorView，一般要避免绘制这个默认背景，方法是，主题设为Theme.NoBackground，或者 activity中添加android:windowbackground属性并设为null 屏幕撕裂：相邻的不同两帧被绘制到同一个屏幕上。原因是，绘制帧的数据源是单向的，新的一帧会覆盖上一帧，然而只有一个缓存区可读取。当屏幕要刷新时，读取的帧处于未完成状态，就是出现撕裂。解决方案：双缓冲区。 垂直同步：保证从缓冲区从后台到前台的过程中出现屏幕更新。它限制屏幕的绘制，必须等到垂直同步的信号到达后，才会输出影像信号。但是，当帧速率小于刷新率时，会出现延迟和卡顿。 硬件加速：invalidation-[storing]-redrawing. Storing过程中，只有需要被更新的视图才进行重绘（更新存储），并且在重绘之后被存储起来（离屏位图），以便使用，从而减少运行时的计算量。在redrawing阶段，用存储的绘图进行更新。（4.x以后的手机一般都支持硬件加速）。提高动画性能：在动画启动前，开启硬件加速，在结束时，立即关闭，以释放被占用的显存。每当让View执行一个Alpha动画，或者仅仅设一个Alpha值时，都可以考虑使用硬件加速。6.0以后会被自动应用。 过渡绘制：哪怕没有被显示，一样需要消耗相应的计算和内存，并且影响着性能。对背景使用9-patches可以在一定程度上减少过渡绘制，在9-patches图中，被其他视图所遮盖的部分，会被adnroid2d渲染器优化为透明。 多窗口模式：android N开始。自由动态模式，画中画模式。注意生命周期。可以通过Acitivity的以下属性进行相关配置(ResizeableAcitivity和supportsPictureInPicture) #最佳实践 ##布局层级管理 过程：测量-&gt;摆放。 当某个View的属性发生变化，View自身会调用invalidation方法，自底向上传播该请求，直到根布局。所以布局层级不近会影响开始的绘制，在整个界面的交互中，也会有影响。扁平化很重要。...</p>
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/">《Android高性能编程》打造布局笔记</a></h2>
+    <p>预览 目标是要保证16.667毫秒内顺利刷新，如果被绘制次数太多，占用过多CPU资源，帧会被丢弃。 视图最顶层的视图叫做DecorView，一般要避免绘制这个默认背景，方法是，主题设为Theme.NoBackground，或者 activity中添加android:windowbackground属性并设为null 屏幕撕裂：相邻的不同两帧被绘制到同一个屏幕上。原因是，绘制帧的数据源是单向的，新的一帧会覆盖上一帧，然而只有一个缓存区可读取。当屏幕要刷新时，读取的帧处于未完成状态，就是出现撕裂。解决方案：双缓冲区。 垂直同步：保证从缓冲区从后台到前台的过程中出现屏幕更新。它限制屏幕的绘制，必须等到垂直同步的信号到达后，才会输出影像信号。但是，当帧速率小于刷新率时，会出现延迟和卡顿。 硬件加速：invalidation-[storing]-redrawing. Storing过程中，只有需要被更新的视图才进行重绘（更新存储），并且在重绘之后被存储起来（离屏位图），以便使用，从而减少运行时的计算量。在redrawing阶段，用存储的绘图进行更新。（4.x以后的手机一般都支持硬件加速）。提高动画性能：在动画启动前，开启硬件加速，在结束时，立即关闭，以释放被占用的显存。每当让View执行一个Alpha动画，或者仅仅设一个Alpha值时，都可以考虑使用硬件加速。6.0以后会被自动应用。 过渡绘制：哪怕没有被显示，一样需要消耗相应的计算和内存，并且影响着性能。对背景使用9-patches可以在一定程度上减少过渡绘制，在9-patches图中，被其他视图所遮盖的部分，会被adnroid2d渲染器优化为透明。 多窗口模式：android N开始。自由动态模式，画中画模式。注意生命周期。可以通过Acitivity的以下属性进行相关配置(ResizeableAcitivity和supportsPictureInPicture) 最佳实践 布局层级管理 过程：测量-&gt;摆放。 当某个View的属性发生变化，View自身会调用invalidation方法，自底向上传播该请求，直到根布局。所以布局层级不近会影响开始的绘制，在整个界面的交互中，也会有影响。扁平化很重要。...</p>
     <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
@@ -201,7 +201,7 @@
       <p><span class="page-number">Page 1 of 2</span></p>
 
       
-      <p><a class="older-posts" href="/page/2/"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
+      <p><a class="older-posts" href="/blog/page/2/"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
       
     </ul>
   </nav>
