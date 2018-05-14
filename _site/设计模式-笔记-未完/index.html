@@ -86,7 +86,7 @@
         <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
       </div>
       <div class="author-name">Tori Zhang</div>
-      <p>Exploring.</p>
+      <p>入行两年的Android开发工程师，近期正在学习重构、android高性能开发，设计模式。目前的状态在整理笔记，希望再后期更多的经验积累和学习中，总结点心得充实文章。欢迎交流。</p>
     </div>
   </header> <!-- End Header -->
   <footer>
@@ -116,9 +116,7 @@
         <h1 class="page-title">《设计模式》笔记（未完）</h1>
         <div class="page-date"><span>2018, May 10&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <p>最近正在学习《HeadFirst设计模式》，以前也学过设计模式，并在代码重构中使用，但是经过工作这两年，感觉理解不一样了，真心觉得设计模式应该是软件开发的基础必备知识，不管对于理解源码，还是仅仅写出合理结构的代码，都是必不可少的。</p>
-
-<h1 id="策略模式">策略模式</h1>
+      <h1 id="策略模式">策略模式</h1>
 <h1 id="观察者模式">观察者模式</h1>
 <h1 id="装饰者模式">装饰者模式</h1>
 <h1 id="工厂模式">工厂模式</h1>
@@ -192,8 +190,15 @@ https://www.jianshu.com/p/195ae7c77afe</p>
   <li>类加载器可能会造成出现多个单例实例的情况，可能需要考虑重写类加载器</li>
   <li>1.4？java版本之前单例会由于只被本类引用而被回收，出现下载调用不是一个实例的情况</li>
   <li>实现注册表？</li>
-  <li>单例不应该被滥用，需要的场景其实很少，所以项目中出现多个单例时，需要检查是否有设计问题</li>
+  <li>单例不应该被滥用，需要的场景其实很少，所以项目中出现多个单例时，需要检查是否有设计问题
+    <h1 id="命令模式">命令模式</h1>
+    <h1 id="适配器模式">适配器模式</h1>
+    <h2 id="对象适配模式">对象适配模式</h2>
+    <h2 id="类适配模式">类适配模式</h2>
+    <h2 id="外观模式">外观模式</h2>
+  </li>
 </ol>
+
 
       <div class="page-footer">
         <div class="page-share">
@@ -207,23 +212,6 @@ https://www.jianshu.com/p/195ae7c77afe</p>
           
         </div>
       </div>
-      <section class="comment-area">
-  <div class="comment-wrapper">
-    
-    <div id="disqus_thread" class="article-comments"></div>
-    <script>
-      (function() {
-          var d = document, s = d.createElement('script');
-          s.src = '//mr-brown.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    
-  </div>
-</section> <!-- End Comment Area -->
-
     </div> <!-- End Wrap Content -->
   </div> <!-- End Page Content -->
 </article> <!-- End Article Page -->
