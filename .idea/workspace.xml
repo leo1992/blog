@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="83124151-e7f3-4b90-a440-a74821387809" name="Default" comment="修改文章">
+    <list default="true" id="83124151-e7f3-4b90-a440-a74821387809" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2018-05-18-图片框架优缺点整理（Fresco和Glide .md" afterPath="$PROJECT_DIR$/_posts/2018-05-18-图片框架优缺点整理（Fresco和Glide .md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/page/2/index.html" afterPath="$PROJECT_DIR$/_site/page/2/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/sitemap.xml" afterPath="$PROJECT_DIR$/_site/sitemap.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/tags/index.html" afterPath="$PROJECT_DIR$/_site/tags/index.html" />
     </list>
     <list id="c4f575c2-98ea-4358-90a1-725728c0a089" name="Revert: 修改链接地址" comment="" />
     <ignored path="tori.github.io.iws" />
@@ -554,11 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526633392479</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="修改文章">
+      <created>1526633942613</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1526633942613</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="152" y="23" width="1288" height="789" extended-state="6" />
+    <frame x="152" y="23" width="1288" height="789" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -619,7 +630,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修改链接" />
     <MESSAGE value="提交新博客" />
-    <option name="LAST_COMMIT_MESSAGE" value="提交新博客" />
+    <MESSAGE value="修改文章" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改文章" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">

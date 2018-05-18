@@ -51,14 +51,16 @@ native heap --  C/C++直接操纵的系统堆内存
 
 直观数据对比，原图来自 https://blog.csdn.net/github_33304260/article/details/70213300
 
-不带动画
-|对比项 | Glide  | Fresco|
-|------|---------|------|
-|max java heap|	11.1MB |	13.9MB|
-|max native heap	|43.8MB|	43.8MB|
-|avg wait time	|34ms|	44ms|
+不带动画  
 
-带动画
+|对比项 | Glide  | Fresco|  
+|------|---------|------|  
+|max java heap|	11.1MB |	13.9MB|  
+|max native heap	|43.8MB|	43.8MB|  
+|avg wait time	|34ms|	44ms|  
+
+带动画  
+
 |对比项 | Glide  | Fresco|
 |------|---------|------|
 |max java heap|	74.8.1MB|	36.1MB|
