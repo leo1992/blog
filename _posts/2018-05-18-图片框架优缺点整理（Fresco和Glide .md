@@ -2,14 +2,17 @@
 layout: post
 title: 图片框架优缺点整理（Fresco和Glide）
 date: 2018-05-18
-img: blog_head_1.jpeg 
+img: blog_head_10.jpeg 
 tags: [Android, 图片加载]
 ---
 
 
 在功能上，Picasso无法支持gif，在加载时会加载全尺寸的图片到内存，因为一般项目中都会有gif图的加载，所以暂时不考虑Picaso。不存在384和重复请求url的问题
 
-# Fresco 
+# Fresco
+https://github.com/bumptech/glide  
+facebook  
+
 优点：  
 1. Fresco会**自动复用相同URL的缓存**，两个相同URL同时进行请求Fresco也只会进行一次网络请求，然后第二个进行复用。  
 2. Fresco 中设计有一个叫做 **Drawees 模块**，方便地显示loading图，当图片不再显示在屏幕上时，及时地释放内存和空间占用。  
@@ -23,11 +26,15 @@ tags: [Android, 图片加载]
 2. Fresco依赖的库很多  
 3. 布局依赖SimpleDraweeView控件
 
-# Glide  
+# Glide 
+
+https://github.com/bumptech/glide  
+Google
+   
 优点：  
 1. 除了支持gif和webP图片，还支持缩略图和video（可以将任何的本地视频解码成一张静态图片）；  
 2. 生命周期集成（根据Activity或者Fragment的生命周期管理图片加载请求；方便处理bitmap，比如 Paused状态在暂停加载，在Resumed的时候又自动重新加载。）    
-3. 有高效的缓存策略，**支持原始图片和结果图片的缓存**，而Picasso和Fresco只会缓存原始尺寸的图片，**由于不需要再次处理图片大小，加载比较快**。
+3. 有高效的缓存策略，**支持原始图片和结果图片的缓存**，而Picasso和Fresco只会缓存原始尺寸的图片，**由于不需要再次处理图片大小，加载比较快**。  
 4. 加载速度在**静态图上是比Fresco快**的，在内存上，javaheap内存开销比Fresco大，但是NATIVE HEAP上不大。  
 5. Glide可以很容易的获取Bitmap  
 问题：  
@@ -39,6 +46,26 @@ tags: [Android, 图片加载]
 6. 没有缓存进度  
   
 默认Bitmap格式是RGB_565 
+javaHeap ---JAVA虚拟机  
+native heap --  C/C++直接操纵的系统堆内存
+
+直观数据对比，原图来自 https://blog.csdn.net/github_33304260/article/details/70213300
+
+不带动画
+|对比项 | Glide  | Fresco|
+|------|---------|------|
+|max java heap|	11.1MB |	13.9MB|
+|max native heap	|43.8MB|	43.8MB|
+|avg wait time	|34ms|	44ms|
+
+带动画
+|对比项 | Glide  | Fresco|
+|------|---------|------|
+|max java heap|	74.8.1MB|	36.1MB|
+|max native heap	|66.8MB|	545.3MB|
+|avg wait time	|33910ms|	15142ms|
+
+
 
 来源：  
 https://blog.csdn.net/AIR_GRU/article/details/71081193
