@@ -10,7 +10,8 @@ tags: [Android, 图片加载]
 在功能上，Picasso无法支持gif，在加载时会加载全尺寸的图片到内存，因为一般项目中都会有gif图的加载，所以暂时不考虑Picaso。不存在384和重复请求url的问题
 
 # Fresco
-https://github.com/bumptech/glide  
+https://github.com/facebook/fresco  
+https://www.fresco-cn.org/  
 facebook  
 
 优点：  
