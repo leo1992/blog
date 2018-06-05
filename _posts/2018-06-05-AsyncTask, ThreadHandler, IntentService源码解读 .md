@@ -31,7 +31,7 @@ AsyncTask中有两个线程池executor，能够执行并行任务的Executor，�
 private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;
 ```
 
-![image](https://github.com/leo1992/blog/blob/master/_posts/blog_image/AsyncTask-class.jpg)
+![image](https://raw.githubusercontent.com/leo1992/blog/master/_posts/blog_image/AsyncTask-class.jpg)
 
 IntentHandler继承handler，在构造函数中传入了Looper.getMainLooper()用主线程的looper，所以intenthandler是在主线程中执行的。另外覆写了handleMessage方法，接受两个消息：执行结果和状态更新，调用finish()回调和onProgressUpdate()回调，finish()方法中根据情况会调用onCancelled(）和 onPostExecuete方法，说明这两个方法也是在主线程中执行.  
 AsyncTask中的WorkRnnable实现了call方法，在方法中调用doInBackground, 将返回结果直接通过postResult返回。  
