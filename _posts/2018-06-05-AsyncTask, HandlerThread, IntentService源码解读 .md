@@ -402,3 +402,32 @@ HandlerThread的执行不是传统的再thread的run方法中取执行操作，�
 
 ## 注意
 1. HandlerThread在不需要使用的时候需要手动的回收掉，因为其run方法是一个无限循环。
+
+# IntentService
+
+IntentService是一个特殊的Service,适合用来执行一些高优先级的任务，用于执行后台耗时任务，它封装了HandlerThread和handler，实现延迟并且实现跟其他线程的信息交互。
+这里主要研究Looper, ServiceHandler 和 Service三者是如何合作的
+
+## ServiceHandler
+
+ServiceHander继承自Handler，覆写handlerMessage()来执行延迟任务，在执行完成后调用stopSelf来关闭服务。继承IntentSerivce时，通过覆写onHandleIntent方法来添加异步任务。  
+
+```java
+onHandleIntent((Intent)msg.obj);
+stopSelf(msg.arg1);
+```
+
+## Looper
+IntentService是HandlerThread的一个使用场景，在onCreate()方法中创建的handlerthread并且取得了handlerthread中的looper，开启了线程。
+
+```java
+HandlerThread thread = new HandlerThread("IntentService[" + mName + "]");
+thread.start();
+mServiceLooper = thread.getLooper();
+mServiceHandler = new ServiceHandler(mServiceLooper);
+```
+
+## 执行原理
+
+执行过程：service在onstart开启执行时，向servicehadnler发送消息，message中包括service的startid和intent信息，servicehandler收到消息之后，放入消息队列，在被调起时执行handleMessage方法，通过onHandlerIntent方法执行耗时任务。
+销毁：在IntentService的onDestroy方法中执行 looper.quit，让looper退出循环。
