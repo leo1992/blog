@@ -1,12 +1,13 @@
 ---
 layout: post
-title: AsyncTask, ThreadHandler, IntentService源码解读
+title: AsyncTask, HandlerThread, IntentService源码解读
 date: 2018-06-05
 img: blog_head_4.jpeg 
 tags: [Android, 多线程]
 ---
 
 # AsyncTask, HandlerThread, IntentService源码解读 
+
 ## AsyncTask
 
 ## 线程池的配置参数
@@ -283,3 +284,121 @@ public boolean cancel(boolean mayInterruptIfRunning) {
     return true;
 }
 ```
+
+# HandlerThread
+
+官方解释HandlerThread就是一个可以创建一个带有looper的线程，我们、、可以直接使用这个 Looper 创建 Handler。   
+**应用场景**：需要创建线程间传递消息的线程时。看了一个例子是在网络连接管理的ConnectivityManager中使用到了HandlerThread来处理PacketKeepalive事件。可以看到，在handlerMessage中，可以获取到message的类型，错误信息，然后进行处理。发送消息是在NetWorkAgent（继承Handler）中的handler去发送的。因此，实现了线程之间的消息传递。
+
+```java
+//ConnectivityManager类中
+HandlerThread thread = new HandlerThread(TAG);
+thread.start();
+mLooper = thread.getLooper();
+mMessenger = new Messenger(new Handler(mLooper) {
+    @Override
+    public void handleMessage(Message message) {
+        switch (message.what) {
+            case NetworkAgent.EVENT_PACKET_KEEPALIVE:
+                int error = message.arg2;
+                try {
+                    if (error == SUCCESS) {
+                        if (mSlot == null) {
+                            mSlot = message.arg1;
+                            mCallback.onStarted();
+                        } else {
+                            mSlot = null;
+                            stopLooper();
+                            mCallback.onStopped();
+                        }
+                    } else {
+                        stopLooper();
+                        mCallback.onError(error);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Exception in keepalive callback(" + error + ")", e);
+                }
+                break;
+            default:
+                Log.e(TAG, "Unhandled message " + Integer.toHexString(message.what));
+                break;
+        }
+    }
+});
+            
+//调用
+// NetWorkAgent类中
+queueOrSendMessage(EVENT_PACKET_KEEPALIVE, slot, reason);
+private void queueOrSendMessage(int what, int arg1, int arg2, Object obj{
+    Message msg = Message.obtain();
+    ...
+    queueOrSendMessage(msg);
+}
+private void queueOrSendMessage(Message msg) {
+    synchronized (mPreConnectedQueue) {
+        if (mAsyncChannel != null) {
+            mAsyncChannel.sendMessage(msg);
+        } else {
+            mPreConnectedQueue.add(msg);
+        }
+    }
+}
+```  
+**为什么要使用？**攒了一下网上的解释  
+1. 多个耗时任务串行执行时，防止频繁创建一般的创建new Thread(){…}.start()的方法可以处理单个耗时任务，但是如果有多个耗时任务串行时，频繁的创建很耗系统资源，容易存在性能问题。
+2. 多线程通信时，handler的looper使用问题。当创建多个线程时，需要让多个线程之间能够方便通信（包括主线程），因此需要使用到该线程的handler，HandlerThread就是用来做这件事。Handler在执行时创建handler（因为在创建handler时要传入线程的looper，此时可能线程并未准备好，所以在执行中再创建handler），准备looper。handlerthread就是帮助我们做好了这些操作。
+
+## 实现
+HandlerThread继承了Thread，实现就是增加了looper，处理了线程的终止。
+
+### looper的创建和获取
+**创建：**run方法中，调用Looper.prepare 和 looper.loop准备好线程的looper并开启，(所说的run方法的死循环就是looper.loop是一个死循环)，在创建时如果出现并发执行的情况时，要考虑同步问题，因为加了对象锁。mTid是当前线程的标识，如果执行完成，tid会置回-1。  
+**获取：**getLooper方法会返回looper，在这个方法中会判断mLooper是否为空，如果未空会调用wait等待，等到线程准备好looper之后再返回。wait方法注释是:让当前线程等待，直到调用了当前对象的notify或notifyall方法。在run方法中可以看到，mLooper赋值之后会调用notifyAll()方法，因为能够保证looper在获取时不会为空或线程未准备好。
+
+```java
+@Override
+    public void run() {
+        mTid = Process.myTid();
+        Looper.prepare();
+        synchronized (this) {
+            mLooper = Looper.myLooper();
+            notifyAll();
+        }
+        Process.setThreadPriority(mPriority);
+        onLooperPrepared();
+        Looper.loop();
+        mTid = -1;
+    }
+    
+public Looper getLooper() {
+	if (!isAlive()) {
+	    return null;
+	}
+	    
+	// If the thread has been started, wait until the looper has been created.
+	synchronized (this) {
+    while (isAlive() && mLooper == null) {
+        try {
+            wait(); 
+        } catch (InterruptedException e) {
+        }
+    }
+}
+return mLooper;
+}
+```
+### 执行
+
+HandlerThread的执行不是传统的再thread的run方法中取执行操作，而是让handler去处理接受到的消息去执行操作，在handleMessage方法中执行异步任务。前面提到的串行执行耗时任务，应该就是用hander发送msg，然后通过looper循环，来保证串行处理。
+
+### quit和 quitSafely  
+对应looper的quit和quitSafely，是否执行完之后再停止。
+
+### 使用过程
+1. 创建 HandlerThread handlerThread = new HandlerThread(TAG）
+2. 开启线程 handlerThread.start();
+3. 创建消息处理机制，handler的实现有三种：CallBack会创建为Handler的私有变量Callback, handleMessage, handler.post(new Runnable)，三者的具体解释参考handler学习笔记。
+4. 构建Handler handler = new Handler(handlerThread.getLooper);//具体的创建方式看使用场景。
+
+## 注意
+1. HandlerThread在不需要使用的时候需要手动的回收掉，因为其run方法是一个无限循环。

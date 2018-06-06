@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83124151-e7f3-4b90-a440-a74821387809" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, ThreadHandler, IntentService源码解读 .md" afterPath="$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, HandlerThread, IntentService源码解读 .md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, ThreadHandler, IntentService源码解读 .md" afterPath="$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, ThreadHandler, IntentService源码解读 .md" />
     </list>
     <list id="c4f575c2-98ea-4358-90a1-725728c0a089" name="Revert: 修改链接地址" comment="" />
     <ignored path="tori.github.io.iws" />
@@ -35,11 +35,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2018-05-30-listview优化.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2018-05-30-listview优化.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2018-05-30-listview优化.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+            <state relative-caret-position="300">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2018-06-05-AsyncTask, HandlerThread, IntentService源码解读 .md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, HandlerThread, IntentService源码解读 .md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1500">
+              <caret line="100" column="46" selection-start-line="100" selection-start-column="46" selection-end-line="100" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -50,16 +60,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2018-04-22-《Android高性能编程》-多线程.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2018-04-22-《Android高性能编程》-多线程.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -155,6 +155,8 @@
         <option value="$PROJECT_DIR$/_layouts/post.html" />
         <option value="$PROJECT_DIR$/_posts/2018-05-25-rxjava.md" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, ThreadHandler, IntentService源码解读 .md" />
+        <option value="$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, HandlerThread, IntentService源码解读 .md" />
       </list>
     </option>
   </component>
@@ -634,7 +636,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528272811146</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="修改博客">
+      <created>1528272909985</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1528272909985</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -714,7 +723,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/img/david-freeman.jpg" />
     <entry file="file://$PROJECT_DIR$/assets/img/head_icon.jpg" />
     <entry file="file://$PROJECT_DIR$/_posts/2018-04-22《Android高性能编程》-多线程.md" />
     <entry file="file://$PROJECT_DIR$/_posts/2018-04-27《Android高性能编程》-网络.md" />
@@ -985,8 +993,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2018-05-30-listview优化.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+        <state relative-caret-position="300">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2018-06-05-AsyncTask, HandlerThread, IntentService源码解读 .md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1500">
+          <caret line="100" column="46" selection-start-line="100" selection-start-column="46" selection-end-line="100" selection-end-column="46" />
           <folding />
         </state>
       </provider>
