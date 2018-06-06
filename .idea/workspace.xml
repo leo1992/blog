@@ -4,6 +4,25 @@
     <list default="true" id="83124151-e7f3-4b90-a440-a74821387809" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-内存笔记/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-内存笔记/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-多线程/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-多线程/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-打造布局笔记/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-打造布局笔记/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-提升技能的小技巧/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-提升技能的小技巧/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-电量消耗/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-电量消耗/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/Android高性能编程-网络/index.html" afterPath="$PROJECT_DIR$/_site/Android高性能编程-网络/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/AsyncTask,-HandlerThread,-IntentService源码解读/index.html" afterPath="$PROJECT_DIR$/_site/AsyncTask,-HandlerThread,-IntentService源码解读/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/apk瘦身整理/index.html" afterPath="$PROJECT_DIR$/_site/apk瘦身整理/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/broadcast相关/index.html" afterPath="$PROJECT_DIR$/_site/broadcast相关/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/listview优化/index.html" afterPath="$PROJECT_DIR$/_site/listview优化/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/page/2/index.html" afterPath="$PROJECT_DIR$/_site/page/2/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/rxjava/index.html" afterPath="$PROJECT_DIR$/_site/rxjava/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/tags/index.html" afterPath="$PROJECT_DIR$/_site/tags/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/事件分发学习中的疑问与解答/index.html" afterPath="$PROJECT_DIR$/_site/事件分发学习中的疑问与解答/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/图片框架优缺点整理-Fresco和Glide/index.html" afterPath="$PROJECT_DIR$/_site/图片框架优缺点整理-Fresco和Glide/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/设计模式-笔记-未完/index.html" afterPath="$PROJECT_DIR$/_site/设计模式-笔记-未完/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/重构-改善既有代码的设计-坏味道部分笔记/index.html" afterPath="$PROJECT_DIR$/_site/重构-改善既有代码的设计-坏味道部分笔记/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/重构-改善既有代码的设计-方法部分笔记/index.html" afterPath="$PROJECT_DIR$/_site/重构-改善既有代码的设计-方法部分笔记/index.html" />
     </list>
     <list id="c4f575c2-98ea-4358-90a1-725728c0a089" name="Revert: 修改链接地址" comment="" />
     <ignored path="tori.github.io.iws" />
@@ -48,8 +67,8 @@
       <file leaf-file-name="_config.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+            <state relative-caret-position="225">
+              <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -650,7 +669,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528279298575</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="改介绍，之前的太长了">
+      <created>1528280650599</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1528280650599</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -724,7 +750,8 @@
     <MESSAGE value="修改博客" />
     <MESSAGE value="修改博客，添加handlerthread部分的内容" />
     <MESSAGE value="名称修改未同步" />
-    <option name="LAST_COMMIT_MESSAGE" value="名称修改未同步" />
+    <MESSAGE value="改介绍，之前的太长了" />
+    <option name="LAST_COMMIT_MESSAGE" value="改介绍，之前的太长了" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
@@ -1009,8 +1036,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+        <state relative-caret-position="225">
+          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
           <folding />
         </state>
       </provider>
