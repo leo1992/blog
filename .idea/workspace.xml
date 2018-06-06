@@ -627,7 +627,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528196644724</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="修改博客">
+      <created>1528272811146</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1528272811146</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -698,7 +705,8 @@
     <MESSAGE value="修改图片" />
     <MESSAGE value="提交博客文章" />
     <MESSAGE value="修改图片链接" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改图片链接" />
+    <MESSAGE value="修改博客" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改博客" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">

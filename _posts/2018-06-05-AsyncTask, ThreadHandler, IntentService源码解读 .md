@@ -6,7 +6,7 @@ img: blog_head_4.jpeg
 tags: [Android, 多线程]
 ---
 
-# AsyncTask, ThreadHandler, IntentService源码解读 
+# AsyncTask, HandlerThread, IntentService源码解读 
 ## AsyncTask
 
 ## 线程池的配置参数
