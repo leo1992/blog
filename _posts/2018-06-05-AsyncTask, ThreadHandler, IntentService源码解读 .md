@@ -9,14 +9,15 @@ tags: [Android, 多线程]
 # AsyncTask, ThreadHandler, IntentService源码解读 
 ## AsyncTask
 
+## 线程池的配置参数
 ```java
 private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
 private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
 private static final int KEEP_ALIVE_SECONDS = 30;
 ```
 
-AsyncTask中核心线程数的范围为 2-4个，当依据cpu核数来决定核心线程数是，会-1留一个防止cpu饱和。  
-keepalivetime就是线程数大于corePoolSize时空闲线程存活的最大时间,但是如果设置了allowCoreThreadTimeOut，核心线程在指定时间内没有取到也会被认为超时。AsyncTask中THREAD_POOL_EXECUTOR中默认是true的。  
+AsyncTask中**核心线程数**的范围为 2-4个，当依据cpu核数来决定核心线程数是，会-1留一个防止cpu饱和。  
+**keepalivetime** 就是线程数大于corePoolSize时空闲线程存活的最大时间,但是如果设置了allowCoreThreadTimeOut，核心线程在指定时间内没有取到也会被认为超时。AsyncTask中默认是true的。所以只要线程闲置超过keepalive时长，会被回收。操作位于ThreadPoolExecutor的getTask()方法中，如下。  
 
 ```java
 boolean timed = allowCoreThreadTimeOut || wc > corePoolSize;
@@ -26,18 +27,149 @@ Runnable r = timed ?
     if (r == null) timeout = true;//(这行改写的)
 ```
 
-AsyncTask中有两个线程池executor，能够执行并行任务的Executor，和一次执行一个的串行的Executor，AsyncTask默认的是串行Executor。
-```java
-private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;
-```
 
 ![image](https://raw.githubusercontent.com/leo1992/blog/master/_posts/blog_image/AsyncTask-class.jpg)
 
-IntentHandler继承handler，在构造函数中传入了Looper.getMainLooper()用主线程的looper，所以intenthandler是在主线程中执行的。另外覆写了handleMessage方法，接受两个消息：执行结果和状态更新，调用finish()回调和onProgressUpdate()回调，finish()方法中根据情况会调用onCancelled(）和 onPostExecuete方法，说明这两个方法也是在主线程中执行.  
-AsyncTask中的WorkRnnable实现了call方法，在方法中调用doInBackground, 将返回结果直接通过postResult返回。  
-所以问题：为什么要设置两次结果？查找了一下futuretask中的结果设置，即done方法的调用（finishCompletion方法）发现，除了运行结果的时候会执行外，在出现很多异常的时候也会执行，所以认为，futureTask也就是在执行各种异常的情况下，能够设置运行结果，而且WorkRnnable的执行是futureTask去调用的，所以我认为：1. 用futuretask封装了整个生命周期的状态，并且要支持在调用前出现异常时的结果处理 ；2. 支持在任何时机去主动获取结果，即使没有执行结束 3. 在期间的任何异常都能够有对应的异常状态结果的返回。 
-AsyncTask中的future实现了done方法，在方法中通过futureTask的get方法取到结果，然后调用postResultIfNotInvoked来设置结果，即向handler发送post_result消息。   
-FutureTask用于异步获取执行结果或取消执行任务的场景，它的主要功能有：判断任务是否完成，获取任务执行结果（结果只可以在计算完成之后获取，get方法会阻塞当计算没有完成的时候，一旦计算已经完成， 那么计算就不能再次启动或是取消）, 中断任务。
+# 线程池  
+AsyncTask中有两个线程池，能够执行并行任务的线程池，和一次执行一个的串行的线程池，AsyncTask默认的是串行执行的线程池。它的具体执行也是通过THREAD_POOP_EXECUTOR的执行的。代码逻辑如下。SerialExecutor内部维护一个Runable数组存放要执行的任务，每次调用execute的时候，将任务存放在mTasks中，并且在执行完毕后再去调度下一个任务。在最开始没有任务在执行的时候（mActive == null），就直接去调度下一个。scheduleNext的逻辑就是从mTasks中取一个任务，赋给mactive，然后让THREAD_POOP_EXECUTOR去执行当前任务。
+  
+```java
+private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;
+public static final Executor SERIAL_EXECUTOR = new SerialExecutor();
+
+private static class SerialExecutor implements Executor {
+        final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
+        Runnable mActive;
+
+        public synchronized void execute(final Runnable r) {
+            mTasks.offer(new Runnable() {
+                public void run() {
+                    try {
+                        r.run();
+                    } finally {
+                        scheduleNext();
+                    }
+                }
+            });
+            if (mActive == null) {
+                scheduleNext();
+            }
+        }
+
+        protected synchronized void scheduleNext() {
+            if ((mActive = mTasks.poll()) != null) {
+                THREAD_POOL_EXECUTOR.execute(mActive);
+            }
+        }
+    }
+```
+
+## 线程切换  
+IntentHandler继承handler，在构造函数中传入了Looper.getMainLooper()用主线程的looper，所以intenthandler是在主线程中执行的。另外覆写了handleMessage方法，接受两个消息：执行结果和状态更新，调用finish()回调和onProgressUpdate()回调，finish()方法中根据情况会调用onCancelled(）和 onPostExecuete方法，说明这两个方法也是在主线程中执行. 
+## 返回运行结果
+-- 通过 FutureTask, Callable 实现，具体见注释  
+AsyncTask中的**worker(WorkRnnable)**继承自**Callable**，实现了call方法，在被调用时调用asyncTask的doInBackground方法, 将返回结果直接通过postResult返回。  
+* 所以问题：为什么要设置两次结果？  
+查找了一下futuretask中的结果设置的位置，即done方法的调用（finishCompletion方法中调用）发现，除了运行结果的时候会执行外，在出现很多异常的时候也会执行，所以认为，futureTask也就是在执行各种异常的情况下，能够设置运行结果，而且WorkRnnable的执行是futureTask去调用的，所以我认为：1. 用futuretask封装了整个生命周期的状态，并且要支持在调用前出现异常时的结果处理 ；2. 支持在任何时机去主动获取结果，即使没有执行结束 3. 在期间的任何异常都能够有对应的异常状态结果的返回。 
+AsyncTask中的**future(FutureTask)**实现了done方法，在方法中通过futureTask的get方法取到结果，然后调用postResultIfNotInvoked来设置结果，即**向handler发送post_result消息**。   
+FutureTask用于异步获取执行结果或取消执行任务的场景，它的主要功能：判断任务是否完成，获取任务执行结果（结果只可以在计算完成之后获取，get方法会阻塞当计算没有完成的时候，一旦计算已经完成， 那么计算就不能再次启动或是取消）, 中断任务。
+
+## AsyncTask的执行  
+asyncTask的执行最终都是通过THREAD_POOL_EXECUTOR.execute来执行的（原因见上面的线程解释），调用execute方法默认用串行执行的线程池，需要并行执行的时候，调用executeOnExecutor，可以传入THREAD_POOL_EXECUTOR。  
+三个方法：  
+- execute(Params...): 串行执行的方法  
+- execiteOnExecutor: 支持并行执行  
+- execute(runnable): 串行执行。省略了判断状态的逻辑，认为就是不关心运行结果，和过程，只是要实现后台操作的时候用，runnable就是在后台线程中执行的操作。simple版，TextView中就用到。   
+
+
+```java
+
+@MainThread
+public static void execute(Runnable runnable) {
+    sDefaultExecutor.execute(runnable);
+}
+    
+@MainThread
+public final AsyncTask<Params, Progress, Result> execute(Params... params) {
+    return executeOnExecutor(sDefaultExecutor, params);
+}
+
+@MainThread
+public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec,
+        Params... params) {
+    if (mStatus != Status.PENDING) {// 重复执行会抛出异常？
+        switch (mStatus) {
+            case RUNNING:
+                throw new IllegalStateException("Cannot execute task:"
+                        + " the task is already running.");
+            case FINISHED:
+                throw new IllegalStateException("Cannot execute task:"
+                        + " the task has already been executed "
+                        + "(a task can be executed only once)");
+        }
+    }
+
+    mStatus = Status.RUNNING;
+
+    onPreExecute();
+
+    mWorker.mParams = params;
+    exec.execute(mFuture);
+
+    return this;
+}
+```
+THREAD_POOL_EXECUTOR的执行过程- to_be_continue
+1. 判断当前工作执行的线程少于核心线程数，就创建一个新的线程执行
+2. 如果成功加入了工作队列，并且在执行了，
+
+```java
+        /*
+         * Proceed in 3 steps:
+         *
+         * 1. If fewer than corePoolSize threads are running, try to
+         * start a new thread with the given command as its first
+         * task.  The call to addWorker atomically checks runState and
+         * workerCount, and so prevents false alarms that would add
+         * threads when it shouldn't, by returning false.
+         *
+         * 2. If a task can be successfully queued, then we still need
+         * to double-check whether we should have added a thread
+         * (because existing ones died since last checking) or that
+         * the pool shut down since entry into this method. So we
+         * recheck state and if necessary roll back the enqueuing if
+         * stopped, or start a new thread if there are none.
+         *
+         * 3. If we cannot queue task, then we try to add a new
+         * thread.  If it fails, we know we are shut down or saturated
+         * and so reject the task.
+         */
+public void execute(Runnable command) {
+    if (command == null)
+        throw new NullPointerException();
+	 int c = ctl.get();
+    if (workerCountOf(c) < corePoolSize) {
+        if (addWorker(command, true))
+            return;
+        c = ctl.get();
+    }
+    if (isRunning(c) && workQueue.offer(command)) {
+        int recheck = ctl.get();
+        if (! isRunning(recheck) && remove(command))
+            reject(command);
+        else if (workerCountOf(recheck) == 0)
+            addWorker(null, false);
+    }
+    else if (!addWorker(command, false))
+        reject(command);
+}
+```
+## 注意
+1. AsyncTask是抽象类，在调用处通常会成为内部匿名类，所以在task中用到view，和持有activity的时候注意防止内存泄漏。
+2. AsyncTask类应该在主线程中加载（activitythread中有执行asyncTask.init()之所以这点暂时不用考虑）。是因为handler负责主线程的执行任务，所以必须在主线程中执行。书上的原因说因为为它为static变量，所以会在类加载的时候被创建赋值，所以应该在主线程中创建。当前源码（24+）版本的代码sHandler是推迟了创建对象赋值的操作，handler都是通过getHandler去获取，在创建时通过Looper.getMainLooper()保证在线程中。所以依然不用考虑这个问题。
+3. AsyncTask对象必须在主线程中创建，AsyncTask的执行（executor）应该在主线程中。为什么？
+4. AsyncTask不适合执行特别耗时的任务。网上提到是因为跟activity的生命周期（旋转）和容易内存泄露的考虑。
+5. asyncTask取消之后（cancel方法），onPostExecute和onProgressUpdate不会再调用了，但doInBackground方法却会一直执行下去，对用户来说，在调用了cancle方法后，后台的任务就不会在影响到主线程的界面变化了。（https://blog.csdn.net/qq_25806863/article/details/72782050）
 
 -------- 
 *注释
