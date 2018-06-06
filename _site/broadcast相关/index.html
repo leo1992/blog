@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>broadcast相关 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="broadcast相关" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/broadcast%E7%9B%B8%E5%85%B3/" property="og:url">
+  
+  
+    <meta content="2018-05-30T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_7.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Android" property="article:tag">
+    
+    <meta content="broadcast" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="broadcast相关">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/broadcast%E7%9B%B8%E5%85%B3/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_7.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>入行两年的Android开发工程师，近期正在学习重构、android高性能开发，设计模式。目前的状态在整理笔记，希望再后期更多的经验积累和学习中，总结点心得充实文章。欢迎交流。</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/blog/assets/img/blog_head_7.jpeg alt="broadcast相关">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">broadcast相关</h1>
+        <div class="page-date"><span>2018, May 30&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p><strong>onreceiver中执行耗时操作</strong>
+不要在onreceiver中执行耗时操作，也不要开启新线程开执行这个操作，在broadcast中的代码执行位于其进程的主线程中，执行时间不要超过5s，否则会弹出超市dialog。但是如果执行不完，也不能放在线程中，Receiver只在onReceiver方法执行时是激活状态。因为开启线程——&gt;onReceiver返回——&gt;receiver不再处于激活状态——&gt;receiver进程变为空进程将会在任意时刻被终止——&gt;正在工作的子线程也会被杀死<br />
+解决这个问题的方案是在onReceive()里开始一个Service，让这个Service去 做这件事情，那么系统就会认为这个进程里还有活动正在进行。</p>
+
+<p><strong>执行优先级</strong> <br />
+冷注册（权限文件）和热注册（代码中跟随activity生命周期）<br />
+对于有序消息，热注册的BroadcastReceiver总是先于冷注册的BroadcastReceiver被触发。对于同样是动态注册的BroadcastReceiver，优先级别高（android:priority）的将先被触发，而静态注册的 BroadcastReceiver总是按照冷注册的顺序执行。</p>
+
+<p><strong>与其他app的干扰</strong>：</p>
+<ol>
+  <li>任何应用都可以向该registered receiver发送广播<br />
+（1）可以通过对广播添加权限来控制。<br />
+ a. 定义新权限：<permission android:name="com.android.permission.SEND_XXX"></permission> <br />
+ b. 声明权限 <uses-permission android:name="com.android.permission.SEND_XXX"></uses-permission>   	c.在<receiver>tag里添加权限SEND_XXX的声明。这样便只能接收来自具有该SEND_XXX权限的应用发出的广播。  
+ （2）export属性为false。  
+【exported属性决定了是否能收到应用外部的消息，在没有intent filters时，意味着只能被特定的知名了具体类名的intent对象激发，也就是说只会被内部应用使用，也就是说默认值为false，而如果有了intent filters，以为这也就意味着可以接收系统或外部的应用，默认值为true。】</receiver></li>
+  <li>本应用的广播会被其他应用接受到，解决办法<br />
+（1）添加权限
+ a. 定义新权限：<permission android:name="com.android.permission.RECV_XXX"></permission> <br />
+  b. 使用<uses-permission android:name="com.android.permission.RECV_XXX"></uses-permission>   c. sendbroadcast时传入权限sendbroadcast(“com.android.XXX_ACTION”, “com.android.permission.RECV_XXX”) <br />
+  （2）使用本地广播 LocalBroadcastManager</li>
+</ol>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=broadcast相关&url=http://localhost:4000/broadcast%E7%9B%B8%E5%85%B3/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/broadcast%E7%9B%B8%E5%85%B3/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/broadcast%E7%9B%B8%E5%85%B3/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
+          
+            <a href="/blog/tags#broadcast" class="tag">&#35; broadcast</a>
+          
+        </div>
+      </div>
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

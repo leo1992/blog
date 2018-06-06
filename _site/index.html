@@ -98,11 +98,71 @@
   
 <article class="post">
   
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_4.jpeg)" href="/blog/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">AsyncTask, HandlerThread, IntentService源码解读</a></h2>
+    <p>AsyncTask, HandlerThread, IntentService源码解读 AsyncTask 线程池的配置参数 private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1,...</p>
+    <span class="post-date">2018, Jun 05&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">10 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_5.jpeg)" href="/blog/%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E7%96%91%E9%97%AE%E4%B8%8E%E8%A7%A3%E7%AD%94/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E7%96%91%E9%97%AE%E4%B8%8E%E8%A7%A3%E7%AD%94/">事件分发学习中的疑问与解答</a></h2>
+    <p>当一个viewgroup中有重叠的view时，是如何决事件处理的？ 在viewgroup遍历子view时，是通过一个list去遍历，然后分别判断每个view是否包含当前event中的坐标点来决定是否有接收事件的资格。 判断范围，可以看出，在判断点是否在组件内时并不会考虑同级view的遮盖，只考虑父组件的位置，因此，能够判断分发顺序只需要考虑在list中的顺序，在顺序前的先被执行。在生成list时，是通过 buildOrderedChildList方法构建了一个先序列表，方法的注释是如下，大概意思就是按照z轴排序，然后再按照控件的绘制顺序，也就是添加到group的顺序。在遍历的时候反向遍历，从最后一个开始遍历，因此z最大或者最后添加的接受事件的优先级更高 /** * Populates (and returns) mPreSortedChildren with a pre-ordered list of...</p>
+    <span class="post-date">2018, May 31&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">2 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_6.jpeg)" href="/blog/listview%E4%BC%98%E5%8C%96/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/listview%E4%BC%98%E5%8C%96/">ListView优化</a></h2>
+    <p>ListView优化 1- convertView重用: 在getview中先判断convertView是否为空，这样在view没有改变宽高时，可以减少重新分配缓存; 2- ViewHolder优化：findViewById方法耗时较大，viewholder中持有各个view控件，然后利用view的setTag，getTag直接获取View。 3- 当ListView滚动时busy设为true，停止各个view的图片加载。否则可能会让UI不够流畅用户体验度降低。（这个下载控制并不能处处用到:建议是glide的功能项目地址：https://github.com/bumptech/glide） OnScrollListener() { @Override public void onScrollStateChanged(RecyclerView recyclerView,...</p>
+    <span class="post-date">2018, May 30&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_7.jpeg)" href="/blog/broadcast%E7%9B%B8%E5%85%B3/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/broadcast%E7%9B%B8%E5%85%B3/">broadcast相关</a></h2>
+    <p>onreceiver中执行耗时操作 不要在onreceiver中执行耗时操作，也不要开启新线程开执行这个操作，在broadcast中的代码执行位于其进程的主线程中，执行时间不要超过5s，否则会弹出超市dialog。但是如果执行不完，也不能放在线程中，Receiver只在onReceiver方法执行时是激活状态。因为开启线程——&gt;onReceiver返回——&gt;receiver不再处于激活状态——&gt;receiver进程变为空进程将会在任意时刻被终止——&gt;正在工作的子线程也会被杀死 解决这个问题的方案是在onReceive()里开始一个Service，让这个Service去 做这件事情，那么系统就会认为这个进程里还有活动正在进行。 执行优先级 冷注册（权限文件）和热注册（代码中跟随activity生命周期） 对于有序消息，热注册的BroadcastReceiver总是先于冷注册的BroadcastReceiver被触发。对于同样是动态注册的BroadcastReceiver，优先级别高（android:priority）的将先被触发，而静态注册的 BroadcastReceiver总是按照冷注册的顺序执行。 与其他app的干扰： 任何应用都可以向该registered receiver发送广播 （1）可以通过对广播添加权限来控制。 a. 定义新权限： b....</p>
+    <span class="post-date">2018, May 30&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_9.jpeg)" href="/blog/rxjava/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/rxjava/">RxJava</a></h2>
+    <p>rxjava 响应式编程 目前仍认为没有完全理解透响应式编程的概念，从各个零散的定义中整理了以下点： wiki wiki上将programming分为三类： transfromational programs: 依据给定的输入集计算结果 interactive programs: 依据自己的情况去相应用户或程序，通常用来处理通讯。 reactive programs: 以外部环境而不是程序本身做出响应，通常用来响应外部需求并且通常有精准的终端处理。 结合具体的编程中响应式编程的应用，这个概念完全没起到帮助作用...</p>
+    <span class="post-date">2018, May 25&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
     <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_10.jpeg)" href="/blog/%E5%9B%BE%E7%89%87%E6%A1%86%E6%9E%B6%E4%BC%98%E7%BC%BA%E7%82%B9%E6%95%B4%E7%90%86-Fresco%E5%92%8CGlide/"></a>
   
   <div class="post-content">
     <h2 class="post-title"><a href="/blog/%E5%9B%BE%E7%89%87%E6%A1%86%E6%9E%B6%E4%BC%98%E7%BC%BA%E7%82%B9%E6%95%B4%E7%90%86-Fresco%E5%92%8CGlide/">图片框架优缺点整理（Fresco和Glide）</a></h2>
-    <p>在功能上，Picasso无法支持gif，在加载时会加载全尺寸的图片到内存，因为一般项目中都会有gif图的加载，所以暂时不考虑Picaso。不存在384和重复请求url的问题 Fresco https://github.com/bumptech/glide facebook 优点： Fresco会自动复用相同URL的缓存，两个相同URL同时进行请求Fresco也只会进行一次网络请求，然后第二个进行复用。 Fresco 中设计有一个叫做 Drawees 模块，方便地显示loading图，当图片不再显示在屏幕上时，及时地释放内存和空间占用。 在5.0以下系统，Fresco将图片放到一个特别的内存区域。这会使得APP更加流畅，减少因图片内存占用而引发的OOM。在更底层的Native层对OOM进行处理，图片将不再占用App的内存 支持渐进式的图片呈现 在加载gif图中，Fresco的java heap基本保持较低平稳状态，而Glide的java heap基本为Fresco的一倍。但是nativheap中Fresco高出很多...</p>
+    <p>在功能上，Picasso无法支持gif，在加载时会加载全尺寸的图片到内存，因为一般项目中都会有gif图的加载，所以暂时不考虑Picaso。不存在384和重复请求url的问题 Fresco https://github.com/facebook/fresco https://www.fresco-cn.org/ facebook 优点： Fresco会自动复用相同URL的缓存，两个相同URL同时进行请求Fresco也只会进行一次网络请求，然后第二个进行复用。 Fresco 中设计有一个叫做 Drawees 模块，方便地显示loading图，当图片不再显示在屏幕上时，及时地释放内存和空间占用。 在5.0以下系统，Fresco将图片放到一个特别的内存区域。这会使得APP更加流畅，减少因图片内存占用而引发的OOM。在更底层的Native层对OOM进行处理，图片将不再占用App的内存 支持渐进式的图片呈现 在加载gif图中，Fresco的java heap基本保持较低平稳状态，而Glide的java...</p>
     <span class="post-date">2018, May 18&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
@@ -128,66 +188,6 @@
     <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/">《Android高性能编程》-电量消耗</a></h2>
     <p>分析 检测电池电量和充电状态 BatteryManager会规律的发送Intent，可以捕获该content获知电池状态 Intent.ACTION_BATTERY_CHANGED 如果设备正在充电，我们可以最大限度地发挥所有操作。 BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL 识别充电状态的变化 接收上面的广播 注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED 获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS)...</p>
     <span class="post-date">2018, May 09&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_3.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%8F%90%E5%8D%87%E6%8A%80%E8%83%BD%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">《Android高性能编程》-提升技能的小技巧</a></h2>
-    <p>位图 加载 BitMap.createScaledBitmap()方法在创建一个新的小图像之前，都会读取整个原图，造成了非必要的内存分配。一旦我们明确了图像要被缩放的分辨率，可以利用BitmapFactory.Options类，通过设置参数，高效地缩放图像。 BitmapRegionDecode类可以得到部分图像 流程：（file可以换为bytearray, resource, stream等） 加载（不处理位图）injustdecodebounds = true 读取图片分辨率 decodefile 计算比率 outHeight/desiredheight等 设置属性...</p>
-    <span class="post-date">2018, Apr 28&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_4.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%BD%91%E7%BB%9C/">《Android高性能编程》-网络</a></h2>
-    <p>预览 HttpClient, URLConnection 协议：Http,https, ftp, File, Jar 方法：GET, POST(connection.setDoOutput),其余通过 HttpURLConnection.setRequestMethod() 头部: URLConnection.setRequestProperty/ getHeaderFields 超时: 链接超时；读取超时...</p>
-    <span class="post-date">2018, Apr 27&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_5.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">《Android高性能编程》-多线程</a></h2>
-    <p>预览 线程基础 Thread.run()方法并不会创建一个新线程，start()才能开启新线程 Thread.join()方法可以在它的子线程完成时恢复执行状态，在不知道要执行多久时可以调用。（一般情况不会恢复么，或者有没有回调什么的） 线程安全：一个多线程应用程序再共享对象上没有什么并发操作。 每个对象都有一个监视器，线程可以锁定或者解锁它，监视器确保同一时间只会被锁住一次。 Android多线程环境 进程的生命周期：Foreground, visible（非前台但可见）, service, background, empty（不包含任何组件的进程，它被用作缓存的目的，以加快应用程序未来的恢复） 进程名以 ：开始代表为该应用的私有进程，以小写字母开始为可共享进程。 Android应用程序线程...</p>
-    <span class="post-date">2018, Apr 22&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_8.jpeg)" href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E6%96%B9%E6%B3%95%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">《重构-改善既有代码的设计》-方法部分笔记</a></h2>
-    <p>提炼函数：需要注释才能理解的代码，以更好的方式昭示代码意图 内联函数：内部代码和函数名称同样清晰易读 内联临时变量：某个临时变量被赋予某个函数的返回值，（改为final确定时候只被用过一次） 以查询取代临时变量：使得同一个类中其他部分也可以获取临时变量中计算的信息 引入注释性变量：表达式复杂难以解读。将复杂表达式的结果放进一个临时变量（多个条件&amp;&amp;   这样） 分解临时变量：某个临时变量被赋值超过一次，意味着承担了多个责任。 移除对参数的赋值：代码对参数复制，以一个临时变量取代该参数的位置 以函数对象取代函数：有一个大型函数，其中对局部变量的使用使你无法提炼函数。将这个函数放进一个单独对象，局部变量就成了对象中的字段，就可以分解为小函数，这些小函数可以共用这些字段。 替换算法：有更好的算法 搬移函数：某个函数与另一类进行更多交流 搬移字段: 某个字段被另一类更多用到 提炼类：某个类做个多个类应该做的事。（是改善并发程序的一种常用技术，因为它使你可以为提炼后的两个类分别加锁）...</p>
-    <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_9.jpeg)" href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1-%E5%9D%8F%E5%91%B3%E9%81%93%E9%83%A8%E5%88%86%E7%AC%94%E8%AE%B0/">《重构-改善既有代码的设计》-坏味道部分笔记</a></h2>
-    <p>重复代码 【提炼函数，上移函数，提炼模板方法，提炼类】 过长函数 【提炼函数，用查询替代临时变量，引入参数对象，分解条件表达式】 过大的类 【提炼类，提炼子类，提炼接口，用对象取代数据值】 过长参数列表 【用方法替换参数，引入参数对象，保持对象完整】 发散式变化：类经常因为不同的原因在不同的方向上发生变化。（一个类受多种变化的影响） 【提炼类】 霰弹式修改：类的某种改动都必须在不同的类中做许多小修改。（一种变化引发多个类的修改） 【移动方法，移动数据，将类内联化】 依恋情结：函数对某个类的兴趣高过对自己所处类的兴趣 【移动方法，移动数据，提炼方法】 数据泥团：总是绑在一起的数据...</p>
-    <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
     <span class="post-words">1 minute read</span>
   </div>
 </article>

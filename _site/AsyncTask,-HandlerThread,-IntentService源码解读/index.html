@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>AsyncTask, HandlerThread, IntentService源码解读 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="AsyncTask, HandlerThread, IntentService源码解读" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" property="og:url">
+  
+  
+    <meta content="2018-06-05T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_4.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Android" property="article:tag">
+    
+    <meta content="多线程" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="AsyncTask, HandlerThread, IntentService源码解读">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_4.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>入行两年的Android开发工程师，近期正在学习重构、android高性能开发，设计模式。目前的状态在整理笔记，希望再后期更多的经验积累和学习中，总结点心得充实文章。欢迎交流。</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/blog/assets/img/blog_head_4.jpeg alt="AsyncTask, HandlerThread, IntentService源码解读">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">AsyncTask, HandlerThread, IntentService源码解读</h1>
+        <div class="page-date"><span>2018, Jun 05&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h1 id="asynctask-handlerthread-intentservice源码解读">AsyncTask, HandlerThread, IntentService源码解读</h1>
+
+<h2 id="asynctask">AsyncTask</h2>
+
+<h2 id="线程池的配置参数">线程池的配置参数</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CORE_POOL_SIZE</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">CPU_COUNT</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">4</span><span class="o">));</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAXIMUM_POOL_SIZE</span> <span class="o">=</span> <span class="n">CPU_COUNT</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">KEEP_ALIVE_SECONDS</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>AsyncTask中<strong>核心线程数</strong>的范围为 2-4个，当依据cpu核数来决定核心线程数是，会-1留一个防止cpu饱和。<br />
+<strong>keepalivetime</strong> 就是线程数大于corePoolSize时空闲线程存活的最大时间,但是如果设置了allowCoreThreadTimeOut，核心线程在指定时间内没有取到也会被认为超时。AsyncTask中默认是true的。所以只要线程闲置超过keepalive时长，会被回收。操作位于ThreadPoolExecutor的getTask()方法中，如下。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">timed</span> <span class="o">=</span> <span class="n">allowCoreThreadTimeOut</span> <span class="o">||</span> <span class="n">wc</span> <span class="o">&gt;</span> <span class="n">corePoolSize</span><span class="o">;</span>
+<span class="n">Runnable</span> <span class="n">r</span> <span class="o">=</span> <span class="n">timed</span> <span class="o">?</span> 
+            <span class="n">workQueue</span><span class="o">.</span><span class="na">poll</span><span class="o">(</span><span class="n">keepAliveTime</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">)</span> <span class="o">:</span>
+            <span class="n">workQueue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="n">timeout</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span><span class="c1">//(这行改写的)</span>
+</code></pre></div></div>
+
+<p><img src="https://raw.githubusercontent.com/leo1992/blog/master/_posts/blog_image/AsyncTask-class.jpg" alt="image" /></p>
+
+<h1 id="线程池">线程池</h1>
+<p>AsyncTask中有两个线程池，能够执行并行任务的线程池，和一次执行一个的串行的线程池，AsyncTask默认的是串行执行的线程池。它的具体执行也是通过THREAD_POOP_EXECUTOR的执行的。代码逻辑如下。SerialExecutor内部维护一个Runable数组存放要执行的任务，每次调用execute的时候，将任务存放在mTasks中，并且在执行完毕后再去调度下一个任务。在最开始没有任务在执行的时候（mActive == null），就直接去调度下一个。scheduleNext的逻辑就是从mTasks中取一个任务，赋给mactive，然后让THREAD_POOP_EXECUTOR去执行当前任务。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">Executor</span> <span class="n">sDefaultExecutor</span> <span class="o">=</span> <span class="n">SERIAL_EXECUTOR</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Executor</span> <span class="n">SERIAL_EXECUTOR</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SerialExecutor</span><span class="o">();</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SerialExecutor</span> <span class="kd">implements</span> <span class="n">Executor</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">mTasks</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;();</span>
+        <span class="n">Runnable</span> <span class="n">mActive</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="kd">final</span> <span class="n">Runnable</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mTasks</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="n">r</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+                    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                        <span class="n">scheduleNext</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">});</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">mActive</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">scheduleNext</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kd">protected</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">scheduleNext</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">((</span><span class="n">mActive</span> <span class="o">=</span> <span class="n">mTasks</span><span class="o">.</span><span class="na">poll</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">THREAD_POOL_EXECUTOR</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">mActive</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="线程切换">线程切换</h2>
+<p>IntentHandler继承handler，在构造函数中传入了Looper.getMainLooper()用主线程的looper，所以intenthandler是在主线程中执行的。另外覆写了handleMessage方法，接受两个消息：执行结果和状态更新，调用finish()回调和onProgressUpdate()回调，finish()方法中根据情况会调用onCancelled(）和 onPostExecuete方法，说明这两个方法也是在主线程中执行.</p>
+<h2 id="返回运行结果">返回运行结果</h2>
+<p>– 通过 FutureTask, Callable 实现，具体见注释<br />
+AsyncTask中的<strong>worker(WorkRnnable)</strong>继承自<strong>Callable</strong>，实现了call方法，在被调用时调用asyncTask的doInBackground方法, 将返回结果直接通过postResult返回。</p>
+<ul>
+  <li>所以问题：为什么要设置两次结果？<br />
+查找了一下futuretask中的结果设置的位置，即done方法的调用（finishCompletion方法中调用）发现，除了运行结果的时候会执行外，在出现很多异常的时候也会执行，所以认为，futureTask也就是在执行各种异常的情况下，能够设置运行结果，而且WorkRnnable的执行是futureTask去调用的，所以我认为：1. 用futuretask封装了整个生命周期的状态，并且要支持在调用前出现异常时的结果处理 ；2. 支持在任何时机去主动获取结果，即使没有执行结束 3. 在期间的任何异常都能够有对应的异常状态结果的返回。 
+AsyncTask中的<strong>future(FutureTask)</strong>实现了done方法，在方法中通过futureTask的get方法取到结果，然后调用postResultIfNotInvoked来设置结果，即<strong>向handler发送post_result消息</strong>。 <br />
+FutureTask用于异步获取执行结果或取消执行任务的场景，它的主要功能：判断任务是否完成，获取任务执行结果（结果只可以在计算完成之后获取，get方法会阻塞当计算没有完成的时候，一旦计算已经完成， 那么计算就不能再次启动或是取消）, 中断任务。</li>
+</ul>
+
+<h2 id="asynctask的执行">AsyncTask的执行</h2>
+<p>asyncTask的执行最终都是通过THREAD_POOL_EXECUTOR.execute来执行的（原因见上面的线程解释），调用execute方法默认用串行执行的线程池，需要并行执行的时候，调用executeOnExecutor，可以传入THREAD_POOL_EXECUTOR。<br />
+三个方法：</p>
+<ul>
+  <li>execute(Params…): 串行执行的方法</li>
+  <li>execiteOnExecutor: 支持并行执行</li>
+  <li>execute(runnable): 串行执行。省略了判断状态的逻辑，认为就是不关心运行结果，和过程，只是要实现后台操作的时候用，runnable就是在后台线程中执行的操作。simple版，TextView中就用到。</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@MainThread</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Runnable</span> <span class="n">runnable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">sDefaultExecutor</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">runnable</span><span class="o">);</span>
+<span class="o">}</span>
+    
+<span class="nd">@MainThread</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Params</span><span class="o">,</span> <span class="n">Progress</span><span class="o">,</span> <span class="n">Result</span><span class="o">&gt;</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Params</span><span class="o">...</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">executeOnExecutor</span><span class="o">(</span><span class="n">sDefaultExecutor</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@MainThread</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Params</span><span class="o">,</span> <span class="n">Progress</span><span class="o">,</span> <span class="n">Result</span><span class="o">&gt;</span> <span class="nf">executeOnExecutor</span><span class="o">(</span><span class="n">Executor</span> <span class="n">exec</span><span class="o">,</span>
+        <span class="n">Params</span><span class="o">...</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mStatus</span> <span class="o">!=</span> <span class="n">Status</span><span class="o">.</span><span class="na">PENDING</span><span class="o">)</span> <span class="o">{</span><span class="c1">// 重复执行会抛出异常？</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">mStatus</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="nl">RUNNING:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"Cannot execute task:"</span>
+                        <span class="o">+</span> <span class="s">" the task is already running."</span><span class="o">);</span>
+            <span class="k">case</span> <span class="nl">FINISHED:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"Cannot execute task:"</span>
+                        <span class="o">+</span> <span class="s">" the task has already been executed "</span>
+                        <span class="o">+</span> <span class="s">"(a task can be executed only once)"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="n">mStatus</span> <span class="o">=</span> <span class="n">Status</span><span class="o">.</span><span class="na">RUNNING</span><span class="o">;</span>
+
+    <span class="n">onPreExecute</span><span class="o">();</span>
+
+    <span class="n">mWorker</span><span class="o">.</span><span class="na">mParams</span> <span class="o">=</span> <span class="n">params</span><span class="o">;</span>
+    <span class="n">exec</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">mFuture</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>THREAD_POOL_EXECUTOR的执行过程- to_be_continue</p>
+<ol>
+  <li>判断当前工作执行的线程少于核心线程数，就创建一个新的线程执行</li>
+  <li>如果成功加入了工作队列，并且在执行了，</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="cm">/*
+         * Proceed in 3 steps:
+         *
+         * 1. If fewer than corePoolSize threads are running, try to
+         * start a new thread with the given command as its first
+         * task.  The call to addWorker atomically checks runState and
+         * workerCount, and so prevents false alarms that would add
+         * threads when it shouldn't, by returning false.
+         *
+         * 2. If a task can be successfully queued, then we still need
+         * to double-check whether we should have added a thread
+         * (because existing ones died since last checking) or that
+         * the pool shut down since entry into this method. So we
+         * recheck state and if necessary roll back the enqueuing if
+         * stopped, or start a new thread if there are none.
+         *
+         * 3. If we cannot queue task, then we try to add a new
+         * thread.  If it fails, we know we are shut down or saturated
+         * and so reject the task.
+         */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Runnable</span> <span class="n">command</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">command</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NullPointerException</span><span class="o">();</span>
+	 <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">ctl</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">workerCountOf</span><span class="o">(</span><span class="n">c</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">corePoolSize</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">addWorker</span><span class="o">(</span><span class="n">command</span><span class="o">,</span> <span class="kc">true</span><span class="o">))</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">ctl</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isRunning</span><span class="o">(</span><span class="n">c</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">workQueue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">command</span><span class="o">))</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">recheck</span> <span class="o">=</span> <span class="n">ctl</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(!</span> <span class="n">isRunning</span><span class="o">(</span><span class="n">recheck</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">remove</span><span class="o">(</span><span class="n">command</span><span class="o">))</span>
+            <span class="n">reject</span><span class="o">(</span><span class="n">command</span><span class="o">);</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">workerCountOf</span><span class="o">(</span><span class="n">recheck</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">addWorker</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="o">(!</span><span class="n">addWorker</span><span class="o">(</span><span class="n">command</span><span class="o">,</span> <span class="kc">false</span><span class="o">))</span>
+        <span class="n">reject</span><span class="o">(</span><span class="n">command</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="注意">注意</h2>
+<ol>
+  <li>AsyncTask是抽象类，在调用处通常会成为内部匿名类，所以在task中用到view，和持有activity的时候注意防止内存泄漏。</li>
+  <li>AsyncTask类应该在主线程中加载（activitythread中有执行asyncTask.init()之所以这点暂时不用考虑）。是因为handler负责主线程的执行任务，所以必须在主线程中执行。书上的原因说因为为它为static变量，所以会在类加载的时候被创建赋值，所以应该在主线程中创建。当前源码（24+）版本的代码sHandler是推迟了创建对象赋值的操作，handler都是通过getHandler去获取，在创建时通过Looper.getMainLooper()保证在线程中。所以依然不用考虑这个问题。</li>
+  <li>AsyncTask对象必须在主线程中创建，AsyncTask的执行（executor）应该在主线程中。为什么？</li>
+  <li>AsyncTask不适合执行特别耗时的任务。网上提到是因为跟activity的生命周期（旋转）和容易内存泄露的考虑。</li>
+  <li>asyncTask取消之后（cancel方法），onPostExecute和onProgressUpdate不会再调用了，但doInBackground方法却会一直执行下去，对用户来说，在调用了cancle方法后，后台的任务就不会在影响到主线程的界面变化了。（https://blog.csdn.net/qq_25806863/article/details/72782050）</li>
+</ol>
+
+<hr />
+
+<p>*注释
+多线程是否能并发的线程数量，需要返回可用处理器的Java虚拟机的数量。方法：Runtime.getRuntime().availableProcessors()。<br />
+<strong>Runnable, Callable, Future 和 FutureTask。</strong><br />
+参考：https://blog.csdn.net/codershamo/article/details/51901057<br />
+Runnable 接口中要实现的是run()方法，但是返回值是void，这样就无法在执行后返回执行结果，即使可以返回结果，但是如果任务存在延迟，例如开新线程中执行不能同步的情况，就无法直接取得运行结果（一般在线程中，这种情况会再直接结束后通过回调来返回数据？所以并不是没有办法解决的），<strong>Callable</strong>接口定义的call方法是支持返回结果的。<br />
+有时候在执行长时间的操作时，有需要取消任务的情况。在Executor框架中，已提交但尚未开始的任务可以取消，对于已经开始执行的任务，只有当它们响应中断时才能取消。<strong>Future</strong>表示一个任务的生命周期，并提供了方法来判断是否已经完成或取消，以及获取任务的结果和取消任务等。其中的get方法用来获取执行结果，<strong>这个方法会产生阻塞，会一直等到任务执行完毕才返回</strong>。get(long timeout, TimeUnit unit)用来获取执行结果，如果在指定时间内，还没获取到结果，就直接返回null。（类似于executor中的poll的两个方法）<br />
+FutureTask实现了 future、runnable接口，并且持有callale成员变量。是一个可取消的异步计算。  <br />
+<strong>FutureTask</strong>
+FutureTask有以下几个状态，对应的迁移如注释，</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Possible state transitions:
+ * NEW -&gt; COMPLETING -&gt; NORMAL
+ * NEW -&gt; COMPLETING -&gt; EXCEPTIONAL
+ * NEW -&gt; CANCELLED
+ * NEW -&gt; INTERRUPTING -&gt; INTERRUPTED
+ */</span>
+<span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">state</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NEW</span>          <span class="o">=</span> <span class="mi">0</span><span class="o">;</span><span class="c1">//表示内部成员callable已成功赋值</span>
+<span class="c1">//woker thread在处理task时设定的中间状态，处于该状态时,说明worker thread正准备设置result</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">COMPLETING</span>   <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="c1">//当设置result结果完成后，FutureTask处于该状态，代表过程结果</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NORMAL</span>       <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">EXCEPTIONAL</span>  <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CANCELLED</span>    <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INTERRUPTING</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INTERRUPTED</span>  <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
+</code></pre></div></div>
+<ol>
+  <li>判断任务是否完成
+ isDone: state != NEW  futuretask的构造函数中初始化为new，到normal之后就都属于完成状态，completing时已经处于正在设置result，认为属于已完成
+ isCanceled: 返回当前的state是否&gt;=cancelled（CANCELLED, INTERRUPTING, INTERRUPTED）</li>
+  <li>获取任务执行结果
+方法如下，如果已经完成，则直接根据结果状态返回，如果未完成，等待然后返回结果。进入awaitDone方法后会进入死循环，直到状态未completing时返回状态，或遇到异常时抛出异常。中间会创建waitnode（没来得及细看，目前状态认为是，加入一个等待链表节点，在完成后会被取消），<br />
+completing时正在设置，直接返回有问题么？同步加锁了？<br />
+callable在这里的作用是在run方法中执行callbale.call，然后依据结果设置result。</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">get</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span><span class="o">,</span> <span class="n">ExecutionException</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">&lt;=</span> <span class="n">COMPLETING</span><span class="o">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">awaitDone</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mi">0L</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nf">report</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">V</span> <span class="nf">report</span><span class="o">(</span><span class="kt">int</span> <span class="n">s</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ExecutionException</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">x</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">NORMAL</span><span class="o">)</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">V</span><span class="o">)</span><span class="n">x</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="n">CANCELLED</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">CancellationException</span><span class="o">();</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">ExecutionException</span><span class="o">((</span><span class="n">Throwable</span><span class="o">)</span><span class="n">x</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+<p>futuretask在创建时，有一个会获取executor的callable，其callable实现如下，（如果task.run已经在子线程中调用，那么return result就是顺序执行后返回的，也就是run执行完成，这个时候能保证结果。result会在task.run中被改变？）<br />
+所以这个结构中，future会根据状态支持等待执行完成返回result；callable的作用就是等待执行完成设置结果。这个有什么意义？</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">RunnableAdapter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Callable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">Runnable</span> <span class="n">task</span><span class="o">;</span>
+    <span class="kd">final</span> <span class="n">T</span> <span class="n">result</span><span class="o">;</span>
+    <span class="n">RunnableAdapter</span><span class="o">(</span><span class="n">Runnable</span> <span class="n">task</span><span class="o">,</span> <span class="n">T</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">task</span> <span class="o">=</span> <span class="n">task</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">T</span> <span class="nf">call</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">task</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>在AsyncTask创建时，callable的实现如下，调用doInBackground的结果，返回，在返回时会通过postResult设置结果</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="n">mWorker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WorkerRunnable</span><span class="o">&lt;</span><span class="n">Params</span><span class="o">,</span> <span class="n">Result</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="n">Result</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+                <span class="n">mTaskInvoked</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+             <span class="n">Process</span><span class="o">.</span><span class="na">setThreadPriority</span><span class="o">(</span><span class="n">Process</span><span class="o">.</span><span class="na">THREAD_PRIORITY_BACKGROUND</span><span class="o">);</span>
+                <span class="c1">//noinspection unchecked</span>
+                <span class="n">Result</span> <span class="n">result</span> <span class="o">=</span> <span class="n">doInBackground</span><span class="o">(</span><span class="n">mParams</span><span class="o">);</span>
+                <span class="n">Binder</span><span class="o">.</span><span class="na">flushPendingCommands</span><span class="o">();</span>
+                <span class="k">return</span> <span class="nf">postResult</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+</code></pre></div></div>
+<ol>
+  <li>支持可取消
+如果不是new的状态，即done的状态时，返回false，否则通过t.interrupt方法中断任务 。</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">cancel</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mayInterruptIfRunning</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!(</span><span class="n">state</span> <span class="o">==</span> <span class="n">NEW</span> <span class="o">&amp;&amp;</span>
+          <span class="n">U</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">STATE</span><span class="o">,</span> <span class="n">NEW</span><span class="o">,</span>
+              <span class="n">mayInterruptIfRunning</span> <span class="o">?</span> <span class="n">INTERRUPTING</span> <span class="o">:</span> <span class="n">CANCELLED</span><span class="o">)))</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>    <span class="c1">// in case call to interrupt throws exception</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mayInterruptIfRunning</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="n">runner</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">t</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                    <span class="n">t</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> <span class="c1">// final state</span>
+                <span class="n">U</span><span class="o">.</span><span class="na">putOrderedInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">STATE</span><span class="o">,</span> <span class="n">INTERRUPTED</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">finishCompletion</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="handlerthread">HandlerThread</h1>
+
+<p>官方解释HandlerThread就是一个可以创建一个带有looper的线程，我们、、可以直接使用这个 Looper 创建 Handler。 <br />
+<strong>应用场景</strong>：需要创建线程间传递消息的线程时。看了一个例子是在网络连接管理的ConnectivityManager中使用到了HandlerThread来处理PacketKeepalive事件。可以看到，在handlerMessage中，可以获取到message的类型，错误信息，然后进行处理。发送消息是在NetWorkAgent（继承Handler）中的handler去发送的。因此，实现了线程之间的消息传递。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//ConnectivityManager类中</span>
+<span class="n">HandlerThread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HandlerThread</span><span class="o">(</span><span class="n">TAG</span><span class="o">);</span>
+<span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="n">mLooper</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="na">getLooper</span><span class="o">();</span>
+<span class="n">mMessenger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Messenger</span><span class="o">(</span><span class="k">new</span> <span class="n">Handler</span><span class="o">(</span><span class="n">mLooper</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="na">what</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">NetworkAgent</span><span class="o">.</span><span class="na">EVENT_PACKET_KEEPALIVE</span><span class="o">:</span>
+                <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="na">arg2</span><span class="o">;</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">error</span> <span class="o">==</span> <span class="n">SUCCESS</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">mSlot</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                            <span class="n">mSlot</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="na">arg1</span><span class="o">;</span>
+                            <span class="n">mCallback</span><span class="o">.</span><span class="na">onStarted</span><span class="o">();</span>
+                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                            <span class="n">mSlot</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                            <span class="n">stopLooper</span><span class="o">();</span>
+                            <span class="n">mCallback</span><span class="o">.</span><span class="na">onStopped</span><span class="o">();</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">stopLooper</span><span class="o">();</span>
+                        <span class="n">mCallback</span><span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="n">error</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Exception in keepalive callback("</span> <span class="o">+</span> <span class="n">error</span> <span class="o">+</span> <span class="s">")"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Unhandled message "</span> <span class="o">+</span> <span class="n">Integer</span><span class="o">.</span><span class="na">toHexString</span><span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="na">what</span><span class="o">));</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+            
+<span class="c1">//调用</span>
+<span class="c1">// NetWorkAgent类中</span>
+<span class="n">queueOrSendMessage</span><span class="o">(</span><span class="n">EVENT_PACKET_KEEPALIVE</span><span class="o">,</span> <span class="n">slot</span><span class="o">,</span> <span class="n">reason</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">queueOrSendMessage</span><span class="o">(</span><span class="kt">int</span> <span class="n">what</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="o">,</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">{</span>
+    <span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+    <span class="o">...</span>
+    <span class="n">queueOrSendMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">queueOrSendMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">mPreConnectedQueue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mAsyncChannel</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mAsyncChannel</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">mPreConnectedQueue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><strong>为什么要使用？</strong>攒了一下网上的解释</p>
+<ol>
+  <li>多个耗时任务串行执行时，防止频繁创建一般的创建new Thread(){…}.start()的方法可以处理单个耗时任务，但是如果有多个耗时任务串行时，频繁的创建很耗系统资源，容易存在性能问题。</li>
+  <li>多线程通信时，handler的looper使用问题。当创建多个线程时，需要让多个线程之间能够方便通信（包括主线程），因此需要使用到该线程的handler，HandlerThread就是用来做这件事。Handler在执行时创建handler（因为在创建handler时要传入线程的looper，此时可能线程并未准备好，所以在执行中再创建handler），准备looper。handlerthread就是帮助我们做好了这些操作。</li>
+</ol>
+
+<h2 id="实现">实现</h2>
+<p>HandlerThread继承了Thread，实现就是增加了looper，处理了线程的终止。</p>
+
+<h3 id="looper的创建和获取">looper的创建和获取</h3>
+<p><strong>创建：</strong>run方法中，调用Looper.prepare 和 looper.loop准备好线程的looper并开启，(所说的run方法的死循环就是looper.loop是一个死循环)，在创建时如果出现并发执行的情况时，要考虑同步问题，因为加了对象锁。mTid是当前线程的标识，如果执行完成，tid会置回-1。<br />
+<strong>获取：</strong>getLooper方法会返回looper，在这个方法中会判断mLooper是否为空，如果未空会调用wait等待，等到线程准备好looper之后再返回。wait方法注释是:让当前线程等待，直到调用了当前对象的notify或notifyall方法。在run方法中可以看到，mLooper赋值之后会调用notifyAll()方法，因为能够保证looper在获取时不会为空或线程未准备好。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">mTid</span> <span class="o">=</span> <span class="n">Process</span><span class="o">.</span><span class="na">myTid</span><span class="o">();</span>
+        <span class="n">Looper</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLooper</span> <span class="o">=</span> <span class="n">Looper</span><span class="o">.</span><span class="na">myLooper</span><span class="o">();</span>
+            <span class="n">notifyAll</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">Process</span><span class="o">.</span><span class="na">setThreadPriority</span><span class="o">(</span><span class="n">mPriority</span><span class="o">);</span>
+        <span class="n">onLooperPrepared</span><span class="o">();</span>
+        <span class="n">Looper</span><span class="o">.</span><span class="na">loop</span><span class="o">();</span>
+        <span class="n">mTid</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+<span class="kd">public</span> <span class="n">Looper</span> <span class="nf">getLooper</span><span class="o">()</span> <span class="o">{</span>
+	<span class="k">if</span> <span class="o">(!</span><span class="n">isAlive</span><span class="o">())</span> <span class="o">{</span>
+	    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+	    
+	<span class="c1">// If the thread has been started, wait until the looper has been created.</span>
+	<span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">isAlive</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">mLooper</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">wait</span><span class="o">();</span> 
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">mLooper</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h3 id="执行">执行</h3>
+
+<p>HandlerThread的执行不是传统的再thread的run方法中取执行操作，而是让handler去处理接受到的消息去执行操作，在handleMessage方法中执行异步任务。前面提到的串行执行耗时任务，应该就是用hander发送msg，然后通过looper循环，来保证串行处理。</p>
+
+<h3 id="quit和-quitsafely">quit和 quitSafely</h3>
+<p>对应looper的quit和quitSafely，是否执行完之后再停止。</p>
+
+<h3 id="使用过程">使用过程</h3>
+<ol>
+  <li>创建 HandlerThread handlerThread = new HandlerThread(TAG）</li>
+  <li>开启线程 handlerThread.start();</li>
+  <li>创建消息处理机制，handler的实现有三种：CallBack会创建为Handler的私有变量Callback, handleMessage, handler.post(new Runnable)，三者的具体解释参考handler学习笔记。</li>
+  <li>构建Handler handler = new Handler(handlerThread.getLooper);//具体的创建方式看使用场景。</li>
+</ol>
+
+<h2 id="注意-1">注意</h2>
+<ol>
+  <li>HandlerThread在不需要使用的时候需要手动的回收掉，因为其run方法是一个无限循环。</li>
+</ol>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=AsyncTask, HandlerThread, IntentService源码解读&url=http://localhost:4000/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
+          
+            <a href="/blog/tags#多线程" class="tag">&#35; 多线程</a>
+          
+        </div>
+      </div>
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

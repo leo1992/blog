@@ -168,20 +168,41 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">violate</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span><span class="o">;</span>
 <span class="kd">public</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
 	<span class="k">if</span> <span class="o">(</span><span class="n">singleton</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-		<span class="kd">synchronized</span> <span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>   
-			<span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>    
+		<span class="kd">synchronized</span> <span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span> 
+			<span class="k">if</span> <span class="o">(</span><span class="n">singleton</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>  
+				<span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>    
 		<span class="o">}</span>
     <span class="o">}</span>
 	<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
+
+<p>这个方法中增加了violate关键字保证instance的内存可见性，因为synchronized是对Singleton类进行加锁的，并没有在instance实现同步，如果有两个线程同时到synchronized代码块时，只有一个进入并初始化了instance，保证了访问上的独占性，不能保证instance的内存可见性，结果会导致第二个线程不能马上看见instance被初始化，有可能会再次实例化instance。因此增加了violate关键字，保证变量的内存可见性，并且同步的消耗也非常小。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nf">Singleton</span><span class="o">(){}</span>
+    
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SingleHolder</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>
+<span class="o">}</span>
+    
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">(){</span>
+     <span class="k">return</span> <span class="n">SingleHolder</span><span class="o">.</span><span class="na">instance</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>这种方式通过全局静态变量的<strong>提前创建</strong>解决了同步问题，通过getInstance实现了延迟加载</p>
+
 <hr />
 
-<p>violate关键字
+<p><strong>violate关键字</strong><br />
 特性一：内存可见性，即线程A对volatile变量的修改，其他线程获取的volatile变量都是最新的。读操作时JMM会把工作内存中对应的值设为无效，要求线程从主内存中读取数据；写操作时JMM会把工作内存中对应的数据刷新到主内存中，这种情况下，其它线程就可以读取变量的最新值。<br />
 volatile特性二：可以禁止指令重排序<br />
 https://blog.csdn.net/u011519624/article/details/63686701<br />
 https://www.jianshu.com/p/195ae7c77afe</p>
+
+<p><strong>内存可见性</strong></p>
+
+<p>如果线程A对共享变量X进行了修改，但是没有及时把更新后的值刷入到主内存中，而此时线程B从主内存读取共享变量X的值，所以X的值是原始值，那么我们就说对于线程B来讲，共享变量X的更改对线程B是不可见的。</p>
 
 <hr />
 
@@ -196,6 +217,11 @@ https://www.jianshu.com/p/195ae7c77afe</p>
     <h2 id="对象适配模式">对象适配模式</h2>
     <h2 id="类适配模式">类适配模式</h2>
     <h2 id="外观模式">外观模式</h2>
+    <h1 id="模板方法">模板方法</h1>
+    <h1 id="迭代器与组合模式">迭代器与组合模式</h1>
+    <h1 id="状态模式">状态模式</h1>
+    <h1 id="代理模式">代理模式</h1>
+    <h1 id="复合模式">复合模式</h1>
   </li>
 </ol>
 

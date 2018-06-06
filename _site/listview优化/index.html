@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>ListView优化 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="ListView优化" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/listview%E4%BC%98%E5%8C%96/" property="og:url">
+  
+  
+    <meta content="2018-05-30T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_6.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Android" property="article:tag">
+    
+    <meta content="view" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="ListView优化">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/listview%E4%BC%98%E5%8C%96/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_6.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>入行两年的Android开发工程师，近期正在学习重构、android高性能开发，设计模式。目前的状态在整理笔记，希望再后期更多的经验积累和学习中，总结点心得充实文章。欢迎交流。</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/blog/assets/img/blog_head_6.jpeg alt="ListView优化">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">ListView优化</h1>
+        <div class="page-date"><span>2018, May 30&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p><strong>ListView优化</strong><br />
+1- convertView重用: 在getview中先判断convertView是否为空，这样在view没有改变宽高时，可以减少重新分配缓存;<br />
+2- ViewHolder优化：findViewById方法耗时较大，viewholder中持有各个view控件，然后利用view的setTag，getTag直接获取View。<br />
+3- 当ListView滚动时busy设为true，停止各个view的图片加载。否则可能会让UI不够流畅用户体验度降低。（这个下载控制并不能处处用到:建议是glide的功能项目地址：https://github.com/bumptech/glide）</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">OnScrollListener</span><span class="o">()</span> <span class="o">{</span>  
+    <span class="nd">@Override</span>  
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onScrollStateChanged</span><span class="o">(</span><span class="n">RecyclerView</span> <span class="n">recyclerView</span><span class="o">,</span> <span class="kt">int</span> <span class="n">newState</span><span class="o">)</span> <span class="o">{</span>  
+        <span class="k">if</span> <span class="o">(</span><span class="n">newState</span> <span class="o">==</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">SCROLL_STATE_IDLE</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Glide</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">mContext</span><span class="o">).</span><span class="na">resumeRequests</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">Glide</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">mContext</span><span class="o">).</span><span class="na">pauseRequests</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>4- 分页加载数据，这个网上介绍的是说一次不要请求太多数据，这个涉及的应该是list中数据很多的情况，就view本身一个页面能展示的项目有限，在滑动时，传入的convertview就是可重用（类型相同）的convertview。<br />
+<img src="https://github.com/HIT-Alibaba/interview/blob/master/img/android-listview.jpg?raw=true" alt="image" /><br />
+5- 尽量能保证 Adapter 的 <strong>hasStableIds</strong>(还是有疑惑，什么情况下回返回false) 返回 true，这样在 notifyDataSetChanged() 的时候，如果 id 不变，ListView 将不会重新绘制这个 View，达到优化的目的；<br />
+6- 每个 Item 不能太高，特别是不要超过屏幕的高度，可以参考 Facebook 的优化方法，把特别复杂的 Item 分解成若干小的 Item（https://code.facebook.com/posts/879498888759525/fast-rendering-news-feed-on-android/）<br />
+7- 设置 View （如 TextView#setText ）之前先对比数据是否有改变。<br />
+8- ListView 中元素避免半透明，半透明绘制需要大量乘法计算，在滑动时不停重绘会造成大量的计算。实在要弄的话我个人是用个比较偷懒的方法，是在滑动的时候把半透明设置成不透明，滑动完再重新设置成半透明。 <br />
+9- 在写点击时间时用new OnClickListener会创建很多listener，可以考虑创建一个listener用id来判断，或者有一种推荐方法让holder实现listener接口然后setlistener时把holder传进去。现在知道为什么会有很多地方避免new listener了。。。。
+10- 尝试开启硬件加速来使ListView的滑动更加流畅。
+其他基础是我：减少Item View的布局层级，getView方法尽量少使用逻辑，图片加载采用三级缓存，避免每次都要重新加载，尝试开启硬件加速来使ListView的滑动更加流畅。</p>
+
+<p>使用 <strong>RecycleView</strong> 代替。ListView 每次更新数据都要 notifyDataSetChanged()，有些太暴力了。RecycleView 在性能和可定制性上都有很大的改善，推荐使用。具体那些改善？：</p>
+
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=ListView优化&url=http://localhost:4000/listview%E4%BC%98%E5%8C%96/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/listview%E4%BC%98%E5%8C%96/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/listview%E4%BC%98%E5%8C%96/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
+          
+            <a href="/blog/tags#view" class="tag">&#35; view</a>
+          
+        </div>
+      </div>
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
