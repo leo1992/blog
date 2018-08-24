@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>问题整理（更新至7.25） - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="问题整理（更新至7.25）" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/" property="og:url">
+  
+  
+    <meta content="2018-07-18T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_12.jpg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="android" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="问题整理（更新至7.25）">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_12.jpg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>学而不思则罔</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/blog/assets/img/blog_head_12.jpg alt="问题整理（更新至7.25）">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">问题整理（更新至7.25）</h1>
+        <div class="page-date"><span>2018, Jul 18&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h1 id="android基础篇">Android基础篇</h1>
+<h2 id="onclicklistener是如何调用的">onclicklistener是如何调用的</h2>
+<p>就是在UP事件中创建一个实现了Runnalbe接口的PerformClick对象，run方法中调用performClick执行点击，在handelr中post，如果post失败则执行方法performClick立即执行onClickListener的onClick方法</p>
+
+<p>onTouchListenerd的onTouch方法  &gt; onTouchEvent   &gt;  onClickListener</p>
+
+<h2 id="onlongclicklistener是如何实现的">onLongClickListener是如何实现的</h2>
+<p>CheckForLongPress实现一个Runnable接口，run方法中执行performLongClick方法执行长按的处理。<br />
+&lt;—<br />
+CheckForLongPress在checkForLongClick方法中创建，并在私有变量mPendingCheckForLongPress中存储。<br />
+&lt;—<br />
+checkForLongClick方法创建CheckForLongPress对象后，发送一个延迟事件，在特定时间之后执行CheckForLongPress，延迟的时间为系统设定的长按的时间-传入的延迟时间（一般为0，特殊处理时在CheckForTap中，暂时不关注）。<br />
+&lt;—<br />
+checkForLongClick的触发在ACTION_DOWN中，ACTION_DOWN中会优先执行button的ontouchdown事件，然后依据是不是在一个scroll容器中决定是否立即去执行checkForLongClick操作。<br />
+在长按时间到了之后，如何判断当前是否还是有效的长按事件呢？ 
+处于press状态 &amp;&amp; 当前viewattach的view的数量相同的。
+在ACTION_UP、ACTION_CANCEL和ACTION_MOVE事件中会移除掉长按的message。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">isPressed</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">mParent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="o">&amp;&amp;</span> <span class="n">mOriginalWindowAttachCount</span> <span class="o">==</span> <span class="n">mWindowAttachCount</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">performLongClick</span><span class="o">(</span><span class="n">mX</span><span class="o">,</span> <span class="n">mY</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">mHasPerformedLongPress</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
+    <span class="kt">boolean</span> <span class="n">prepressed</span> <span class="o">=</span> <span class="o">(</span><span class="n">mPrivateFlags</span> <span class="o">&amp;</span> <span class="n">PFLAG_PREPRESSED</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">((</span><span class="n">mPrivateFlags</span> <span class="o">&amp;</span> <span class="n">PFLAG_PRESSED</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">prepressed</span><span class="o">)</span> <span class="o">{</span>                      
+        <span class="k">if</span> <span class="o">(!</span><span class="n">mHasPerformedLongPress</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mIgnoreNextUpEvent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">removeLongPressCallback</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_CANCEL</span><span class="o">:</span>
+    <span class="n">removeLongPressCallback</span><span class="o">();</span>
+    <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_MOVE</span><span class="o">:</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">pointInView</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">mTouchSlop</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">mPrivateFlags</span> <span class="o">&amp;</span> <span class="n">PFLAG_PRESSED</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">removeLongPressCallback</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="如何实现流式布局">如何实现流式布局</h2>
+<p>见git上的viewstudy项目</p>
+<h2 id="constrainlayout">ConstrainLayout</h2>
+<p>ConstraintLayout 继承自viewgroup，比relativelayout更高级，除了友好的可视化编辑外，增加的限制属性能够帮助解决试图层级过多的问题。
+新特性:（https://www.jianshu.com/p/38ee0aa654a8）</p>
+
+<p>相对定位，左边右对齐，起始边尾部对齐等等。
+外边距（gone margin，B向A添加约束后，如果A的可见性变为GONE，这时候B的外边距可以改变，也就是B的外边距根据A的可见性分为两种状态。）
+居中和倾向</p>
+
+<p>app:layout_constraintLeft_toLeftOf=”parent”
+app:layout_constraintRight_toRightOf=”parent
+layout_constraintHorizontal_bias=”0.3”
+可见性的表现
+一般情况下，GONG控件是不可见的，且不再是布局的一部分，但是在布局计算上，ConstraintLayout与传统布局有一个很重要的区别：传统布局下，GONE控件的尺寸会被认为是0（当做点来处理），在ConstraintLayout中，GONE控件尺寸仍然按其可见时的大小计算，但是其外边距大小按0计算
+尺寸约束：通过设置比例，让宽高的其中一个随另一个变化。为了实现比例，需要让控件宽或高受约束，且尺寸设置为0dp（也可以是MATCH_CONSTRAINT）
+Chain：一系列双向连接的控件连接在一起的形态（如图 8所示，是最小单位的Chain，只有两个组件）</p>
+
+<p>app:layout_constraintLeft_toLeftOf=”parent”
+app:layout_constraintRight_toRightOf=”parent”</p>
+<h2 id="组件化有什么好处">组件化有什么好处</h2>
+<p>现象：</p>
+<ol>
+  <li>稍微改动一个模块的一点代码都要编译整个工程，耗时耗力</li>
+  <li>公共资源、业务、模块混在一起耦合度太高</li>
+  <li>不方便测试
+https://juejin.im/entry/577bae93d342d30057970e05
+    <h2 id="卡顿工具">卡顿，工具（–）</h2>
+    <p>卡顿检测：工程中并没有修改代码去做这件事，网上说的方法，依据activitythread中loop的方法diapatch前后的log去计算两个log之间是不是超过了阈值，也并没有用到。<br />
+（来源 https://www.cnblogs.com/ldq2016/p/6667381.html）
+比较方便的还是在开发者模式中开启gpu绘制。 
+<img src="http://imgsrc.baidu.com/forum/w%3D580/sign=8e54b036c1ea15ce41eee00186013a25/b60ab982d158ccbfe1ee6b8911d8bc3eb0354103.jpg" alt="iamge" /><br />
+(1)Swap Buffers：表示处理任务的时间，也可以说是CPU等待GPU完成任务的时间，线条越高，表示GPU做的事情越多；<br />
+(2)Command Issue：表示执行任务的时间，这部分主要是Android进行2D渲染显示列表的时间，为了将内容绘制到屏幕上，Android需要使用Open GL ES的API接口来绘制显示列表，红色线条越高表示需要绘制的视图更多；<br />
+(3)Sync &amp; Upload：表示的是准备当前界面上有待绘制的图片所耗费的时间，为了减少该段区域的执行时间，我们可以减少屏幕上的图片数量或者是缩小图片的大小；<br />
+(4)Draw：表示测量和绘制视图列表所需要的时间，蓝色线条越高表示每一帧需要更新很多视图，或者View的onDraw方法中做了耗时操作；<br />
+(5)Measure/Layout：表示布局的onMeasure与onLayout所花费的时间，一旦时间过长，就需要仔细检查自己的布局是不是存在严重的性能问题；<br />
+(6)Animation：表示计算执行动画所需要花费的时间，包含的动画有ObjectAnimator，ViewPropertyAnimator，Transition等等。一旦这里的执行时间过长，就需要检查是不是使用了非官方的动画工具或者是检查动画执行的过程中是不是触发了读写操作等等；<br />
+(7)Input Handling：表示系统处理输入事件所耗费的时间，粗略等于对事件处理方法所执行的时间。一旦执行时间过长，意味着在处理用户的输入事件的地方执行了复杂的操作；<br />
+(8)Misc Time/Vsync Delay：表示在主线程执行了太多的任务，导致UI渲染跟不上vSync的信号而出现掉帧的情况；</p>
+  </li>
+</ol>
+
+<p>卡顿的原因：无法在16ms内完成渲染，导致丢帧现象。丢帧的原因可能是因为
+(1)layout过于复杂，无法完成渲染； — 布局优化
+(2)层叠太多的绘制单元，多次绘制；  — 布局优化
+(3)频发的GC；— 内存优化
+(4)动画执行的次数过多等等。
+布局优化：看文章（https://leo1992.github.io/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/）</p>
+
+<p><strong>layout过于复杂</strong>: <br />
+考虑是否合适的控件（1）linearlayout，relativelayout（2）constraintlayout <br />
+<strong>太多的绘制单元</strong>：<br />
+<strong>**解决办法：</strong>** <br />
+用工具检测：原色，蓝色，绿色，粉色，红色。原因：（1）重叠背景（2）叠加的view（3）复杂的层级<br />
+（1）tansparent；  <br />
+（2）space draw（）方法为空  <br />
+（3）不常出现的布局动态添加的方式加入，一层层的invisible（会计算）或者gone（不会计算，但是view还是会创建加载的） <br />
+（4）需要控制Fragment的显示和隐藏，尽量使用动态地Inflation view，它的性能要比SetVisiblity好。合并布局，相对布局，重用布局    <br />
+<strong>频繁的GC</strong>: <br />
+执行GC操作的时候，任何线程的任何操作都会需要暂停，等待GC操作完成之后，其他操作才能够继续运行。GC的原因：内存抖动，瞬间产生大量的对象。  <br />
+内存优化：
+（https://leo1992.github.io/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/）<br />
+（1）数据类型，sparsearray，arraymap<br />
+（2）自动装箱，也涉及存取速度的问题，比如基本类型在堆栈，对象在堆中需要分配内存比较慢<br />
+（3）集合遍历，for（item：list）<br />
+（4）对象管理，stringbuilder，本地变量和局部变量–，数组比集合高效<br />
+（5）内存设计模式，对象池模式，享元模式<br />
+（6）viewstub，不会被加载、绘制，可以延迟加载view对象，节省内存；<br />
+（7）listview中优化（https://leo1992.github.io/blog/listview%E4%BC%98%E5%8C%96/）<br />
+（8）混淆对内存的优化<br />
+<strong>加快速度</strong><br />
+（1）findviewbyid方法，父节点<br />
+（2）系统方法 system.arraycopy<br />
+。。。。</p>
+
+<p><strong>工具</strong>：<br />
+TraceView，DDMS，选择一个进程，“Start Method Profiling”，（扩展）<br />
+StrictMode 系统检测出主线程违例的情况并做出相应的反应，最终帮助开发者优化和改善代码逻辑。用来基于线程或VM设置一些策略, 一旦检测到策略违例, 控制台将输出一些警告，包含一个trace信息展示你的应用在何处出现问题.在Application或是Activity的onCreate中开启StrictMode，设置policy（https://www.cnblogs.com/yaowen/p/6024690.html这边文章跟我的思维比较契合）  <br />
+Systrace</p>
+
+<h2 id="inflate">inflate</h2>
+<p>inflate的后两个参数
+https://blog.csdn.net/u012702547/article/details/52628453
+root为null，attachToRoot为true：将resource指定的布局添加到root中
+root不为null，attachToRoot为false： 有的布局参数是要求控件在容器中时才有意义，比如layout_width和layout_height。root会协助view的根节点生成布局参数，只有这一个作用。
+root为null：不需要将view添加到任何容器中，同时也没有任何容器来来协助view的根节点生成布局参数。</p>
+<h2 id="主线程不会因为looperloop里的死循环卡死">主线程不会因为Looper.loop()里的死循环卡死</h2>
+<p>—loop
+默认情况下handler不退出，会一直处于死循环中，所以为什么所有的ui操作都在主线程中，这样的死循环并不会让界面卡死？
+不希望主线程运行一段时间推出——保证能一直执行—–用死循环实现
+如何保证死循环不卡死—死循环无消息时休眠
+死循环如何处理其他事务—</p>
+<h2 id="anr哪几种情况">ANR哪几种情况</h2>
+<p>只有主线程才会产生ANR</p>
+<h3 id="三种情况"><strong>三种情况：</strong></h3>
+<ol>
+  <li>5s内无法响应用户输入事件(例如键盘输入, 触摸屏幕等).</li>
+  <li>BroadcastReceiver在10s内无法结束</li>
+  <li>Service各个生命周期函数时20秒内没有处理完毕</li>
+</ol>
+
+<h3 id="原因"><strong>原因</strong>：</h3>
+<p>(1）应用<strong>主线程卡住</strong>，对其他请求响应超时。<br />
+<strong>—执行耗时的操作</strong>：<br />
+a.数据库操作<br />
+b.I/O<br />
+c.连接网络<br />
+d.硬件操作（比如camera）<br />
+e.调用thread的join()方法、sleep()方法、wait()方法或者等待线程锁的时候<br />
+f.service binder的数量达到上限<br />
+g.system server中发生WatchDog ANR，service忙导致超时无响应 <br />
+<strong>—在主线程中执行</strong>：<br />
+a. Activity的所有生命周期回调都是执行在主线程的.
+b. Service默认是执行在主线程的.
+c. BroadcastReceiver的onReceive回调是执行在主线程的.
+d. 没有使用子线程的looper的Handler的handleMessage, post(Runnable)是执行在主线程的。
+e. AsyncTask的回调中除了doInBackground, 其他都是执行在主线程的.
+f. View的post(Runnable)是执行在主线程的.
+https://blog.csdn.net/chenhande1990chenhan/article/details/78498153 这个结构不错<br />
+（2）<strong>死锁。</strong>其他线程持有锁，导致主线程等待超时<br />
+（3）<strong>系统反应迟钝</strong>。<br />
+（4）<strong>CPU负载过重</strong>。</p>
+
+<h3 id="定位">定位：</h3>
+<p>一般情况下，如果有ANR发生，系统都会在/data/anr/目录下生成traces.txt文件，通过分析traces.txt 文件，可以查看产生ANR的原因。（手机要root）</p>
+
+<h3 id="解决">解决：</h3>
+<ol>
+  <li>避免在主线程中执行耗时操作，开子线程，然后使用Handler+Message的方式做一些操作</li>
+  <li>BroadcastReceiver要执行耗时操作时应启动一个service，将耗时操作交给service来完成。（https://leo1992.github.io/blog/broadcast%E7%9B%B8%E5%85%B3/）</li>
+  <li>避免在Intent Receiver里启动一个Activity，因为它会创建一个新的画面，并从当前用户正在运行的程序上抢夺焦点。如果你的应用程序在响应Intent广 播时需要向用户展示什么，你应该使用Notification Manager来实现。（https://www.jianshu.com/p/7fd95bc2a55c）</li>
+</ol>
+
+<h2 id="post和不post的区别处理什么问题">post和不post的区别，处理什么问题</h2>
+<p>读取高度</p>
+<h2 id="getmeasuerdheight-和-getheight的区别">getMeasuerdHeight 和 getHeight的区别</h2>
+<p>getMeasuredHeight()返回的是原始测量高度，与屏幕无关，getHeight()返回的是在屏幕上显示的高度。实际上在当屏幕可以包裹内容的时候，他们的值是相等的，只有当view超出屏幕后，才能看出他们的区别。当超出屏幕后，getMeasuredHeight()等于getHeight()加上屏幕之外没有显示的高度
+getMeasuredHeight是用来判断布局信息的时候使用到的，onLayout中使用。而getHeight是在onDraw中使用。</p>
+<h2 id="内存泄漏">内存泄漏</h2>
+<ol>
+  <li>单例的静态特性导致其生命周期和应用的生命周期一样长，持有的对象无法释放。  —- context用application的</li>
+  <li>非静态内部类，非静态内部类默认会持有外部类的引用，是不是有不能在生命周期内执行完的任务，是不是静态实例（静态实例的生命周期跟应用一样长） —- 将该内部类设为静态内部类或将该内部类抽取出来封装成一个单例，如果需要使用Context，就使用Application的Context。</li>
+  <li>handler 原因： 匿名内部类，当Android应用程序启动时，该应用程序的主线程会自动创建一个Looper对象和与之关联的MessageQueue。当主线程中实例化一个Handler对象后，它就会自动与主线程Looper的MessageQueue关联起来。所有发送到MessageQueue的Messag都会持有Handler的引用，所以Looper会据此回调Handle的handleMessage()方法来处理消息。只要MessageQueue中有未处理的Message，Looper就会不断的从中取出并交给Handler处理。另外，主线程的Looper对象会伴随该应用程序的整个生命周期。未处理的消息持有handler的引用，而handler又持有它所属的外部类也就是MainActivity的引用。这条引用关系会一直保持直到消息得到处理，这样阻止了MainActivity被垃圾回收器回收，从而造成了内存泄漏。（https://www.jianshu.com/p/90caf813682d 这个是我看到比较好的解释）</li>
+  <li>线程（AsyncTask和Runnable）AsyncTask和Runnable都使用了匿名内部类，那么它们将持有其所在Activity的隐式引用。如果任务在Activity销毁之前还未完成，那么将导致Activity的内存资源无法被回收，从而造成内存泄漏。
+解决方法：将AsyncTask和Runnable类独立出来或者使用静态内部类，这样便可以避免内存泄漏。</li>
+  <li>资源未关闭造成的内存泄漏</li>
+</ol>
+
+<h2 id="recyclerview-listview">RecyclerView ListView</h2>
+<p>RecyclerView的优点： ViewHolder, LayoutManger， ItemDecorater， ItemAnimation</p>
+
+<h2 id="android对集合有哪些优化">Android对集合有哪些优化</h2>
+<p><strong>引入原因：</strong>客户端对于数据量要求不高，但是对于内存要求尽可能低<br />
+<strong>场景</strong></p>
+<ol>
+  <li>大量数据不适用(二分查找缺陷)</li>
+  <li>内存优化</li>
+  <li>全部都支持索引(这是Java中的Map和Set集合不具备的)</li>
+</ol>
+
+<p><strong>HashMap的问题</strong>：（https://www.jianshu.com/p/aff3b8990ab3）
+HashMap的key和value都不是基本类型的，当插入一个object时key的hashcode会计算出来然后放入entry</p>
+<ol>
+  <li>自动装箱意味着需要产生额外的对象，这对于内存的使用和垃圾回收产生影响。</li>
+  <li>HashMapEntity自己本身也会产生额外的对象，这同样会影响内存的使用和垃圾回收产生。</li>
+  <li>每次HashMap的存储对象减少或增加的时候，这个开销会随着Hashmap的size增加而增加。</li>
+  <li>哈希是很好的实现方案，但是如果实现的不好将会让我们的开销回到O(N)</li>
+  <li>很多人都会忽略关于哈希的另外一个缺点：我们需要存储它的key和对应的hash值。这种冗余有助于解决冲突。 非散列解决方案也可以在这方面有所帮助。</li>
+</ol>
+
+<p><strong>ArrayMap：</strong><br />
+不用类似链的结构去存储，而是将object和key都存在mArray数组里，然后用一个int数组去存储hashcode，所以在查找时会增加时间复杂度（因为要在mHashes中进行二分查找，而不是直接用定位）。<br />
+查找: mHashes中找index – key在2*index而value在2*index+1</p>
+
+<p><strong>SparseArray:</strong><br />
+可以避免自动装箱减少内存的消耗.SparseArray、SparseIntArray、SparseLongArray、SparseBooleanArray。比起ArrayMap，key单独放在一个int数组中，这样key就不用自动装箱。<br />
+查找: 用二分查找在mKeys中查找key，然后用key的index就能从mValues中找到value。<br />
+<strong>ArraySet</strong><br />
+问题：Sparse中如何用key的index去查找value</p>
+
+<h1 id="java篇">java篇</h1>
+
+<h2 id="final">final</h2>
+<p>final 修饰类表示一个类不能被继承
+final 修饰方法表示方法不能被任何继承类修改它的含义
+final 修饰基本变量。修饰基本数据类型表示初始化之后不能再更改，修改引用类型变量表示初始化之后不能再让其指向另一个对象。</p>
+
+<h2 id="softreference-weakreference-phantomreference">SoftReference, WeakReference, PhantomReference</h2>
+<p>soft引用在内存足够的情况下不会回收，只有在空间接近临界值或者抛出oom的时候，才会回收。避免内存溢出。用于加载图片，bitmap缓存机制。在工程中的下载图片缓存中被处理过的bitmap。</p>
+
+<p>week引用只要在垃圾回收扫到弱引用的对象的时，都会直接被垃圾回收器回收。</p>
+
+<p>Phantom的get方法总是返回null，因此无法访问对应的引用对象；其意义在于说明一个对象已经进入finalization阶段，可以被gc回收，用来实现比finalization机制更灵活的回收操作。</p>
+
+<p>回收时间：</p>
+<ol>
+  <li>垃圾回收线程是一个守护线程，优先级低，当应用程序空闲时，即没有应用线程在运行时，GC会被调用。</li>
+  <li>堆内存不足时。在新生代的Eden区满了，会触发新生代GC（Mimor GC），经过多次触发新生代GC存活下来的对象就会升级到老年代，升级到老年代的对象所需的内存大于老年代剩余的内存，则会触发老年代GC（Full GC）。当程序调用System.gc()时也会触发Full GC。</li>
+</ol>
+
+<h2 id="线程池的使用和优势">线程池的使用和优势</h2>
+<ol>
+  <li>降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</li>
+  <li>提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。</li>
+  <li>提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。？？
+    <h2 id="垃圾回收">垃圾回收</h2>
+    <h2 id="jvm">JVM</h2>
+    <h2 id="hashmap实现原理">HashMap实现原理</h2>
+    <h1 id="技能篇">技能篇</h1>
+    <h2 id="调试有什么技巧">调试有什么技巧</h2>
+    <h2 id="如何提升编译">如何提升编译</h2>
+    <h2 id="如何解决卡顿">如何解决卡顿</h2>
+    <h2 id="命令行编译过项目">命令行编译过项目</h2>
+    <h2 id="开源框架源码">开源框架源码</h2>
+    <h1 id="其他">其他</h1>
+    <h2 id="如何学习">如何学习</h2>
+    <h2 id="解决过什么比较有趣的bug">解决过什么比较有趣的bug</h2>
+  </li>
+  <li>分享中应用安装下载，极少情况下的跳转问题，try-catch</li>
+  <li>我的页面同步下载状态页面整个不断刷新的问题，定义状态，重写equal</li>
+  <li>recyclerview tag问题</li>
+</ol>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=问题整理（更新至7.25）&url=http://localhost:4000/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/blog/tags#android" class="tag">&#35; android</a>
+          
+        </div>
+      </div>
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

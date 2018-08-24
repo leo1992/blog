@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="Tori Zhang" property="og:title">
+  
+  
+    <meta content="website" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/page/3/" property="og:url">
+  
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/headicon.jpg" property="og:image">
+  
+  
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="Tori Zhang">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/page/3/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/headicon.jpg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>学而不思则罔</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_10.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E6%89%93%E9%80%A0%E5%B8%83%E5%B1%80%E7%AC%94%E8%AE%B0/">《Android高性能编程》打造布局笔记</a></h2>
+    <p>预览 目标是要保证16.667毫秒内顺利刷新，如果被绘制次数太多，占用过多CPU资源，帧会被丢弃。 视图最顶层的视图叫做DecorView，一般要避免绘制这个默认背景，方法是，主题设为Theme.NoBackground，或者 activity中添加android:windowbackground属性并设为null 屏幕撕裂：相邻的不同两帧被绘制到同一个屏幕上。原因是，绘制帧的数据源是单向的，新的一帧会覆盖上一帧，然而只有一个缓存区可读取。当屏幕要刷新时，读取的帧处于未完成状态，就是出现撕裂。解决方案：双缓冲区。 垂直同步：保证从缓冲区从后台到前台的过程中出现屏幕更新。它限制屏幕的绘制，必须等到垂直同步的信号到达后，才会输出影像信号。但是，当帧速率小于刷新率时，会出现延迟和卡顿。 硬件加速：invalidation-[storing]-redrawing. Storing过程中，只有需要被更新的视图才进行重绘（更新存储），并且在重绘之后被存储起来（离屏位图），以便使用，从而减少运行时的计算量。在redrawing阶段，用存储的绘图进行更新。（4.x以后的手机一般都支持硬件加速）。提高动画性能：在动画启动前，开启硬件加速，在结束时，立即关闭，以释放被占用的显存。每当让View执行一个Alpha动画，或者仅仅设一个Alpha值时，都可以考虑使用硬件加速。6.0以后会被自动应用。 过渡绘制：哪怕没有被显示，一样需要消耗相应的计算和内存，并且影响着性能。对背景使用9-patches可以在一定程度上减少过渡绘制，在9-patches图中，被其他视图所遮盖的部分，会被adnroid2d渲染器优化为透明。 多窗口模式：android N开始。自由动态模式，画中画模式。注意生命周期。可以通过Acitivity的以下属性进行相关配置(ResizeableAcitivity和supportsPictureInPicture) 最佳实践 布局层级管理 过程：测量-&gt;摆放。 当某个View的属性发生变化，View自身会调用invalidation方法，自底向上传播该请求，直到根布局。所以布局层级不近会影响开始的绘制，在整个界面的交互中，也会有影响。扁平化很重要。...</p>
+    <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_7.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E5%86%85%E5%AD%98%E7%AC%94%E8%AE%B0/">《Android高性能编程》-内存笔记</a></h2>
+    <p>预览 内存如何工作 垃圾回收 内存共享 android并未使用虚拟内存技术。这就导致，除了释放不再使用的对象外，没有其他方法能够为程序提供更多控件。 android中的共享内存是为了再大量不同的进城之间更好的处理资源。 paging和memory-mapping技术：paging是指再二级存储中奖内存分成大小相同的块（page）。memory-mapping是指在内存中通过映射将二级存储中的相关文件关联起来，当做主存来使用。系统通过分页内存映射文件来保存Dalvik代码文件、应用程序资源或原生代码文件，当系统需要为其他进程分配内存时，这些文件可以再多个进程之间共享。 运行时 Dalvik，Android runtime（ART，api21开始） 运行时垃圾回收：当内存的使用达到上限时，垃圾回收启动它的任务，暂停其他每个方法、任务、线程和进程的执行。当垃圾回收结束后，这些对象才会恢复执行。 垃圾回收执行的时间越多，留给系统用于准备那些要被渲染到屏幕上帧的时间就越少。 ART减少了垃圾回收的步骤，为位图对象添加了一个特殊的内存块，使用了更新更快的算法。 AndroidN即时编译器 ART运行时使用的提前编译（android-of-time...</p>
+    <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">2 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_6.jpeg)" href="/blog/apk%E7%98%A6%E8%BA%AB%E6%95%B4%E7%90%86/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/apk%E7%98%A6%E8%BA%AB%E6%95%B4%E7%90%86/">apk瘦身整理</a></h2>
+    <p>首先要能分析apk的组成，用androidStudio的build—&gt; analyze apk能够分析出apk的大小组成，基本上比较多的是方法和资源文件 （图片来源：https://juejin.im/post/592cfe9c0ce463006b3fb1f5） 实践：我们项目中的so库就占了40%，将近60M，资源文件不是很多，只有12M。 shrinkResource：能帮住压缩合并资源，并不能移除资源文件） 实践：减少了不到2M，而且不确定是不是和开启minifyEnabled有关。 会有一些问题，比如网上提到表情图片用符号匹配的会找不到图片。 对项目中的影响不确定，需要运行并且查看删减的资源确认（Gradle Console 输出日志remove unused resource，resource.txt 在 /build/outputs/mapping/release/...</p>
+    <span class="post-date">2018, Apr 19&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+
+<div class="container">
+  <nav class="pagination" role="pagination">
+    <ul>
+      
+        
+        <p><a class="newer-posts" href="/blog/page/2/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
+        
+      
+
+      <p><span class="page-number">Page 3 of 3</span></p>
+
+      
+    </ul>
+  </nav>
+</div>
+
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

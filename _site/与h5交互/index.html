@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>与h5的交互 - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="与h5的交互" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/" property="og:url">
+  
+  
+    <meta content="2018-07-01T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_11.jpg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="android" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="与h5的交互">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_11.jpg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>学而不思则罔</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/blog/assets/img/blog_head_11.jpg alt="与h5的交互">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">与h5的交互</h1>
+        <div class="page-date"><span>2018, Jul 01&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <p>JSBridge
+原理</p>
+<ol>
+  <li>设置具备与js交互的能力，通过mWebView.addJavascriptInterface的方式将JavaScriptinterface对象交给页面（WebView.addJavascriptInterface接口向Web页面注入Java对象，页面Javascript脚本可直接引用该对象并调用该对象的方法。） ——&gt; 页面可以调用JavaScriptinterface的方法</li>
+  <li>JavaScriptinterface实现所有接口的执行方式。</li>
+  <li>JavaScriptinterface中持有一个handler，通过handler来处理调用app的一些方法。</li>
+  <li>传入参数：所有的方法的调用参数都有一个json串，在方法中解析这个json串按照约定的格式解析出对应的需要参数。</li>
+  <li>回调：在页面传入的json数据中会有callback_id，app在接收到数据后会解析出里面的callback（方法名）和callback_id（回调的id），再加上结果拼成调用javascript的url：“javascript:callback(‘callbackid’,result);然后通过webview的loadurl来发送这个方法。</li>
+  <li>调用js，就是通过loadurl</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setJSBridge</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">,</span> <span class="n">WebView</span> <span class="n">webView</span><span class="o">,</span> <span class="n">Handler</span> <span class="n">handler</span><span class="o">,</span> <span class="n">View</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">mWebView</span> <span class="o">=</span> <span class="n">webView</span><span class="o">;</span>
+    <span class="n">JavaScriptinterface</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JavaScriptinterface</span><span class="o">(</span><span class="n">activity</span><span class="o">,</span> <span class="n">mWebView</span><span class="o">,</span> <span class="n">root</span><span class="o">);</span>
+    <span class="n">obj</span><span class="o">.</span><span class="na">setHandler</span><span class="o">(</span><span class="n">handler</span><span class="o">);</span>
+    <span class="n">mWebView</span><span class="o">.</span><span class="na">addJavascriptInterface</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">"LetvJSBridge_For_Android"</span><span class="o">);</span><span class="c1">//JavaScriptinterface &lt;---&gt; android</span>
+    <span class="c1">// 可能重入，防止引起的内存泄露</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mJavaScriptinterface</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mJavaScriptinterface</span><span class="o">.</span><span class="na">destory</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="n">setJavaScriptinterface</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>调试：</p>
+<ol>
+  <li>在webviewChromeClient中的onConsoleMessage方法中可以打印JS的debug日志，（参数：message, lineNumber, sourceID）</li>
+  <li>onJsPrompt():在js中执行alert、confirm和prompt这三个方法时，会进入Android的onJsAlert、onJsConfirm和onJsPrompt回调。 由于prompt的使用频率较低，因此通常采用prompt实现js和Native的通信。</li>
+</ol>
+
+<p>另一种与h5交互的方式是定义scheme协议，然后再shouldOverrideUrlLoading的时候去解析url，解析出uri然后设置intent去调用对应的activity</p>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=与h5的交互&url=http://localhost:4000/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/blog/tags#android" class="tag">&#35; android</a>
+          
+        </div>
+      </div>
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>MVP、MVVM（未完） - Tori Zhang</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Tori Zhang" property="og:site_name">
+  
+    <meta content="MVP、MVVM（未完）" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+" property="og:description">
+  
+  
+    <meta content="http://localhost:4000/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/" property="og:url">
+  
+  
+    <meta content="2018-07-14T00:00:00+08:00" property="article:published_time">
+    <meta content="http://localhost:4000/about/" property="article:author">
+  
+  
+    <meta content="http://localhost:4000/blog/assets/img/blog_head_1.jpeg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="Android" property="article:tag">
+    
+    <meta content="handler" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@Tori_Zhang_">
+  
+    <meta name="twitter:title" content="MVP、MVVM（未完）">
+  
+  
+    <meta name="twitter:url" content="http://localhost:4000/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/">
+  
+  
+    <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  
+  
+    <meta name="twitter:image:src" content="http://localhost:4000/blog/assets/img/blog_head_1.jpeg">
+  
+
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/blog/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/blog/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/blog/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/blog/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/blog/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/blog/assets/css/main.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/blog/"><img src="/blog/assets/img/headicon.jpg" alt="Tori Zhang"></a>
+      </div>
+      <div class="author-name">Tori Zhang</div>
+      <p>学而不思则罔</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        <li><a href="https://twitter.com/Tori_Zhang_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="github"><a href="http://github.com/leo1992" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li class="email"><a href="mailto:480zhangying@163.com"><i class="fa fa-envelope-o"></i></a></li>
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2018 &copy; Tori Zhang</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    <div class="page-cover-image">
+      <img class="page-image" src=/blog/assets/img/blog_head_1.jpeg alt="MVP、MVVM（未完）">
+    </div> <!-- End Page Cover Image -->
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">MVP、MVVM（未完）</h1>
+        <div class="page-date"><span>2018, Jul 14&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h1 id="mvp模式">MVP模式</h1>
+<p>mvp模式（model, view, presenter）主要是解决MVC模式中，M和V的交互。基本结构如下，view表示界面，负责和用户的交互，在有交互事件时，通过presenter来实现相关的业务逻辑。Presenter负责更新model层，并且在model发生变化时，同步给view，而不是由model直接同步给view。  <br />
+（按照对mvc、mvp和面向对象的理解，觉得目前项目中的代码可能连mvc都不算，没有实现v和m或者c和m的划分，model虽然表示数据层，但从面向对象的思想来说，model也是一个对象，对象应该是包括属性和行为的，只包含属性以及getter、setter的对象应该再去考量是不是设计有问题（当前数据定义没有什么可改的，应该是controller中的逻辑太多）。所以，数据相关的行为应该放在数据层，很多时候，这些相关逻辑都放在了v或者c中，有时候复杂数据逻辑抽离在utils类，但是调用仍然是在controller中）<br />
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Model_View_Presenter_GUI_Design_Pattern.png" alt="image" /></p>
+
+<p><img src="https://raw.githubusercontent.com/leo1992/blog/master/_posts/blog_image/MVP_AddTask_class.jpg" alt="image" />
+model： TaskReposiry,定义了很多task的创建、更新、获取等接口，整个app内公用的数据模型。在Injection类中获取，TaskRepository持有远程数据源  （FakeTasksRemoteDataSource），和本地数据源（TasksLocalDataSource）的实例，三者都是单例模式，继承TasksDataSource接口，提供数据以及相关操作功能。<br />
+view：AddEditTaskFragment,持有界面中的字view，继承自AddEditTaskContract.View,对外提供界面相关的操作接口，比如showTaskList, setTitle等。持有presenter，当界面需要显示或保存数据时，借助presenter操作datarepository。<br />
+presenter: AddEditTaskPresenter, 持有view和数据model，数据的获取和存放，都通过presenter，获取和存放的逻辑以及关联的操作逻辑（比如保存之后要显示列表）都在presenter中，view只提供简单的展示和切换逻辑。 
+<img src="https://raw.githubusercontent.com/leo1992/blog/master/_posts/blog_image/MVP_saveTask_sequence.jpg" alt="image" /> 
+隔离了view和数据，解耦了数据反向对view的通知，数据变化对view的操作，通过presenter调用view对外的接口进行。与mvc的区别就是，类似controller角色的presenter可以反作用于view。mvc中controller像是为view服务的，view持有controller，触发controller去操作，而presenter也可以对view的接口进行操作。这样的好处是，view不依赖于model，所以数据如何定义获取操作view不关心，可以专注于于用户的交互，因此可以实现复用。在实例的架构中，presenter、view的相互持有都是持有接口的，所以替换presenter的实例和view的实例都很方法，因此都是很方便复用的。<br />
+问题：跟activity，fragment的生命周期相关的逻辑；复用的可能性？会出现大量的presenter，presenter之间的交互需要考虑路由机制等；划分逻辑块？有很多功能应该数据更新很少，presenter来解耦model和data的意义似乎不大，但是presenter划分view和逻辑块的想法可以考虑。 
+缺点：（https://www.jianshu.com/p/4abbff527e75）</p>
+<ol>
+  <li>Presente层与View层是通过接口进行交互的，接口粒度不好控制。粒度太小，就会存在大量接口的情况，使代码太过碎版化;粒度太大，解耦效果不好。因为View定义的方法并不一定全部要用到，可能只是后面要用到先定义出来（后面要不要删也未知），而且如果后面有些方法要删改，Presenter和Activity都要删改，比较麻烦；<br />
+2.V层与P层还是有一定的耦合度。一旦V层某个UI元素更改，那么对应的接口就必须得改，数据如何映射到UI上、事件监听接口这些都需要转变，牵一发而动全身。如果这一层也能解耦就更好了。<br />
+3.复杂的业务同时也可能会导致P层太大，代码臃肿的问题依然不能解决，这已经不是接口粒度把控的问题了，一旦业务逻辑越来越多，View定义的方法越来越多，会造成Activity和Fragment实现的方法越来越多，依然臃肿。<br />
+优点:测试的便利性, view的复用，逻辑更清楚。（前两者目前似乎都用不上，测试方法工程还是主要靠人工和自动化测试组去测试；view如果要复用划分的需要特别细，没有想到可以直接复用的大量逻辑）</li>
+</ol>
+
+<h1 id="mvvm">MVVM</h1>
+<p>mvvm模式（model，view，viewmodel)。 View和ViewModel间没有了MVP的界面接口，viewmodel中不持有view实现的接口，而是与view中的属性同步的属性，相互绑定实现界面的更新。wiki解释viewmodel是负责从model中转化或者直接取数据，使得这些数据对象能够容易的管理和呈现。从这个角度说，viewmodel更像是一个model而不是view。在view中。便于测试：不需要开发人员手动去编写特殊用例，viewmode和view能够动态的绑定更新。个人理解，viewmodel拆分m和v的方式相当于把自己当做view，通过自身也设置与view相同的属性（只取变动的部分），然后这些属性跟view同步起来，这样就完全可以代表view去做所有的逻辑操作。 <br />
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/87/MVVMPattern.png" alt="image" />
+官方提供了两个案例，mvvm-databinding和 mvvm-live。 <br />
+mvvm-databinding是利用android的databinding来实现viewmodel和view的属性同步。mvvm-live在binding的基础上增加了livedata组件，新增了SingleLiveEvent类来同步生命周期，viewmodel也继承了android中的viewmodel（AndroidViewModel）来实现。<br />
+mvvm-databinding实现基于android的databinding组件。</p>
+<h2 id="databinding">databinding</h2>
+<p>（https://www.jianshu.com/p/ba4982be30f8)
+databinding用来实现界面和数据的绑定。基本配置如下：
+-build中开启</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dataBinding</span> <span class="o">{</span>
+   <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>view的layout文件中layout下增加data属性，这里将view跟AddEditTaskViewModel对象绑定起来，这样在layout中就可以使用AddEditTaskViewModel的成员变量。</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">data</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">variable</span>
+        <span class="n">name</span><span class="o">=</span><span class="s">"viewmodel"</span> 
+        <span class="n">type</span><span class="o">=</span><span class="s">"com.....AddEditTaskViewModel"</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">data</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">android:</span><span class="n">visibility</span><span class="o">=</span><span class="s">"@{viewmodel.dataLoading ? View.GONE : View.VISIBLE}"</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>定义数据为观察数据。通过数据扩展BaseObservable类，定义ObseravbleField、ObseravbleCollection等的成员变量实现。</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AddEditTaskViewModel</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">ObservableField</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">title</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObservableField</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">ObservableField</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">description</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObservableField</span><span class="o">&lt;&gt;();</span>
+    <span class="o">...</span>
+    <span class="o">}</span>
+    
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TasksViewModel</span> <span class="kd">extends</span> <span class="n">BaseObservable</span> <span class="o">{</span>
+
+    <span class="c1">// These observable fields will update Views automatically</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">ObservableList</span><span class="o">&lt;</span><span class="n">Task</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObservableArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">ObservableBoolean</span> <span class="n">dataLoading</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObservableBoolean</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+	<span class="o">...</span>	
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>绑定数据<br />
+Android studio会根据layout文件自动生成一个默认的Binding类，类名是根据layout文件名去掉_加”Binding”。获取binding类然后通过setViewModel（名称为自己定义的名称）的方式实现。获取binding对象的方式，从代码中找了一下，有以下几种：</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mViewDataBinding</span> <span class="o">=</span> <span class="n">AddtaskFragBinding</span><span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+
+<span class="n">mViewDataBinding</span> <span class="o">=</span> <span class="n">DataBindingUtil</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span>
+                <span class="n">inflater</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">statistics_frag</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+                
+<span class="n">mTasksFragBinding</span> <span class="o">=</span> <span class="n">TasksFragBinding</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">inflater</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span><span class="err">；</span>
+</code></pre></div></div>
+
+<ul>
+  <li>事件处理</li>
+</ul>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=MVP、MVVM（未完）&url=http://localhost:4000/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/blog/tags#Android" class="tag">&#35; Android</a>
+          
+            <a href="/blog/tags#handler" class="tag">&#35; handler</a>
+          
+        </div>
+      </div>
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
