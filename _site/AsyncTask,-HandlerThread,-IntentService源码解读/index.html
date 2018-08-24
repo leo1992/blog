@@ -520,6 +520,33 @@ callable在这里的作用是在run方法中执行callbale.call，然后依据�
   <li>HandlerThread在不需要使用的时候需要手动的回收掉，因为其run方法是一个无限循环。</li>
 </ol>
 
+<h1 id="intentservice">IntentService</h1>
+
+<p>IntentService是一个特殊的Service,适合用来执行一些高优先级的任务，用于执行后台耗时任务，它封装了HandlerThread和handler，实现延迟并且实现跟其他线程的信息交互。
+这里主要研究Looper, ServiceHandler 和 Service三者是如何合作的</p>
+
+<h2 id="servicehandler">ServiceHandler</h2>
+
+<p>ServiceHander继承自Handler，覆写handlerMessage()来执行延迟任务，在执行完成后调用stopSelf来关闭服务。继承IntentSerivce时，通过覆写onHandleIntent方法来添加异步任务。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">onHandleIntent</span><span class="o">((</span><span class="n">Intent</span><span class="o">)</span><span class="n">msg</span><span class="o">.</span><span class="na">obj</span><span class="o">);</span>
+<span class="n">stopSelf</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">arg1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="looper">Looper</h2>
+<p>IntentService是HandlerThread的一个使用场景，在onCreate()方法中创建的handlerthread并且取得了handlerthread中的looper，开启了线程。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">HandlerThread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HandlerThread</span><span class="o">(</span><span class="s">"IntentService["</span> <span class="o">+</span> <span class="n">mName</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
+<span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="n">mServiceLooper</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="na">getLooper</span><span class="o">();</span>
+<span class="n">mServiceHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceHandler</span><span class="o">(</span><span class="n">mServiceLooper</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="执行原理">执行原理</h2>
+
+<p>执行过程：service在onstart开启执行时，向servicehadnler发送消息，message中包括service的startid和intent信息，servicehandler收到消息之后，放入消息队列，在被调起时执行handleMessage方法，通过onHandlerIntent方法执行耗时任务。
+销毁：在IntentService的onDestroy方法中执行 looper.quit，让looper退出循环。</p>
+
       <div class="page-footer">
         <div class="page-share">
           <a href="https://twitter.com/intent/tweet?text=AsyncTask, HandlerThread, IntentService源码解读&url=http://localhost:4000/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>

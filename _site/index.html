@@ -98,6 +98,54 @@
   
 <article class="post">
   
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_12.jpg)" href="/blog/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93-7.18/">问题整理（更新至7.25）</a></h2>
+    <p>Android基础篇 onclicklistener是如何调用的 就是在UP事件中创建一个实现了Runnalbe接口的PerformClick对象，run方法中调用performClick执行点击，在handelr中post，如果post失败则执行方法performClick立即执行onClickListener的onClick方法 onTouchListenerd的onTouch方法 &gt; onTouchEvent &gt; onClickListener onLongClickListener是如何实现的 CheckForLongPress实现一个Runnable接口，run方法中执行performLongClick方法执行长按的处理。 &lt;— CheckForLongPress在checkForLongClick方法中创建，并在私有变量mPendingCheckForLongPress中存储。 &lt;— checkForLongClick方法创建CheckForLongPress对象后，发送一个延迟事件，在特定时间之后执行CheckForLongPress，延迟的时间为系统设定的长按的时间-传入的延迟时间（一般为0，特殊处理时在CheckForTap中，暂时不关注）。 &lt;—...</p>
+    <span class="post-date">2018, Jul 18&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">3 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_1.jpeg)" href="/blog/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/mvp-mvvm%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/">MVP、MVVM（未完）</a></h2>
+    <p>MVP模式 mvp模式（model, view, presenter）主要是解决MVC模式中，M和V的交互。基本结构如下，view表示界面，负责和用户的交互，在有交互事件时，通过presenter来实现相关的业务逻辑。Presenter负责更新model层，并且在model发生变化时，同步给view，而不是由model直接同步给view。 （按照对mvc、mvp和面向对象的理解，觉得目前项目中的代码可能连mvc都不算，没有实现v和m或者c和m的划分，model虽然表示数据层，但从面向对象的思想来说，model也是一个对象，对象应该是包括属性和行为的，只包含属性以及getter、setter的对象应该再去考量是不是设计有问题（当前数据定义没有什么可改的，应该是controller中的逻辑太多）。所以，数据相关的行为应该放在数据层，很多时候，这些相关逻辑都放在了v或者c中，有时候复杂数据逻辑抽离在utils类，但是调用仍然是在controller中） model： TaskReposiry,定义了很多task的创建、更新、获取等接口，整个app内公用的数据模型。在Injection类中获取，TaskRepository持有远程数据源 （FakeTasksRemoteDataSource），和本地数据源（TasksLocalDataSource）的实例，三者都是单例模式，继承TasksDataSource接口，提供数据以及相关操作功能。 view：AddEditTaskFragment,持有界面中的字view，继承自AddEditTaskContract.View,对外提供界面相关的操作接口，比如showTaskList, setTitle等。持有presenter，当界面需要显示或保存数据时，借助presenter操作datarepository。 presenter: AddEditTaskPresenter, 持有view和数据model，数据的获取和存放，都通过presenter，获取和存放的逻辑以及关联的操作逻辑（比如保存之后要显示列表）都在presenter中，view只提供简单的展示和切换逻辑。 隔离了view和数据，解耦了数据反向对view的通知，数据变化对view的操作，通过presenter调用view对外的接口进行。与mvc的区别就是，类似controller角色的presenter可以反作用于view。mvc中controller像是为view服务的，view持有controller，触发controller去操作，而presenter也可以对view的接口进行操作。这样的好处是，view不依赖于model，所以数据如何定义获取操作view不关心，可以专注于于用户的交互，因此可以实现复用。在实例的架构中，presenter、view的相互持有都是持有接口的，所以替换presenter的实例和view的实例都很方法，因此都是很方便复用的。 问题：跟activity，fragment的生命周期相关的逻辑；复用的可能性？会出现大量的presenter，presenter之间的交互需要考虑路由机制等；划分逻辑块？有很多功能应该数据更新很少，presenter来解耦model和data的意义似乎不大，但是presenter划分view和逻辑块的想法可以考虑。...</p>
+    <span class="post-date">2018, Jul 14&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">2 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_11.jpg)" href="/blog/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/%E4%B8%8Eh5%E4%BA%A4%E4%BA%92/">与h5的交互</a></h2>
+    <p>JSBridge 原理 设置具备与js交互的能力，通过mWebView.addJavascriptInterface的方式将JavaScriptinterface对象交给页面（WebView.addJavascriptInterface接口向Web页面注入Java对象，页面Javascript脚本可直接引用该对象并调用该对象的方法。） ——&gt; 页面可以调用JavaScriptinterface的方法 JavaScriptinterface实现所有接口的执行方式。 JavaScriptinterface中持有一个handler，通过handler来处理调用app的一些方法。 传入参数：所有的方法的调用参数都有一个json串，在方法中解析这个json串按照约定的格式解析出对应的需要参数。 回调：在页面传入的json数据中会有callback_id，app在接收到数据后会解析出里面的callback（方法名）和callback_id（回调的id），再加上结果拼成调用javascript的url：“javascript:callback(‘callbackid’,result);然后通过webview的loadurl来发送这个方法。 调用js，就是通过loadurl public void setJSBridge(Activity activity, WebView...</p>
+    <span class="post-date">2018, Jul 01&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">1 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
+    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_3.jpeg)" href="/blog/Handler%E5%AD%A6%E4%B9%A0/"></a>
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/blog/Handler%E5%AD%A6%E4%B9%A0/">Handler学习（未完）</a></h2>
+    <p>Handler, MessageQueue, Looper Handler： 外界通过handler发送Message，handler将Message放入MessageQueue中 Handler收到looper调用处理Message的方法，根据消息内容做相应处理（dispatchMessage）。调用的位置决定了处理消息位于哪个线程。 MessageQueue： 存放Message的队列 Looper: 循环从MessageQueue中取出message，调用Message中的Target的diapatch方法实现消磁处理(即Handler) 源码解析 Message结构本身是一个数据链表。 Looper的作用就是从消息队列中取消息交给handler去处理。 looper是一个线程一个的，Looper类可以认为是一个单例模式，只不过有几点特殊：（1）不是传统的static持有自己对象，而额外加了ThreadLocal来标明是线程内独有的，因此looper的方法几乎都是public static修饰的。（2）创建looper不是在过去的时候，而是在prepare中，在获取的时候直接用当前ThreadLocal的get方法来返回...</p>
+    <span class="post-date">2018, Jun 07&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">5 minute read</span>
+  </div>
+</article>
+
+<article class="post">
+  
     <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_4.jpeg)" href="/blog/AsyncTask,-HandlerThread,-IntentService%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"></a>
   
   <div class="post-content">
@@ -144,61 +192,13 @@
   </div>
 </article>
 
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_9.jpeg)" href="/blog/rxjava/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/rxjava/">RxJava</a></h2>
-    <p>rxjava 响应式编程 目前仍认为没有完全理解透响应式编程的概念，从各个零散的定义中整理了以下点： wiki wiki上将programming分为三类： transfromational programs: 依据给定的输入集计算结果 interactive programs: 依据自己的情况去相应用户或程序，通常用来处理通讯。 reactive programs: 以外部环境而不是程序本身做出响应，通常用来响应外部需求并且通常有精准的终端处理。 结合具体的编程中响应式编程的应用，这个概念完全没起到帮助作用...</p>
-    <span class="post-date">2018, May 25&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_10.jpeg)" href="/blog/%E5%9B%BE%E7%89%87%E6%A1%86%E6%9E%B6%E4%BC%98%E7%BC%BA%E7%82%B9%E6%95%B4%E7%90%86-Fresco%E5%92%8CGlide/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/%E5%9B%BE%E7%89%87%E6%A1%86%E6%9E%B6%E4%BC%98%E7%BC%BA%E7%82%B9%E6%95%B4%E7%90%86-Fresco%E5%92%8CGlide/">图片框架优缺点整理（Fresco和Glide）</a></h2>
-    <p>在功能上，Picasso无法支持gif，在加载时会加载全尺寸的图片到内存，因为一般项目中都会有gif图的加载，所以暂时不考虑Picaso。不存在384和重复请求url的问题 Fresco https://github.com/facebook/fresco https://www.fresco-cn.org/ facebook 优点： Fresco会自动复用相同URL的缓存，两个相同URL同时进行请求Fresco也只会进行一次网络请求，然后第二个进行复用。 Fresco 中设计有一个叫做 Drawees 模块，方便地显示loading图，当图片不再显示在屏幕上时，及时地释放内存和空间占用。 在5.0以下系统，Fresco将图片放到一个特别的内存区域。这会使得APP更加流畅，减少因图片内存占用而引发的OOM。在更底层的Native层对OOM进行处理，图片将不再占用App的内存 支持渐进式的图片呈现 在加载gif图中，Fresco的java heap基本保持较低平稳状态，而Glide的java...</p>
-    <span class="post-date">2018, May 18&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_1.jpeg)" href="/blog/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AC%94%E8%AE%B0-%E6%9C%AA%E5%AE%8C/">《设计模式》笔记（未完）</a></h2>
-    <p>策略模式 观察者模式 装饰者模式 工厂模式 简单工厂 简单工厂模式是用一个工厂来创建对象。简单工厂抽象了产品对象（也可以不抽象）。工厂是一个直接引用的类，用来直接根据指定的参数来创建不同类型的对象。（一般用到的也就只是简单工厂了） 工厂模式 工厂模式是通过不同类型的工厂创建不同的对象。工厂模式抽象了产品对象和工厂，对外使用抽象的工厂，而不同产品的区分是由特定的工厂来决定的。特定的工厂可以按照简单工厂去实现。工厂生产出来的直接是面向对象的成品，只能创建一个具体产品类的实例。 抽象工厂模式 抽象工厂是为创建不同的产品族。抽象工厂抽象的产品族，(抽象中已经定义好了要生产哪些产品)，工厂生产出来的是面向对象产品的组成部分，所以工厂产品生成也是可以抽象的。 具体工厂类可以创建多个产品，这些产品有一定的依赖关系。增加某一个产品的不同类型容易，但是难以增加新的类型的产品。比如可以增加原料的不同类型，但是增加新的原料不容易。 单件模式 简单单例 private static...</p>
-    <span class="post-date">2018, May 10&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">2 minute read</span>
-  </div>
-</article>
-
-<article class="post">
-  
-    <a class="post-thumbnail" style="background-image: url(/blog/assets/img/blog_head_2.jpeg)" href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/"></a>
-  
-  <div class="post-content">
-    <h2 class="post-title"><a href="/blog/Android%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B-%E7%94%B5%E9%87%8F%E6%B6%88%E8%80%97/">《Android高性能编程》-电量消耗</a></h2>
-    <p>分析 检测电池电量和充电状态 BatteryManager会规律的发送Intent，可以捕获该content获知电池状态 Intent.ACTION_BATTERY_CHANGED 如果设备正在充电，我们可以最大限度地发挥所有操作。 BatteryManager.BATTERY_STATUS_CHARGING || BATTERY_STATUS_FULL 识别充电状态的变化 接收上面的广播 注册广播 ACTION_POWER_CONNECTED, ACTION_POWER_DISCONNECTED 获取信息 intent.getIntentExtra(BatteryManager.EXTRA_STATUS)...</p>
-    <span class="post-date">2018, May 09&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">1 minute read</span>
-  </div>
-</article>
-
 
 <div class="container">
   <nav class="pagination" role="pagination">
     <ul>
       
 
-      <p><span class="page-number">Page 1 of 2</span></p>
+      <p><span class="page-number">Page 1 of 3</span></p>
 
       
       <p><a class="older-posts" href="/blog/page/2/"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></p>

@@ -165,7 +165,13 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>2- moveevent与滑动</p>
+<p>2- moveevent与滑动
+3- activity，viewgroup，view的事件分发中的一些细节
+通常说道事件分发都涉及三个方法：dispatchTouchEvent, onInterceptTouchEvent, onTouchEvent，但是在每一个层级的事件处理都设计这几个方法，而且中间的过程中也会涉及其他常见的对象。
+(1) onInterceptTouchEvent在ViewGroup中的，view不涉及拦截事件
+(2) 在viewgroup中若拦截事件，会直接调用onTouchEvent方法；而在view中，会先去调用onTouchListener中的onTouch方法，如果onTouch方法返回了false才回执行onTouchEvent方法，否则不会执行。
+(3) dispatchTouchEvent方法会返回是否消耗掉，view的dispatchTouchEvent直接被viewGroup返回，所以这个方法的的意义是只是针对activity，如果dispatchTouchEvent中一直不处理，activity的onTouchEvent就会处理（activity – window –viewgroup – view）
+(4) viewGroup中 onTouchEvent 和 子view的dispatchTouchEvent的执行是互斥的，不可能即处理了onTouchEvent方法又传给了子view，所以如何即让子view去执行又能让group去执行。默认情况下viewgroup的onInterceptTouchEvent是返回false的。</p>
 
       <div class="page-footer">
         <div class="page-share">
